@@ -1,0 +1,54 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ====== STEP: write the owner's email (lowercase) on the next line, same as OWNER_EMAIL in firebase-config.js ======
+    function ownerEmail() { return 'nirbhorotafoundation0@gmail.com'; }
+    // ===========================================================================================================
+
+    function signedIn()  { return request.auth != null; }
+    function verified()  { return signedIn() && request.auth.token.email_verified == true; }
+    function isOwner()   { return verified() && request.auth.token.email.lower() == ownerEmail(); }
+    function roleDocPath() { return /databases/$(database)/documents/roles/$(request.auth.uid); }
+    function hasRole(r)  { return verified() && exists(roleDocPath()) && get(roleDocPath()).data.role == r; }
+    function isAdmin()   { return isOwner() || hasRole('admin'); }
+    function isMember()  { return isAdmin() || hasRole('viewer'); }
+
+    // who may use the app: only the owner can create / change / remove roles
+    match /roles/{uid} {
+      allow read:  if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow write: if isOwner();
+    }
+
+    // access requests created at sign-up
+    match /requests/{uid} {
+      allow read:   if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create: if signedIn() && request.auth.uid == uid && request.resource.data.status == 'pending';
+      allow update: if isOwner() || (signedIn() && request.auth.uid == uid
+                         && resource.data.status == 'pending' && request.resource.data.status == 'pending');
+      allow delete: if isOwner();
+    }
+
+    // foundation data: approved users can read, only admins can write
+    match /members/{id}   { allow read: if isMember(); allow write: if isAdmin(); }
+    match /payments/{id}  { allow read: if isMember(); allow write: if isAdmin(); }
+    match /expenses/{id}  { allow read: if isMember(); allow write: if isAdmin(); }
+    match /donations/{id} { allow read: if isMember(); allow write: if isAdmin(); }
+
+    // unique member IDs: a code can be created once and never changed => the same 4-digit ID can never be given twice
+    match /codes/{code} {
+      allow read:   if isAdmin();
+      allow create: if isAdmin();
+      allow update, delete: if false;
+    }
+
+    // activity log: append-only, admins can read; nobody can edit or delete entries
+    match /activity/{id} {
+      allow read:   if isAdmin();
+      allow create: if isAdmin() && request.resource.data.by == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    match /{document=**} { allow read, write: if false; }
+  }
+}

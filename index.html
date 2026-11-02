@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="bn"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Foundation Hisab</title>
+<meta name="theme-color" content="#1a5c2e">
+<meta name="description" content="Nirbhorota Foundation – member contributions, expenses, donations and invoices.">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#e4e1e1;--cd:#fff;--tx:#0f1a14;--mu:#5c6660;--g1:#1a5c2e;--g2:#4c9a1c;--g3:#2f7d32;--lm:#4be31a;--rd:#f01414;--bd:#ece9e9;--ic:#e6e6e6}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1311;--cd:#19201b;--tx:#eef2ef;--mu:#8e9892;--g1:#2b7a43;--g3:#4cae52;--bd:#27302a;--ic:#2a322d}}
+:root[data-theme="dark"]{--bg:#0f1311;--cd:#19201b;--tx:#eef2ef;--mu:#8e9892;--g1:#2b7a43;--g3:#4cae52;--bd:#27302a;--ic:#2a322d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 'Plus Jakarta Sans',system-ui,'Noto Sans Bengali',sans-serif}
+.app{display:grid;grid-template-columns:240px minmax(0,1fr);gap:18px;padding:16px;max-width:1500px;margin:0 auto}
+.sb{background:var(--cd);border-radius:24px;padding:22px 18px;position:sticky;top:16px;align-self:start;height:calc(100vh - 32px);display:flex;flex-direction:column;gap:4px}
+.logo{display:flex;align-items:center;gap:12px;margin-bottom:20px;font-weight:800;font-size:17px}
+.logo i{width:44px;height:44px;border-radius:12px;background:var(--g1);color:#fff;display:grid;place-items:center;font:italic 26px Georgia,serif}
+.sb small{color:var(--mu);font-size:11px;letter-spacing:.06em;margin:6px 0 4px 6px}
+.nv{display:flex;align-items:center;gap:12px;border:0;background:none;color:var(--tx);padding:11px 14px;border-radius:14px;font:inherit;font-weight:500;cursor:pointer;width:100%;text-align:left}
+.nv svg,.ib svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.nv.on{background:var(--g1);color:#fff;box-shadow:0 6px 14px rgba(5,74,41,.35)}
+.promo{margin-top:auto;background:#0b100d;color:#fff;border-radius:18px;padding:16px}
+.promo b{font-size:16px;display:block}.promo p{margin:4px 0 0;font-size:12px;color:#aab3ad}
+main{min-width:0}
+.hd{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 4px 16px}
+.hd h1{margin:0;font-size:26px;font-weight:800;letter-spacing:-.02em}.hd p{margin:0;color:var(--tx);opacity:.75}
+.hr{display:flex;align-items:center;gap:10px}
+.pill{background:var(--cd);border:0;border-radius:99px;padding:10px 16px;font:inherit;color:var(--tx)}
+.av{display:flex;align-items:center;gap:10px;background:var(--cd);border-radius:99px;padding:5px 16px 5px 5px}
+.av i{width:38px;height:38px;border-radius:50%;background:var(--g1);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:700}
+.av b{display:block;font-size:13px;line-height:1.2}.av span{font-size:11px;color:var(--mu)}
+.card{background:var(--cd);border-radius:22px;padding:20px;margin-bottom:16px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.card h2{margin:0;font-size:18px;font-weight:700}.sub{margin:2px 0 14px;color:var(--mu);font-size:13px}
+.dash{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}.stats .card{margin:0}
+.sc .top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
+.ib{width:46px;height:46px;border-radius:14px;background:var(--ic);display:grid;place-items:center}
+.sc.dk{background:var(--g1);color:#fff}.sc.dk .ib{background:#fff;color:var(--g1)}.sc.dk .lb,.sc.dk .ss{color:#cfe3d7}
+.lb{font-size:13px;color:var(--mu)}.big{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.2}.ss{font-size:12px;color:var(--mu)}
+.bd{background:var(--lm);color:#052a14;border-radius:99px;padding:3px 11px;font-size:12px;font-weight:700;white-space:nowrap}
+.bd.r{background:var(--rd);color:#fff}.bd.n{background:var(--ic);color:var(--mu)}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;flex-wrap:wrap}
+.lg{display:flex;gap:14px;font-size:12px;color:var(--mu)}.lg i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px}
+.li{display:flex;align-items:center;gap:10px;padding:7px 0;font-size:13px}.li span:first-child{flex:1}
+.li i{width:10px;height:10px;border-radius:50%;flex:none}
+.bar{height:7px;border-radius:9px;background:var(--ic);overflow:hidden;margin-top:5px}.bar div{height:100%;background:var(--g2);border-radius:9px}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse}
+th,td{text-align:left;padding:12px 8px;border-bottom:1px solid var(--bd);white-space:nowrap}
+th{color:var(--mu);font-weight:600;font-size:12px}tr:last-child td{border:0}
+.nm{display:flex;align-items:center;gap:10px}.nm i{width:34px;height:34px;border-radius:50%;background:var(--ic);display:grid;place-items:center;font-style:normal;font-weight:700;color:var(--g3)}
+.tag{padding:3px 10px;border-radius:99px;font-size:12px;font-weight:600;background:var(--ic)}.tag.p{background:var(--lm);color:#052a14}.tag.d{background:var(--rd);color:#fff}.tag.h{background:#ffd9a0;color:#5a3500}
+.ok{color:var(--g3)}.bad{color:var(--rd)}
+input,select{font:inherit;color:var(--tx);background:var(--bg);border:1px solid transparent;border-radius:12px;padding:11px 14px;min-width:0}
+input:focus,select:focus{outline:2px solid var(--g2)}
+.btn{font:inherit;font-weight:600;background:var(--g1);color:#fff;border:0;border-radius:12px;padding:11px 18px;cursor:pointer}
+.btn.g{background:var(--ic);color:var(--tx);padding:6px 12px;font-size:12px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}.row>input,.row>select{flex:1;min-width:130px}
+.two{display:grid;grid-template-columns:1fr;gap:16px;max-width:640px}.two .card{margin:0}.et{background:var(--cd);color:var(--tx);padding:13px 24px;font-size:15px}.et.on{background:var(--g1);color:#fff;box-shadow:0 6px 14px rgba(5,74,41,.3)}
+.lbl{font-size:12px;color:var(--mu)}
+#gate{position:fixed;inset:0;z-index:50;background:var(--g1);display:flex;flex-direction:column;overflow:auto}#gate[hidden]{display:none}
+.gh{position:relative;padding:calc(26px + env(safe-area-inset-top,0px)) 26px 64px;color:#fff;max-width:520px;width:100%;margin:0 auto}
+.gh img{border-radius:50%;background:#fff;margin-bottom:12px}.gh h2{margin:0;font-size:36px;font-weight:800;line-height:1.1}.gh p{margin:6px 0 0;opacity:.92}
+.gx{position:absolute;right:14px;top:calc(14px + env(safe-area-inset-top,0px));width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,255,255,.18);color:#fff;font-size:16px;cursor:pointer}
+.gs{background:var(--cd);border-radius:32px 32px 0 0;flex:1;margin-top:-34px;padding:24px 22px calc(28px + env(safe-area-inset-bottom,0px))}.gi{max-width:476px;margin:0 auto}
+.gt{display:flex;gap:4px;background:var(--bg);border-radius:99px;padding:4px;margin-bottom:18px}.gt button{flex:1;border:0;background:none;color:var(--tx);font:inherit;font-weight:600;padding:11px 8px;border-radius:99px;cursor:pointer;min-height:44px}.gt button.on{background:var(--g1);color:#fff}
+.gs .f{margin-bottom:12px}.gs input{border-radius:99px;padding:13px 18px}.gs .btn{width:100%;border-radius:99px}
+.gt2{display:flex;gap:4px;background:var(--bg);border-radius:99px;padding:4px;margin:14px 0;flex-wrap:wrap}.gt2 button{flex:1;border:0;background:none;color:var(--tx);font:inherit;font-weight:600;padding:10px 12px;border-radius:99px;cursor:pointer;min-height:44px}.gt2 button.on{background:var(--g1);color:#fff}
+.ivb{display:flex;flex-wrap:nowrap;gap:8px}.ivb .btn{flex:1 1 0!important;min-width:0;padding:11px 8px;text-align:center}
+#note{margin:0 4px 14px;font-size:13px;color:var(--mu)}
+@media(max-width:1100px){.dash{grid-template-columns:1fr}.two{grid-template-columns:1fr}}
+@media all{.app{grid-template-columns:1fr;padding:12px 12px 96px}
+.sb{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;flex-direction:row;border-radius:22px 22px 0 0;padding:8px 8px calc(8px + env(safe-area-inset-bottom,0px));gap:2px;z-index:30;box-shadow:0 -6px 20px rgba(0,0,0,.12)}
+.logo,.sb small,.promo,.tl{display:none}.mlogo{display:block}.nv{flex-direction:column;gap:2px;font-size:11.5px;padding:8px 2px;text-align:center;align-items:center}
+.stats{grid-template-columns:1fr 1fr;gap:10px}.big{font-size:22px}.hd h1{font-size:21px}}
+body{-webkit-tap-highlight-color:transparent}
+:focus-visible{outline:2px solid var(--g2);outline-offset:2px}
+.logo img{border-radius:50%;flex:none}.logo span{font-size:15px;line-height:1.25}.tl{margin:-10px 0 16px 4px;font-size:12px;color:var(--mu)}.ht{display:flex;align-items:center;gap:12px}.mlogo{display:none;border-radius:50%;flex:none}
+.lang{display:flex;background:var(--cd);border-radius:99px;padding:3px}.lang button{border:0;background:none;color:var(--tx);font:inherit;font-weight:600;padding:8px 14px;border-radius:99px;cursor:pointer;min-height:36px}.lang button[aria-pressed=true]{background:var(--g1);color:#fff}
+.btn,.nv{transition:background .15s,transform .1s}.btn:active{transform:scale(.97)}
+section:not([hidden]){animation:fi .18s ease-out}@keyframes fi{from{opacity:0;transform:translateY(4px)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+.f{display:flex;flex-direction:column;gap:5px;flex:1;min-width:130px}.f span{font-size:13px;font-weight:600}.f input,.f select{width:100%}.row:has(.f){align-items:flex-end}
+.emp{text-align:center;padding:18px}.emp p{margin:0 0 12px}
+#toast{position:fixed;left:50%;transform:translateX(-50%);bottom:24px;color:#fff;padding:12px 18px;border-radius:14px;z-index:60;font-weight:600;max-width:90vw;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+@media all{.stats{grid-auto-rows:1fr}.big{font-size:20px;overflow-wrap:anywhere}.ss{overflow-wrap:anywhere}.sc{padding:14px}.sc .top{margin-bottom:8px}.ib{width:38px;height:38px;border-radius:12px}.ib svg{width:18px;height:18px}
+.card{padding:16px;border-radius:20px}input,select{font-size:16px;min-height:46px}.row>input,.row>select,.row>.btn,.row>label{flex:1 1 100%}
+.btn{min-height:46px}.btn.g{min-height:44px;padding:8px 16px;font-size:13px}#toast{bottom:calc(92px + env(safe-area-inset-bottom,0px))}.et{flex:1 1 0!important;padding:13px 8px;font-size:14px}
+.hd{margin:2px 2px 12px}.av div{display:none}.av{padding:5px}.pill{padding:9px 12px}#q{flex:1 1 100%;min-width:0!important}
+.tw th,.tw td{padding:10px 6px;white-space:normal;font-size:13px}#smem thead{display:none}
+#mb tr{display:grid;grid-template-columns:1fr auto;gap:8px 10px;padding:14px 0;border-bottom:1px solid var(--bd)}#mb tr:last-child{border:0}#mb td{padding:0;border:0;font-size:14px}
+#mb td:nth-child(1){grid-column:1;grid-row:1}#mb td:nth-child(3){grid-column:2;grid-row:1;align-self:center}#mb td:nth-child(2){grid-column:1;grid-row:2}#mb td:nth-child(4){grid-column:2;grid-row:2;text-align:right}
+#mb td:nth-child(2)::before{content:var(--l1);color:var(--mu)}#mb td:nth-child(4)::before{content:var(--l2);color:var(--mu);font-weight:400}
+#mb td:nth-child(5){grid-column:1/-1;grid-row:3;display:flex;gap:8px}#mb td:nth-child(5) .btn{flex:1}#mb td:nth-child(5) .btn[data-del]{flex:0 0 56px}}
+
+/* mobile-first app layout (all screen sizes) */
+html,body{overflow-x:hidden}
+.app,.sb{max-width:560px;margin-left:auto;margin-right:auto}
+.dash,.two{grid-template-columns:minmax(0,1fr)!important}
+.hd{display:block;margin:2px 2px 12px}.ht{width:100%}.ht>div{min-width:0;flex:1}.hd h1{overflow-wrap:anywhere}
+.ht .av{margin-left:auto;position:relative;border:0;cursor:pointer;color:var(--tx);font:inherit;flex:none}
+.av[data-n]:not([data-n="0"])::after{content:attr(data-n);position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:99px;background:var(--rd);color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center;padding:0 5px}
+.hr{display:flex;gap:8px;margin-top:10px;width:100%}.hr .pill{flex:1;min-width:0}.hr .lang{flex:none;order:2}
+#eb tr,#hb tr{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--bd)}#eb tr:last-child,#hb tr:last-child{border:0}
+#eb td,#hb td{padding:0;border:0;font-size:14px;white-space:normal;overflow-wrap:anywhere}
+#eb td:nth-child(2){grid-column:1;grid-row:1;font-weight:600}#eb td:nth-child(3){grid-column:2;grid-row:1;text-align:right}
+#eb td:nth-child(1){grid-column:1;grid-row:2;color:var(--mu);font-size:12px}#eb td:nth-child(4){grid-column:2;grid-row:2;text-align:right}
+#hb td:nth-child(3){grid-column:1;grid-row:1;font-weight:600}#hb td:nth-child(4){grid-column:2;grid-row:1;text-align:right}
+#hb td:nth-child(2){grid-column:1;grid-row:2}#hb td:nth-child(1){grid-column:2;grid-row:2;text-align:right;color:var(--mu);font-size:12px}
+#eb td[colspan],#hb td[colspan]{grid-column:1/-1;grid-row:1;color:var(--mu);font-size:14px}
+#sexp thead,#shist thead{display:none}#mb td:nth-child(1){min-width:0;overflow-wrap:anywhere}
+.card{overflow-wrap:anywhere}.btn,.pill{max-width:100%}
+.iv:not(.pdf) .hm{display:none}@media print{.hm{display:table-cell!important}}
+#invpaper .iv:not(.pdf){padding:16px}#invpaper .iv:not(.pdf) .ih{flex-wrap:wrap}#invpaper .iv:not(.pdf) .ir{margin-left:0;text-align:left;width:100%}
+.mlogo{display:block;border-radius:50%;flex:none}
+#fsave{width:100%}
+.gt2 button{font-size:13px;padding:9px 4px;line-height:1.2}
+#invpaper .iv:not(.pdf) th,#invpaper .iv:not(.pdf) td{padding:8px 4px;font-size:12px}
+#invpaper .iv:not(.pdf) td:first-child,#invpaper .iv:not(.pdf) th:first-child{width:20px}
+#invpaper .iv:not(.pdf) td:nth-child(2){width:38%}
+.idc{margin-top:14px;padding:16px;border-radius:18px;background:var(--bg);text-align:center}.idn{font-size:44px;font-weight:800;letter-spacing:.14em;color:var(--g1);line-height:1.2}
+.clr{position:absolute;right:6px;bottom:6px;width:38px;height:38px;border:0;border-radius:50%;background:var(--ic);color:var(--tx);cursor:pointer;font-size:14px}.clr[hidden]{display:none}
+.tag small{font-weight:500;opacity:.85}
+.ht2{display:flex;gap:4px;background:var(--cd);border-radius:99px;padding:4px;margin:0 0 14px}.ht2 button{flex:1;border:0;background:none;color:var(--tx);font:inherit;font-weight:600;font-size:13px;padding:10px 6px;border-radius:99px;cursor:pointer;min-height:44px;line-height:1.2}.ht2 button.on{background:var(--g1);color:#fff}
+.shw{overflow:auto;max-height:68vh;border:1px solid var(--bd);border-radius:14px}
+.sht{border-collapse:separate;border-spacing:0;font-size:13px;min-width:max-content}
+.sht th,.sht td{padding:9px 6px;border-bottom:1px solid var(--bd);border-right:1px solid var(--bd);text-align:center;white-space:nowrap;background:var(--cd)}
+.sht th{background:var(--bg);font-weight:700;position:sticky;top:0;z-index:2}
+.sht .c1{position:sticky;left:0;z-index:3;text-align:left;width:86px;min-width:86px;max-width:86px;white-space:normal;overflow-wrap:anywhere}
+.sht .c2{position:sticky;left:86px;z-index:3;width:48px;min-width:48px;max-width:48px}
+.sht th.c1,.sht th.c2{z-index:4;background:var(--bg)}
+.sht td.pd{background:rgba(75,227,26,.28);font-weight:700}.sht td.pt{background:rgba(255,170,40,.35);font-weight:700}.sht td.du{background:rgba(240,20,20,.14)}.sht td.xx{background:var(--ic)}
+.sht tfoot td{font-weight:800;background:var(--bg);position:sticky;bottom:0}.sht tfoot td.c1,.sht tfoot td.c2{z-index:4}
+#shist .sht thead{display:table-header-group!important}
+#h-sh{padding:12px}#h-sh .ch{padding:4px 4px 0}
+
+/* ===== professional theme ===== */
+:root{--bg:#f3f4f2;--cd:#fff;--tx:#17211b;--mu:#5b665f;--bd:#e1e5e0;--ic:#eceff0;--g1:#1a5c2e;--g2:#3f8f43;--g3:#2f7d32;--bl:#1f4a8a;--cok:#2e7d32;--cwn:#d9962b;--cbd:#c0392b;--okbg:#e4f1e6;--ok:#1d6a33;--wnbg:#fbeed5;--wn:#855000;--bdbg:#fae4e1;--bd3:#a3261d;--lm:#e4f1e6;--rd:#b3261e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1311;--cd:#171d19;--tx:#e9eee9;--mu:#9aa59d;--bd:#262e28;--ic:#222a24;--g1:#2f8a4a;--g2:#4fa356;--g3:#3d9a55;--bl:#6d98e6;--cok:#4fae60;--cwn:#e0a640;--cbd:#e0605a;--okbg:#17301f;--ok:#7fd391;--wnbg:#35290f;--wn:#f0c36a;--bdbg:#3a1a18;--bd3:#ff9d96;--lm:#17301f;--rd:#ff8a80}}
+:root[data-theme="dark"]{--bg:#0f1311;--cd:#171d19;--tx:#e9eee9;--mu:#9aa59d;--bd:#262e28;--ic:#222a24;--g1:#2f8a4a;--g2:#4fa356;--g3:#3d9a55;--bl:#6d98e6;--cok:#4fae60;--cwn:#e0a640;--cbd:#e0605a;--okbg:#17301f;--ok:#7fd391;--wnbg:#35290f;--wn:#f0c36a;--bdbg:#3a1a18;--bd3:#ff9d96;--lm:#17301f;--rd:#ff8a80}
+body{font-variant-numeric:tabular-nums}
+.card{border-radius:14px;border:1px solid var(--bd);box-shadow:none;padding:16px}.card h2{font-size:16px;font-weight:700}.sub{font-size:13px}
+.hd h1{font-size:20px;letter-spacing:-.01em}.hd p{opacity:.7;font-size:13px}
+.ht .av{border-radius:10px;padding:3px;border:1px solid var(--bd)}.av i{width:32px;height:32px;border-radius:8px;font-size:14px}
+.pill{border-radius:10px;border:1px solid var(--bd);padding:9px 12px;font-size:14px}
+.lang{border-radius:10px;border:1px solid var(--bd);padding:2px}.lang button{border-radius:8px;font-size:13px;padding:6px 12px;min-height:34px}
+.btn{border-radius:10px;box-shadow:none;padding:11px 16px}.btn.g{background:var(--cd);border:1px solid var(--bd);color:var(--tx)}
+input,select{border-radius:10px;background:var(--cd);border:1px solid var(--bd);padding:11px 12px}input:focus,select:focus{outline:2px solid var(--g2);outline-offset:-1px;border-color:var(--g2)}
+.gs input,.gs .btn{border-radius:10px}.f span{font-weight:600;color:var(--mu);font-size:12.5px}
+.gt,.gt2,.ht2{border-radius:10px;background:var(--ic);padding:3px}.gt button,.gt2 button,.ht2 button{border-radius:8px;min-height:40px}
+.ib{width:36px;height:36px;border-radius:10px;background:var(--okbg);color:var(--g1)}.ib svg{width:18px;height:18px}
+.sc.dk{background:var(--cd);color:var(--tx)}.sc.dk .ib{background:var(--g1);color:#fff}.sc.dk .lb,.sc.dk .ss{color:var(--mu)}
+.big{font-size:22px;font-weight:700;letter-spacing:-.01em}.lb{font-size:12.5px}
+.bd{background:var(--okbg);color:var(--ok);border-radius:6px;padding:2px 8px;font-size:12px}.bd.r{background:var(--bdbg);color:var(--bd3)}.bd.n{background:var(--ic);color:var(--mu)}
+.tag{border-radius:6px;padding:2px 8px;font-size:12px}.tag.p{background:var(--okbg);color:var(--ok)}.tag.d{background:var(--bdbg);color:var(--bd3)}.tag.h{background:var(--wnbg);color:var(--wn)}
+.ok{color:var(--ok)}.bad{color:var(--bd3)}.nm i{background:var(--okbg);color:var(--ok)}
+.sb{background:var(--cd);border-radius:0;border-top:1px solid var(--bd);box-shadow:none}.nv{border-radius:8px}.nv.on{background:var(--okbg);color:var(--g1);box-shadow:none}.nv svg{width:22px;height:22px}
+.sht td.pd{background:var(--okbg);color:var(--ok)}.sht td.pt{background:var(--wnbg);color:var(--wn)}.sht td.du{background:var(--bdbg)}
+.li i{width:9px;height:9px}.lg i{border-radius:3px}.bar{height:6px;border-radius:3px}.bar div{border-radius:3px;background:var(--g2)}
+#toast{border-radius:10px}.hd{margin-bottom:10px}
+#emod{position:fixed;inset:0;z-index:45;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}#emod[hidden]{display:none}
+.eb{background:var(--cd);width:100%;max-width:560px;border-radius:16px 16px 0 0;padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));max-height:90vh;overflow:auto}.eb .f{margin-bottom:12px}
+.eb .ch{flex-wrap:nowrap;align-items:center;margin-bottom:12px}
+.ivt{display:flex;justify-content:space-between;align-items:center;gap:8px;margin:0 0 6px;font-size:13px}.ivt span{display:flex;gap:6px;flex:none}.ivt .btn{padding:6px 12px;min-height:36px;font-size:12px;flex:none}.ivt b{min-width:0;overflow-wrap:anywhere}.ivw{margin:0 0 16px}
+.gt2 button{font-size:12px;padding:9px 2px}
+.stats{grid-auto-rows:auto!important}.sc.wide{grid-column:1/-1}.dp{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.dpi{display:flex;align-items:center;gap:12px;border-radius:12px;padding:12px}.dpi .n{font-size:30px;font-weight:700;line-height:1;min-width:34px;text-align:center}.dpi b{display:block;font-size:14px}.dpi small{display:block;font-size:12px;opacity:.85;line-height:1.3}.dpi.d{background:var(--bdbg);color:var(--bd3)}.dpi.p{background:var(--okbg);color:var(--ok)}
+.sc.wide{grid-column:auto}.stats{grid-auto-rows:1fr!important}.sc[data-don]{cursor:pointer}.dp{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.dpi{display:block;border-radius:10px;padding:7px 10px}.dpi .n{font-size:22px;font-weight:700;line-height:1.1;min-width:0;text-align:left}.dpi b{display:block;font-size:12px}.drow{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--bd)}.drow:last-child{border:0}
+[data-det]{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+[data-det]:hover,[data-det]:focus-visible{transform:translateY(-3px);box-shadow:0 12px 26px rgba(20,40,25,.10);border-color:var(--g2)}
+[data-det]:active{transform:translateY(-1px) scale(.99)}
+.sc[data-det]{position:relative}.sc[data-det]::after{content:"›";position:absolute;right:12px;bottom:8px;color:var(--mu);font-size:20px;line-height:1;transition:transform .18s}.sc[data-det]:hover::after{transform:translateX(3px);color:var(--g1)}
+.sc[data-det] .ib{transition:transform .22s ease}.sc[data-det]:hover .ib{transform:scale(1.1) rotate(-6deg)}.sc[data-det]:hover .big{color:var(--g1)}
+#sdash svg rect{transition:opacity .15s}#sdash svg rect:hover{opacity:.78}
+#dmod{position:fixed;inset:0;z-index:44;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center}#dmod[hidden]{display:none}
+.dsec{margin:16px 0 6px;font-size:12.5px;font-weight:700;color:var(--mu)}.dsec small{background:var(--ic);border-radius:6px;padding:1px 7px;margin-left:4px}
+.dr{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--bd);font-size:14px}.dr:last-child{border:0}
+.dsum{display:grid;grid-template-columns:1fr 1fr;gap:8px}.dsum>div{background:var(--ic);border-radius:10px;padding:10px 12px}.dsum small{display:block;color:var(--mu);font-size:12px}.dsum b{font-size:18px}
+.dbr{margin:8px 0}.dl{display:flex;justify-content:space-between;gap:8px;font-size:14px}.dl span{min-width:0;overflow-wrap:anywhere}
+.dt{width:100%;border-collapse:collapse;font-size:13px}.dt th,.dt td{padding:8px 6px;border-bottom:1px solid var(--bd);white-space:nowrap;text-align:left}.dt .r{text-align:right}.dt th{color:var(--mu);font-weight:600}.dt tfoot td{font-weight:800}
+.dsum b{font-size:16px}
+
+/* ===== boot splash (hides the viewer->admin flicker) ===== */
+#boot{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;background:radial-gradient(120% 90% at 50% 0%,#2f8a4a 0%,#14442a 55%,#0b2417 100%);color:#fff;transition:opacity .35s ease,visibility .35s ease}
+#boot.off{opacity:0;visibility:hidden;pointer-events:none}
+#boot img{width:88px;height:88px;border-radius:50%;background:#fff;padding:3px;box-shadow:0 0 0 7px rgba(255,255,255,.14),0 20px 44px rgba(0,0,0,.35);opacity:0;transition:opacity .3s}
+#boot img.on{opacity:1}
+#boot b{font-size:18px;letter-spacing:.2px}
+.bsp{width:32px;height:32px;border-radius:50%;border:3px solid rgba(255,255,255,.25);border-top-color:#fff;animation:bsp .8s linear infinite}
+@keyframes bsp{to{transform:rotate(360deg)}}
+/* ===== premium login / sign-up gate ===== */
+#gate{--tx:#eef4f0;--mu:#a9b8ae;--bd:rgba(255,255,255,.14);--cd:rgba(255,255,255,.07);--ic:rgba(255,255,255,.1);--bg:rgba(255,255,255,.08);color:var(--tx);align-items:center;justify-content:flex-start;
+ background:radial-gradient(80% 55% at 12% 0%,rgba(110,214,120,.38),transparent 62%),radial-gradient(70% 55% at 100% 100%,rgba(76,154,28,.38),transparent 60%),linear-gradient(160deg,#17542c 0%,#0d3320 55%,#08210f 100%)}
+#gate .gh{text-align:center;padding:calc(max(32px,9vh) + env(safe-area-inset-top,0px)) 20px 0;margin:0 auto;max-width:520px;color:#fff}
+#gate .gh img{width:88px;height:88px;padding:3px;margin:0 auto 16px;display:block;box-shadow:0 0 0 7px rgba(255,255,255,.12),0 18px 40px rgba(0,0,0,.35)}
+#gate .gh h2{font-size:34px;letter-spacing:-.4px;text-shadow:0 2px 18px rgba(0,0,0,.25)}
+#gate .gh p{opacity:.85;font-size:15px}
+#gate .gx{background:rgba(255,255,255,.14);backdrop-filter:blur(8px)}
+#gate .gs{flex:none;width:calc(100% - 32px);max-width:480px;margin:22px auto 0;padding:22px;border-radius:28px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 30px 70px rgba(0,0,0,.4);animation:gup .5s ease both}#gate::after{content:'';flex:none;height:max(32px,env(safe-area-inset-bottom,0px))}
+@keyframes gup{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+#gate .gt{background:rgba(0,0,0,.28);border-radius:16px;padding:5px;gap:4px;margin-bottom:20px}
+#gate .gt button{color:#cfdad2;border-radius:12px;transition:background .2s,color .2s}
+#gate .gt button.on{background:linear-gradient(135deg,#46b062,#1f7a3a);color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.3)}
+#gate .sub,#gate .lbl{color:var(--mu)}
+#gate .f span{color:#b9c8be}
+#gate input{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff;border-radius:14px;padding:14px 16px;transition:border-color .2s,box-shadow .2s}
+#gate input::placeholder{color:rgba(255,255,255,.45)}
+#gate input:focus{outline:0;border-color:#7be08f;box-shadow:0 0 0 4px rgba(123,224,143,.22)}
+#gate .btn{border-radius:14px;min-height:50px;font-weight:700;background:linear-gradient(135deg,#46b062,#1f7a3a);color:#fff;border:0;box-shadow:0 10px 24px rgba(31,122,58,.45);transition:transform .15s,box-shadow .15s}
+#gate .btn:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(31,122,58,.55)}
+#gate .btn.g{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);box-shadow:none;color:#fff}
+#gate .btn.goog{background:#fff;color:#1f2a22;display:flex;align-items:center;justify-content:center;gap:12px;box-shadow:0 10px 26px rgba(0,0,0,.28)}
+#gate .btn.goog svg{width:22px;height:22px;flex:none}
+#gl-who:not(:empty){display:inline-block;padding:8px 14px;border-radius:99px;background:rgba(123,224,143,.16);color:#b4f2c0;font-size:13px;margin:4px 0 16px}
+.gsec{display:flex;align-items:center;justify-content:center;gap:8px;margin:16px 0 0;font-size:12.5px;color:var(--mu);text-align:center}
+.gsec svg{width:14px;height:14px;flex:none}
+@media (prefers-reduced-motion:reduce){.bsp,#gate .gs{animation:none}}
+
+/* ===== compact action buttons on phones (Contribution Sheet / Donation headers) ===== */
+@media (max-width:640px){
+ #h-sh>.ch,#h-dn>.ch{flex-wrap:wrap;gap:10px}
+ #h-sh>.ch>.row,#h-dn>.ch>.row{flex-wrap:nowrap!important;gap:6px;width:100%;margin:0!important;align-items:center}
+ #h-sh>.ch .btn,#h-dn>.ch .btn,#h-sh>.ch select{min-height:34px!important;height:34px;padding:0 10px!important;font-size:12px!important;line-height:1;border-radius:9px;white-space:nowrap;flex:0 0 auto;width:auto!important;min-width:0!important}
+ #h-sh>.ch select{padding:0 6px!important;padding-right:22px!important}
+}
+
+/* ===== motion + polish (transform/opacity only; all gated by reduced-motion) ===== */
+:root{--ease:cubic-bezier(.22,1,.36,1)}
+html{-webkit-text-size-adjust:100%}
+button,.btn,.nv,[data-det]{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.big,.ss,td,th,.bd,.tag,.dpi .n,.li b{font-variant-numeric:tabular-nums}
+h1,h2{text-wrap:balance}
+:focus-visible{outline:2px solid var(--g2);outline-offset:2px}
+.btn,.nv,.pill,.tag,.bd{transition:background-color .2s ease,color .2s ease,transform .15s var(--ease),box-shadow .2s ease,opacity .2s ease}
+.btn:not(:disabled):active,.nv:active,.et:active{transform:scale(.97)}
+.btn:not(.g):not(.et):hover{box-shadow:0 8px 18px rgba(26,92,46,.28)}
+.btn.g:hover{background:var(--bd)}
+.nv:not(.on):hover{background:var(--ic)}
+tbody tr{transition:background-color .15s ease}tbody tr:hover{background:rgba(76,154,28,.07)}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@keyframes grow-y{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes grow-x{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes sweep{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+@keyframes sheetin{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+/* dashboard: played on load, on month change and when opening the tab */
+#sdash.play .stats>.card,#sdash.play .dash>div>.card:not(.sc){animation:rise .65s var(--ease) backwards}
+#sdash.play .stats>.card:nth-child(2){animation-delay:.07s}
+#sdash.play .stats>.card:nth-child(3){animation-delay:.14s}
+#sdash.play .stats>.card:nth-child(4){animation-delay:.21s}
+#sdash.play .dash>div:first-child>.card:not(.sc){animation-delay:.28s}
+#sdash.play .dash>div:last-child>.card:nth-child(1){animation-delay:.2s}
+#sdash.play .dash>div:last-child>.card:nth-child(2){animation-delay:.32s}
+#sdash.play .cgrid{animation:fadein .6s ease .1s backwards}
+#sdash.play .cbar{transform-box:fill-box;transform-origin:50% 100%;animation:grow-y .8s var(--ease) calc(.4s + var(--i,0)*45ms) backwards}
+#sdash.play .cline{stroke-dasharray:1;animation:draw 1.1s cubic-bezier(.45,.05,.25,1) .95s backwards}
+#sdash.play .cdot{transform-box:fill-box;transform-origin:center;animation:pop .35s var(--ease) calc(1.05s + var(--i,0)*120ms) backwards}
+.cline{pointer-events:none}.cdot{pointer-events:none}
+#sdash.play .pm-c{animation:sweep 1.2s cubic-bezier(.3,.7,.2,1) .45s backwards}
+#sdash.play .li{animation:rise .5s var(--ease) backwards}
+#sdash.play .li:nth-of-type(1){animation-delay:.55s}#sdash.play .li:nth-of-type(2){animation-delay:.62s}#sdash.play .li:nth-of-type(3){animation-delay:.69s}#sdash.play .li:nth-of-type(4){animation-delay:.76s}#sdash.play .li:nth-of-type(5){animation-delay:.83s}
+#sdash .bar>div{transform-origin:left center}
+#sdash.play .bar>div{animation:grow-x .9s var(--ease) .6s backwards}
+#sdash.play .dpi{animation:rise .5s var(--ease) .55s backwards}
+#dmod .bar>div{transform-origin:left center;animation:grow-x .8s var(--ease) .12s backwards}
+/* screens, modals */
+main>section:not(#sdash):not([hidden]){animation:rise .4s var(--ease)}
+#dmod:not([hidden]),#emod:not([hidden]){animation:fadein .2s ease}
+#dmod:not([hidden])>.eb,#emod:not([hidden])>.eb{animation:sheetin .38s var(--ease)}
+@media (prefers-reduced-motion:reduce){#sdash.play *,main>section,#dmod,#emod,#dmod *,#emod *{animation:none!important}}
+
+/* ===== sparklines ===== */
+.sc{display:flex;flex-direction:column}
+.sc .ss{margin-bottom:14px}
+.sparkw{position:relative;height:46px;margin-top:auto;margin-bottom:14px}
+.sparkw svg{display:block;width:100%;height:100%;overflow:visible}
+.sdot{position:absolute;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:currentColor;box-shadow:0 0 0 3px var(--cd)}
+#sdash.play .sp-r{transform-box:fill-box;transform-origin:left center;animation:grow-x 1.1s cubic-bezier(.45,.05,.25,1) .5s backwards}
+#sdash.play .sdot{animation:pop .35s var(--ease) 1.55s backwards}
+/* ===== desktop layout (sidebar + wide content) ===== */
+@media (min-width:1100px){
+ .app{max-width:1480px;grid-template-columns:252px minmax(0,1fr);gap:24px;padding:20px 28px}
+ .sb{position:sticky;top:20px;left:auto;right:auto;bottom:auto;width:auto;max-width:none;margin:0;height:calc(100vh - 40px);flex-direction:column;align-self:start;gap:4px;padding:20px 14px;border:1px solid var(--bd);border-radius:14px;box-shadow:none}
+ .logo{display:flex;margin:0 0 18px 6px}
+ .promo{display:block}
+ .mlogo{display:none}
+ .nv{flex-direction:row;justify-content:flex-start;align-items:center;gap:12px;font-size:14.5px;padding:11px 14px;text-align:left}
+ .nv svg{width:20px;height:20px}
+ .hd{margin:0 0 18px}.hd h1{font-size:24px}
+ .dash{grid-template-columns:minmax(0,1fr) 360px!important;gap:16px}
+ .stats{gap:16px;grid-auto-rows:auto}.big{font-size:26px}.sc{padding:18px}
+ .card{padding:20px}
+ #dmod,#emod{align-items:center}.eb{border-radius:16px;max-width:620px}
+ #toast{bottom:24px}
+ /* real tables on desktop instead of phone cards */
+ #smem thead,#sexp thead,#shist thead{display:table-header-group}
+ #eb tr,#hb tr{display:table-row;padding:0;border-bottom:0}
+ #eb td,#hb td{display:table-cell;padding:12px 8px;border-bottom:1px solid var(--bd);font-size:14px;font-weight:400;white-space:nowrap;vertical-align:middle;color:var(--tx)}
+ #eb tr:last-child td,#hb tr:last-child td{border-bottom:0}
+ #eb td:nth-child(2),#hb td:nth-child(3){white-space:normal;font-weight:600}
+ #eb td:nth-child(1),#hb td:nth-child(1){font-size:14px;color:var(--mu)}
+ #eb td:nth-child(3),#hb td:nth-child(4){text-align:left}
+ #eb td:nth-child(4){text-align:right}
+ #hb td:nth-child(1){text-align:left}
+ #eb td[colspan],#hb td[colspan]{display:table-cell}
+ #mb tr{display:table-row;padding:0;border-bottom:0}
+ #mb td{display:table-cell;padding:12px 8px;border-bottom:1px solid var(--bd);font-size:14px;vertical-align:middle}
+ #mb tr:last-child td{border-bottom:0}
+ #mb td:nth-child(2)::before,#mb td:nth-child(4)::before{content:none}
+ #mb td:nth-child(5){display:table-cell;text-align:right;white-space:nowrap}
+ #mb td:nth-child(5) .btn{flex:none;display:inline-block;margin-left:4px}
+ #mb td:nth-child(4){text-align:left}
+}
+#h-sh .btn,#h-dn .btn,#h-sh select{white-space:nowrap}
+
+@media (min-width:1100px){
+ .hr{display:flex;align-items:center;gap:12px}
+ #mon{width:220px;flex:none;cursor:pointer}
+ .hr .lang{margin-left:auto}
+}
+input[type=date],input[type=month]{cursor:pointer}
+</style></head><body>
+<div id="boot" role="status" aria-live="polite"><img id="bootlogo" alt="" width="88" height="88"><b>Nirbhorota Foundation</b><div class="bsp"></div></div>
+<datalist id="bylist"></datalist>
+<div id="dmod" hidden><div class="eb"><div class="ch" style="margin-bottom:8px"><h2 id="dttl"></h2><button class="btn g" id="dclose" aria-label="Close">✕</button></div><div id="dbody"></div><div class="row ivb" id="dact" style="margin-top:14px"></div></div></div>
+<div id="emod" hidden><div class="eb"><div class="ch"><h2>Edit member</h2><b id="eid" class="tag p"></b></div><label class="f"><span>Member-er naam *</span><input id="emn" autocomplete="off"></label><label class="f"><span>Phone</span><input id="emp" type="tel"></label><label class="f"><span>Masik chada (৳) *</span><input id="ema" type="number" inputmode="numeric" min="1"></label><label class="f"><span>Kon mash theke</span><input id="ems" type="month"></label><div class="row ivb" style="margin:6px 0 10px"><button class="btn" id="esave">Save</button><button class="btn g" id="ecancel">Cancel</button></div><button class="btn g" id="edel" style="width:100%;color:var(--bd3)">Delete member</button></div></div>
+<div id="gate" hidden><div class="gh"><button class="gx" id="gx" aria-label="Close" hidden>✕</button><img id="glogo" alt="" width="64" height="64"><h2>Hello!</h2><p>Welcome to Nirbhorota Foundation</p></div>
+<div class="gs"><div class="gi"><div class="gt"><button data-g="login">Login</button><button data-g="signup">Sign up</button><button data-g="req" id="gtr">Requests</button><button data-g="act" id="gta">Activity</button></div>
+<div id="g-login"><p class="sub" id="gl-t"></p><p id="gl-who" style="font-weight:600"></p><button class="btn" id="gl-b"></button><button class="btn g" id="gl-bk" hidden style="margin-top:10px;width:100%">Download backup</button><p class="gsec" id="gsec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><span>Secure sign-in with Google</span></p></div>
+<div id="g-signup" hidden><p class="sub" id="gs-t"></p><div id="gs-f"><label class="f"><span>Full name *</span><input id="rn" autocomplete="name"></label><label class="f"><span>Phone</span><input id="rp" type="tel" autocomplete="tel"></label><label class="f"><span>Message (optional)</span><input id="rm"></label><button class="btn" id="rs">Send request</button></div><p id="gs-s" style="font-weight:600;color:var(--g3)" hidden></p></div>
+<div id="g-req" hidden><p class="sub">Approving a request gives that person admin access. Decline removes it.</p><div id="rq"></div></div>
+<div id="g-act" hidden><p class="sub">Latest changes made by admins</p><div id="actlist"></div></div>
+</div></div></div>
+<div class="app">
+<aside class="sb"><div class="logo"><img src="data:image/webp;base64,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" alt="" width="46" height="46"><span>Foundation</span></div><p class="tl">মানুষের পাশে, মানবতার সাথে</p><small>MENU</small><div id="nav" style="display:contents"></div>
+<div class="promo"><b id="role">…</b><p id="rolet"></p></div></aside>
+<main>
+<div class="hd"><div class="ht"><img id="mlogo" class="mlogo" alt="" width="40" height="40"><div><h1 id="ttl">Nirbhorota Foundation</h1><p id="dt"></p></div><button class="av" id="acc" hidden aria-label="Account"><i id="avi">A</i><div><b id="avn">Admin</b><span>Foundation</span></div></button></div>
+<div class="hr"><div class="lang" role="group" aria-label="Language"><button data-l="en">English</button><button data-l="bn">বাংলা</button></div><input type="month" id="mon" class="pill"></div></div>
+<p id="note">Loading…</p>
+<section id="sdash"></section>
+<section id="smem" hidden><div class="card"><div class="ch"><div><h2>Members & Chada</h2><p class="sub" id="mt"></p></div><button class="btn" id="ivopen">Invoices</button><input id="q" type="search" aria-label="Member khujun" placeholder="Naam khujun" style="min-width:200px"></div>
+<div class="tw"><table><thead><tr><th>Member</th><th>Masik chada</th><th>Ei mash</th><th>Mot baki</th><th></th></tr></thead><tbody id="mb"></tbody></table></div></div></section>
+<section id="sentry" hidden><div class="card" id="novw" hidden><h2>View-only</h2><p class="sub">Entry korar onumoti shudhu admin-er ache.</p></div>
+<div class="row admin" style="gap:12px;margin-bottom:16px"><button class="btn et on" data-f="fm">১. Notun member</button><button class="btn et" data-f="fc">২. Chada joma</button><button class="btn et" data-f="fd">3. Donation</button></div>
+<div class="two admin"><div class="card" id="fm"><h2>১. Notun member</h2><p class="sub">Member-er tothyo dile dashboard-e jog hoye jabe</p>
+<div class="row"><label class="f"><span>Member-er naam *</span><input id="fn" autocomplete="name" placeholder="jemon: Rahim Uddin"></label><label class="f"><span>Phone</span><input id="fp" type="tel" autocomplete="tel" placeholder="01XXXXXXXXX"></label></div>
+<div class="row"><label class="f"><span>Masik chada (৳) *</span><input id="fa" type="number" inputmode="numeric" min="1" placeholder="100"></label><label class="f"><span>Kon mash theke</span><input id="fjm" type="month"></label></div><p class="lbl" style="margin:-2px 0 10px">Accounting starts from June 2026.</p><p class="lbl" style="margin:0 0 10px">Standard monthly contribution is ৳100.</p>
+<div class="row"><label class="f"><span>Amount paid now (৳, optional)</span><input id="fpa" type="number" inputmode="numeric" min="0" placeholder="0"></label></div><div class="row"><label class="f"><span>Collected by *</span><input id="fby" list="bylist" autocomplete="off" placeholder="Select or type a name"></label></div><div id="fpv" class="row" style="gap:6px;margin:0 0 12px"></div><button class="btn" id="fsave">Member save korun</button><div id="fid" class="idc" hidden><div class="lbl">New member ID</div><div class="idn" id="fidn"></div><b id="fidname"></b><p class="sub" style="margin:8px 0 0">Give this ID to the member. It is needed when the monthly fee is paid.</p></div></div>
+<div class="card" id="fc" hidden><h2>২. Chada joma</h2><p class="sub">Member select kore poriman din</p>
+<div class="row"><label class="f"><span>Member ID</span><input id="pid" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="0000"></label></div><div class="row"><label class="f" style="position:relative"><span>Choose a member</span><input id="pnm" list="pmlist" autocomplete="off" placeholder="Type a name to search" style="padding-right:50px"><button type="button" class="clr" id="pclr" aria-label="Clear" hidden>✕</button></label><input id="pmem" type="hidden"><datalist id="pmlist"></datalist></div><p class="sub" id="pidm" style="margin:0 0 10px;color:var(--rd)"></p><div class="row"><label class="f"><span>Phone</span><input id="pph" readonly></label><input id="pm" type="hidden"></div>
+<div class="row"><label class="f"><span>Poriman (৳)</span><input id="pa" type="number" inputmode="numeric" min="1"></label><label class="f"><span>Tarikh</span><input id="pd" type="date"></label></div><div id="ppv" class="row" style="gap:6px;margin:0 0 12px"></div>
+<div class="row"><label class="f"><span>Collected by *</span><input id="pby" list="bylist" autocomplete="off" placeholder="Select or type a name"></label></div><div class="row"><label class="f"><span>Kivabe nilen</span><select id="pmd"><option>Cash</option><option>bKash</option><option>Nagad</option><option>Bank</option></select></label><button class="btn" id="psave">Joma korun</button></div></div><div class="card" id="fd" hidden><h2>3. Donation</h2><p class="sub">Record a donation received by the foundation</p><div class="row"><label class="f"><span>Donor name *</span><input id="donN" autocomplete="off"></label><label class="f"><span>Phone</span><input id="donP" type="tel"></label></div><div class="row"><label class="f"><span>Poriman (৳)</span><input id="donA" type="number" inputmode="numeric" min="1"></label><label class="f"><span>Tarikh</span><input id="donD" type="date"></label></div><div class="row"><label class="f"><span>Collected by *</span><input id="donBy" list="bylist" autocomplete="off" placeholder="Select or type a name"></label></div><div class="row"><label class="f"><span>Kivabe nilen</span><select id="donM"><option>Cash</option><option>bKash</option><option>Nagad</option><option>Bank</option></select></label><label class="f"><span>Note (optional)</span><input id="donT"></label></div><button class="btn" id="donSave" style="width:100%">Save donation</button></div></div></section>
+<section id="sexp" hidden><div class="card admin"><h2>Khoroch jog korun</h2><p class="sub">&nbsp;</p><div class="row"><label class="f" style="flex:2"><span>Ki bapare khoroch</span><input id="ed" placeholder="jemon: Office bhara"></label><label class="f"><span>Poriman (৳)</span><input id="ea" type="number" inputmode="numeric" min="1"></label><label class="f"><span>Tarikh</span><input id="edt" type="date"></label><button class="btn" id="adde">Jog korun</button></div></div>
+<div class="card"><div class="ch" style="margin-bottom:8px"><h2>Expenses</h2><button class="btn g" id="exinv">Invoices</button></div><div class="tw"><table><thead><tr><th>Tarikh</th><th>Biboron</th><th>Poriman</th><th></th></tr></thead><tbody id="eb"></tbody></table></div></div></section>
+<section id="shist" hidden><div class="ht2"><button data-h="tx" class="on">Transactions</button><button data-h="sh">Contribution Sheet</button><button data-h="dn">Donation</button></div><div class="card" id="h-tx"><h2>Lenden History</h2><p class="sub">Sob chada o khoroch</p><div class="tw"><table><thead><tr><th>Tarikh</th><th>Dhoron</th><th>Biboron</th><th>Poriman</th></tr></thead><tbody id="hb"></tbody></table></div></div>
+<div class="card" id="h-dn" hidden><div class="ch"><div><h2>Donation</h2><p class="sub" id="donsub"></p></div><div class="row" style="margin:0;flex-wrap:nowrap"><button class="btn g" id="doninv">Invoices</button><button class="btn admin" id="donadd">+ Add</button></div></div><div id="donlist"></div></div>
+<div class="card" id="h-sh" hidden><div class="ch"><div><h2>Contribution Sheet</h2><p class="sub" id="shsub"></p></div><div class="row" style="margin:0;flex-wrap:nowrap"><select id="shy" aria-label="Year" style="min-width:90px"></select><button class="btn g" id="shinv">Invoices</button><button class="btn g" id="shpdf">PDF</button><button class="btn g" id="shcsv">CSV</button></div></div><div class="shw" id="shs"></div><div class="lg" style="flex-wrap:wrap;gap:12px;margin-top:12px"><span><i style="background:var(--cok)"></i>Paid</span><span><i style="background:var(--cwn)"></i>Partial</span><span><i style="background:var(--cbd)"></i>Due</span><span><i style="background:var(--ic)"></i>Not applicable</span></div></div></section>
+<section id="sinv" hidden><div class="card noprint"><div class="ch"><div><h2>Invoice</h2><p class="sub" id="invm"></p></div><button class="btn g" id="ivback">Back</button></div>
+<div class="gt2"><button data-i="stmt">Statement</button><button data-i="exp">Expenses</button><button data-i="don">Donations</button><button data-i="all">All invoices</button><button data-i="due">Due only</button><button data-i="member" id="ivm" hidden>Member invoice</button><button data-i="welcome" id="ivw" hidden>Welcome invoice</button><button data-i="receipt" id="ivr" hidden>Payment receipt</button><button data-i="voucher" id="ivv" hidden>Expense voucher</button><button data-i="donation" id="ivd" hidden>Donation receipt</button></div>
+<div class="row ivb" style="margin:0"><button class="btn" id="ivprint">Print</button><button class="btn" id="ivpdf">PDF</button><button class="btn" id="ivjpg">JPEG</button><button class="btn" id="ivcsv">CSV</button><button id="ivhtml" hidden></button></div></div>
+<div id="invpaper"></div></section>
+</main></div>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="firebase-shim.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+let D=[];const START='2026-06';const stMonth=(m,mo)=>{const x=m.since||mo;return x<START?START:x};
+let lang='bn';try{lang=localStorage.getItem('lang')||'bn'}catch(e){}
+const tk=n=>{const r=Math.round(n);return (r<0?'-':'')+'৳'+Math.abs(r).toLocaleString(lang==='bn'?'bn-BD':'en-IN')};
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const IC={dash:'<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
+mem:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c0-3.5 3-6 6.5-6s6.5 2.5 6.5 6M16 4.5a3.5 3.5 0 010 7M18 14.5c2 .7 3.5 2.6 3.5 5.5"/>',
+entry:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',
+exp:'<path d="M3 7h16a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M3 7l12-4v4M17 14h2"/>',
+hist:'<path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/>',
+cash:'<path d="M12 3v18M16 7.5c0-1.7-1.8-3-4-3s-4 1.3-4 3 1.8 2.8 4 3.5 4 1.8 4 3.5-1.8 3-4 3-4-1.3-4-3"/>',
+warn:'<path d="M12 3l10 18H2zM12 10v5M12 18h.01"/>',heart:'<path d="M20.8 4.6a5.5 5.5 0 00-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 00-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 000-7.8z"/>'};
+const ic=n=>`<svg viewBox="0 0 24 24">${IC[n]}</svg>`;
+const NAV=[['dash','Dashboard'],['mem','Members'],['entry','Entry Form'],['exp','Khoroch'],['hist','History']];
+$('nav').innerHTML=NAV.map(([k,l],i)=>`<button class="nv${i?'':' on'}" data-v="${k}">${ic(k)}<span>${l}</span></button>`).join('');
+let db=null,canW=false,M=[],P=[],E=[],V='dash';
+const today=new Date().toISOString().slice(0,10);
+const tm0=today.slice(0,7)<START?START:today.slice(0,7);$('mon').value=$('pm').value=tm0;$('mon').min=START;$('fjm').value=START;$('fjm').min=START;$('edt').value=$('pd').value=today;
+
+const cur=()=>$('mon').value||today.slice(0,7);
+const pmo=(k,d)=>{const [y,m]=k.split('-').map(Number),t=new Date(y,m-1+d,1);return t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')};
+const ml=k=>new Date(k+'-01T00:00').toLocaleString(lang==='bn'?'bn-BD':'en',{month:'short'});
+const need=m=>+m.amount||0;
+let _acP=null,_ac=new Map();
+function allocOf(m){if(_acP!==P){_acP=P;_ac=new Map()}const key=m.id+'|'+m.amount+'|'+m.since;if(_ac.has(key))return _ac.get(key);
+ const out={},mine=P.filter(p=>p.mid===m.id),fee=need(m);let left=mine.reduce((t,p)=>t+(+p.amt||0),0);
+ if(!fee){mine.forEach(p=>{out[p.month]=(out[p.month]||0)+(+p.amt||0)})}
+ else{for(let k=stMonth(m,START),i=0;left>0&&i<600;k=pmo(k,1),i++){const a=Math.min(fee,left);out[k]=a;left-=a}}
+ _ac.set(key,out);return out}
+const paid=(m,k)=>allocOf(m)[k]||0;
+const inM=k=>M.reduce((t,m)=>t+paid(m,k),0);
+const outM=k=>E.filter(e=>(e.date||'').slice(0,7)===k).reduce((a,e)=>a+(+e.amt||0),0);
+const bdg=(t,c)=>`<span class="bd ${c||''}">${t}</span>`;
+const chg=(a,b,inv)=>{if(!b)return bdg('—','n');const p=Math.round((a-b)/b*100);return bdg((p>0?'+':'')+p+'%',(inv?p>0:p<0)?'r':'')};
+const sc=(i,l,v,s,b,dk,x)=>`<div class="card sc${dk?' dk':''}"><div class="top"><span class="ib">${ic(i)}</span>${b}</div><div class="lb">${l}</div><div class="big">${v}</div><div class="ss">${s}</div>${x||''}</div>`;
+function chart(mo){const mw=(document.querySelector('main')||{}).clientWidth||360,colw=innerWidth>=1100?mw-376:mw,W=Math.max(300,Math.min(900,Math.round(colw-42))),wide=W>=520,x0=wide?48:40,H=wide?200:150,y0=H+30,gw=(W-x0-6)/6,bw=wide?24:13,
+ f0=pmo(mo,-5),f1=f0<START?START:f0,ks=[0,1,2,3,4,5].map(d=>pmo(f1,d)),a=ks.map(inM),b=ks.map(outM),mx=Math.max(1,...a,...b),st=Math.pow(10,Math.floor(Math.log10(mx)));
+ let top=Math.ceil(mx/st)*st;if(top/st<3)top=Math.ceil(mx/(st/2))*(st/2);let s=`<svg viewBox="0 0 ${W} ${y0+26}" width="100%" role="img" aria-label="Last 6 moser chada ar khoroch-er bar chart">`;
+ for(let i=0;i<=4;i++){const v=top*i/4,y=y0-H*i/4;s+=`<g class="cgrid"><line x1="${x0}" x2="${W}" y1="${y}" y2="${y}" stroke="var(--bd)"/><text x="${x0-8}" y="${y+4}" text-anchor="end" fill="var(--mu)" font-size="11">${v>=1000?(v/1000)+'K':v}</text></g>`}
+ const pts=[];
+ ks.forEach((k,i)=>{const gx=x0+i*gw+(gw-2*bw-4)/2;[[a[i],'var(--g2)'],[b[i],'var(--bl)']].forEach(([v,c],j)=>{const h=v?Math.max(8,H*v/top):0;if(j===0&&v)pts.push([gx+bw/2,y0-h]);s+=`<rect class="cbar" style="--i:${i*2+j}" x="${gx+j*(bw+4)}" y="${y0-h}" width="${bw}" height="${h}" rx="3" fill="${c}"><title>${ml(k)}: ${tk(v)}</title></rect>`});s+=`<text x="${gx+bw+2}" y="${y0+20}" text-anchor="middle" fill="var(--mu)" font-size="11">${ml(k)}</text>`});
+ if(pts.length>1){let d='M'+pts[0][0]+' '+pts[0][1];for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2,c1=[p1[0]+(p2[0]-p0[0])/6,Math.min(y0,p1[1]+(p2[1]-p0[1])/6)],c2=[p2[0]-(p3[0]-p1[0])/6,Math.min(y0,p2[1]-(p3[1]-p1[1])/6)];d+=`C${c1[0]} ${c1[1]} ${c2[0]} ${c2[1]} ${p2[0]} ${p2[1]}`}
+  s+=`<path class="cline" d="${d}" pathLength="1" fill="none" stroke="var(--g1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>`+pts.map((p,i)=>`<circle class="cdot" style="--i:${i}" cx="${p[0]}" cy="${p[1]}" r="3.5" fill="var(--cd)" stroke="var(--g1)" stroke-width="2"/>`).join('')}
+ return s+'</svg>'}
+function pie(c){const t=c[0]+c[1]+c[2],cols=['var(--cok)','var(--cwn)','var(--cbd)'],o='<svg viewBox="0 0 200 200" role="img" aria-label="Collection status pie chart" style="width:100%;max-width:190px;display:block;margin:0 auto 14px">';
+ if(!t)return o+'<circle cx="100" cy="100" r="90" fill="var(--ic)"/></svg>';
+ let a=-Math.PI/2,s=o+'<defs><mask id="pmk" maskUnits="userSpaceOnUse" x="0" y="0" width="200" height="200"><circle class="pm-c" cx="100" cy="100" r="45" fill="none" stroke="#fff" stroke-width="92" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" transform="rotate(-90 100 100)"/></mask></defs><g mask="url(#pmk)">';c.forEach((n,i)=>{if(!n)return;const f=n/t;if(f>.999){s+=`<circle cx="100" cy="100" r="90" fill="${cols[i]}"/>`;return}
+ const b=a+f*2*Math.PI,p=x=>[100+90*Math.cos(x),100+90*Math.sin(x)],[x1,y1]=p(a),[x2,y2]=p(b);
+ s+=`<path d="M100 100L${x1} ${y1}A90 90 0 ${f>.5?1:0} 1 ${x2} ${y2}Z" fill="${cols[i]}" stroke="var(--cd)" stroke-width="2"/>`;a=b});return s+'</g><circle cx="100" cy="100" r="58" fill="var(--cd)"/><text x="100" y="102" text-anchor="middle" font-size="30" font-weight="700" fill="var(--tx)" data-cu="'+t+'" data-plain="1">'+t+'</text><text x="100" y="122" text-anchor="middle" font-size="12" fill="var(--mu)">Members</text></svg>'}
+const cu=n=>`<span data-cu="${Math.round(n)}">${tk(n)}</span>`,cuN=n=>`<span data-cu="${n}" data-plain="1">${n}</span>`;
+const RM=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;let _pt=0;
+function runCountUp(){if(RM)return;const els=[...$('sdash').querySelectorAll('[data-cu]')];if(!els.length)return;
+ const fmt=(el,v)=>el.dataset.plain?L(String(Math.round(v))):tk(v),t0=performance.now(),DUR=1000;
+ els.forEach(el=>{el.dataset.final=el.textContent;el.textContent=fmt(el,0)});
+ const step=now=>{const p=Math.min(1,(now-t0)/DUR),e=1-Math.pow(1-p,4);els.forEach(el=>{if(el.isConnected)el.textContent=p>=1?el.dataset.final:fmt(el,(+el.dataset.cu)*e)});if(p<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+function playDash(){const d=$('sdash');if(!d)return;d.classList.remove('play');void d.offsetWidth;d.classList.add('play');runCountUp();clearTimeout(_pt);_pt=setTimeout(()=>d.classList.remove('play'),2200)}
+let _sk=0;const spark=(v,c)=>{if(v.length<2)return '';const id='sk'+(++_sk),mx=Math.max(...v),mn=Math.min(...v),r=(mx-mn)||1,pts=v.map((y,i)=>[4+i*(192/(v.length-1)),34-((y-mn)/r)*28]);
+ let d='M'+pts[0][0]+' '+pts[0][1];for(let i=0;i<pts.length-1;i++){const p0=pts[i-1]||pts[i],p1=pts[i],p2=pts[i+1],p3=pts[i+2]||p2;d+=`C${p1[0]+(p2[0]-p0[0])/6} ${p1[1]+(p2[1]-p0[1])/6} ${p2[0]-(p3[0]-p1[0])/6} ${p2[1]-(p3[1]-p1[1])/6} ${p2[0]} ${p2[1]}`}
+ const L=pts[pts.length-1];
+ return `<div class="sparkw" style="color:${c}"><svg viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><defs><mask id="${id}" maskUnits="userSpaceOnUse" x="-5" y="-5" width="210" height="50"><rect class="sp-r" x="-5" y="-5" width="210" height="50" fill="#fff"/></mask></defs><path d="${d}" mask="url(#${id})" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/></svg><i class="sdot" style="left:${L[0]/2}%;top:${L[1]/40*100}%"></i></div>`};
+const lastMonths=mo=>{const f=pmo(mo,-5),a=f<START?START:f,o=[];for(let k=a;k<=mo&&o.length<6;k=pmo(k,1))o.push(k);return o};
+function render(){
+ const mo=cur(),pv=pmo(mo,-1),exp=M.reduce((a,m)=>a+need(m),0),coll=inM(mo),mout=outM(mo);
+ const upTo=a=>a.filter(x=>(x.date||'').slice(0,7)<=mo),Pm=upTo(P),Dm=upTo(D),Em=upTo(E);
+ const din=Dm.reduce((a,d)=>a+(+d.amt||0),0),tin=Pm.reduce((a,p)=>a+(+p.amt||0),0)+din,tout=Em.reduce((a,e)=>a+(+e.amt||0),0);
+ const act=M.filter(m=>need(m)>0),cnt=[0,0,0];
+ act.forEach(m=>{const p=paid(m,mo);cnt[p>=need(m)?0:p>0?1:2]++});
+ const dueN=cnt[1]+cnt[2],rate=exp?Math.round(coll/exp*100):0;
+ const tops=M.map(m=>({m,t:Pm.filter(p=>p.mid===m.id).reduce((a,p)=>a+(+p.amt||0),0)})).filter(x=>x.t>0).sort((a,b)=>b.t-a.t).slice(0,5);
+ const tm=tops[0]?tops[0].t:1,tot=cnt[0]+cnt[1]+cnt[2];
+ const lg=[['Poora joma',cnt[0],'var(--cok)'],['Ongshik',cnt[1],'var(--cwn)'],['Baki',cnt[2],'var(--cbd)']];
+ $('sdash').innerHTML=(M.length?'':'<div class="card emp"><h2>Shuru korun</h2><p class="sub">Hishab dekhte prothome member jog korun.</p>'+(canW?'<button class="btn" data-go="entry">Member jog korun</button>':'')+'</div>')+`<div class="dash"><div><div class="stats">
+ ${sc('cash','Mot Fund (Balance)',cu(tin-tout),'Joma '+tk(tin)+' · Khoroch '+tk(tout),chg(inM(mo),inM(pv)),1,spark(lastMonths(mo).map(k=>P.filter(p=>(p.date||'').slice(0,7)<=k).reduce((t,p)=>t+(+p.amt||0),0)+D.filter(d=>(d.date||'').slice(0,7)<=k).reduce((t,d)=>t+(+d.amt||0),0)-E.filter(e=>(e.date||'').slice(0,7)<=k).reduce((t,e)=>t+(+e.amt||0),0)),'var(--g1)'))}
+ ${sc('exp','Ei mash khoroch',cu(mout),'Ager mash '+tk(outM(pv)),chg(mout,outM(pv),1),0,spark(lastMonths(mo).map(outM),'var(--bl)'))}
+ <div class="card sc"><div class="top"><span class="ib">${ic('mem')}</span>${bdg(rate+'%',rate<50&&exp?'r':'')}</div><div class="lb">Ei mash joma</div><div class="big">${cu(coll)}</div><div class="ss">Lokkho ${tk(exp)}<br>Baki taka ${tk(Math.max(0,exp-coll))}</div><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${Math.min(100,rate)}" style="margin:12px 0 4px"><div style="width:${Math.min(100,rate)}%"></div></div>
+ <div class="dp"><div class="dpi d"><div class="n">${cuN(dueN)}</div><b>Baki</b></div><div class="dpi p"><div class="n">${cuN(cnt[0])}</div><b>Paid</b></div></div></div>
+ <div class="card sc"><div class="top"><span class="ib">${ic('heart')}</span>${chg(donOf(mo),donOf(pv))}</div><div class="lb">Donation</div><div class="big">${cu(donOf(mo))}</div><div class="ss">Total donations ${tk(din)}<br>${Dm.length} donations</div>${spark(lastMonths(mo).map(donOf),'var(--g2)')}</div>
+ </div>
+ <div class="card"><div class="ch"><div><h2>Chada vs Khoroch</h2><p class="sub">Last 6 months</p></div><div class="lg"><span><i style="background:var(--g2)"></i>Joma</span><span><i style="background:var(--bl)"></i>Khoroch</span></div></div>${chart(mo)}</div></div>
+ <div><div class="card"><h2>Collection Status</h2><p class="sub">${mo} · ${act.length} jon member</p>${pie(cnt)}
+ ${lg.map(l=>`<div class="li"><i style="background:${l[2]}"></i><span>${l[0]}</span><b>${l[1]}</b>${bdg(tot?Math.round(l[1]/tot*100)+'%':'0%',l[0]==='Baki'&&l[1]?'r':'')}</div>`).join('')}</div>
+ <div class="card"><h2>Top Contributors</h2><p class="sub">Ses porjonto mot chada</p>
+ ${tops.map(x=>`<div class="li" style="display:block"><div style="display:flex;justify-content:space-between"><span>${esc(x.m.name)}</span><b>${cu(x.t)}</b></div><div class="bar"><div style="width:${Math.round(x.t/tm*100)}%"></div></div></div>`).join('')||'<p class="sub">Ekhono kono chada nai.</p>'}</div></div></div>`;
+ $('mt').textContent=mo+' moser obostha';
+ const q=($('q').value||'').toLowerCase(),srt=[...M].sort((a,b)=>(a.name||'').localeCompare(b.name||'')).filter(m=>((m.name||'')+' '+(m.code||'')).toLowerCase().includes(q));
+ $('mb').innerHTML=srt.map(m=>{const p=paid(m,mo),n=need(m),ok=n>0&&p>=n;let due=0;const [sy,sm]=stMonth(m,mo).split('-').map(Number),[cy,cm]=mo.split('-').map(Number);
+  for(let y=sy,mm=sm;y*12+mm<=cy*12+cm;mm++){if(mm>12){mm=1;y++}due+=Math.max(0,n-paid(m,y+'-'+String(mm).padStart(2,'0')))}
+  return `<tr><td><div class="nm"><i>${esc((m.name||'?')[0].toUpperCase())}</i><div>${esc(m.name)}<div class="lbl">${m.code?`<span class="tag" style="font-weight:700">ID ${m.code}</span> `:''}${esc(m.phone)}</div></div></div></td><td>${tk(n)}</td>
+  <td>${ok?'<span class="tag p">Joma hoyeche</span>':p?`<span class="tag h">${tk(p)} joma</span>`:'<span class="tag d">Baki</span>'}</td><td class="${due?'bad':'ok'}"><b>${tk(due)}</b></td>
+  <td><button class="btn g" data-inv="${m.id}">Invoice</button> ${canW?`<button class="btn g" data-pay="${m.id}">${ok?'+ Aro':'Chada nin'}</button> <button class="btn g" data-edit="${m.id}">Edit</button>`:''}</td></tr>`}).join('')||'<tr><td colspan="5"><div class="emp"><p>Ekhono kono member nai.</p>'+(canW?'<button class="btn" data-go="entry">Prothom member jog korun</button>':'')+'</div></td></tr>';
+ $('eb').innerHTML=[...E].sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(e=>`<tr><td>${esc(e.date)}</td><td>${esc(e.desc)}</td><td><b>${tk(e.amt)}</b></td><td><button class="btn g" data-vou="${e.id}">Voucher</button> ${canW?`<button class="btn g" data-dele="${e.id}" aria-label="Khoroch muchun">✕</button>`:''}</td></tr>`).join('')||'<tr><td colspan="4" class="lbl">Kono khoroch nai.</td></tr>';
+ const nm=Object.fromEntries(M.map(m=>[m.id,m.name])),all=[...P.map(p=>({d:p.date,t:'Chada',b:(nm[p.mid]||'?')+' ('+p.month+')'+(p.method?' · '+p.method:'')+(p.by?' · '+p.by:''),a:+p.amt})),...E.map(e=>({d:e.date,t:'Khoroch',b:e.desc,a:-e.amt})),...D.map(d=>({d:d.date,t:'Donation',b:d.name+(d.by?' · '+d.by:''),a:+d.amt}))].sort((a,b)=>(b.d||'').localeCompare(a.d||''));
+ $('hb').innerHTML=all.map(x=>`<tr><td>${esc(x.d)}</td><td><span class="tag ${x.a<0?'d':'p'}">${x.t}</span></td><td>${esc(x.b)}</td><td class="${x.a<0?'bad':'ok'}"><b>${x.a<0?'-':'+'}${tk(Math.abs(x.a))}</b></td></tr>`).join('')||'<tr><td colspan="4" class="lbl">Kichu nai.</td></tr>';
+ $('pmlist').innerHTML=M.slice().sort((a,b)=>(a.name||'').localeCompare(b.name||'')).map(m=>`<option value="${esc(memLabel(m))}"></option>`).join('');
+ document.querySelectorAll('.admin').forEach(e=>e.style.display=canW?'':'none');$('novw').hidden=canW;
+ $('role').textContent=canW?'Admin access':'View only';$('rolet').textContent=canW?'Apni sob data edit korte parben.':'Shudhu dekha jabe.';
+ $('avn').textContent=canW?'Admin':'Viewer';$('avi').textContent=canW?'A':'V'}
+const DICT={'Dashboard':['Dashboard','ড্যাশবোর্ড'],'Members':['Members','সদস্য'],'Entry Form':['Entry Form','এন্ট্রি ফর্ম'],'Khoroch':['Expenses','খরচ'],'History':['History','ইতিহাস'],'Lenden History':['Transaction History','লেনদেনের ইতিহাস'],
+'tag:Khoroch':['Expense','খরচ'],'tag:Chada':['Contribution','চাঁদা'],'Foundation':['Nirbhorota Foundation','নির্ভরতা ফাউন্ডেশন'],'মানুষের পাশে, মানবতার সাথে':['Beside people, with humanity','মানুষের পাশে, মানবতার সাথে'],'MENU':['Menu','মেনু'],'Language':['Language','ভাষা'],
+'Admin access':['Admin access','অ্যাডমিন অ্যাক্সেস'],'View only':['View only','শুধু দেখা'],'Apni sob data edit korte parben.':['You can edit all data.','আপনি সব তথ্য পরিবর্তন করতে পারবেন।'],'Shudhu dekha jabe.':['View-only access.','শুধু দেখা যাবে।'],'Admin':['Admin','অ্যাডমিন'],'Viewer':['Viewer','দর্শক'],
+'Loading…':['Loading…','লোড হচ্ছে…'],'Shared data chalu korte claude.ai te sign in korun.':['Sign in to claude.ai to enable shared data.','শেয়ার্ড ডেটা চালু করতে claude.ai-তে সাইন ইন করুন।'],'Shared database pawa jacche na.':['Shared database is unavailable.','শেয়ার্ড ডাটাবেস পাওয়া যাচ্ছে না।'],
+'Members & Chada':['Members & Contributions','সদস্য ও চাঁদা'],'Member':['Member','সদস্য'],'Masik chada':['Monthly contribution','মাসিক চাঁদা'],'Ei mash':['This month','এই মাস'],'Mot baki':['Total due','মোট বাকি'],'Joma hoyeche':['Paid','জমা হয়েছে'],'Baki':['Due','বাকি'],'+ Aro':['+ Add more','+ আরও'],'Chada nin':['Collect','চাঁদা নিন'],
+'Ekhono kono member nai.':['No members yet.','এখনো কোনো সদস্য নেই।'],'Prothom member jog korun':['Add the first member','প্রথম সদস্য যোগ করুন'],'Naam khujun':['Search by name','নাম খুঁজুন'],'Member khujun':['Search members','সদস্য খুঁজুন'],
+'১. Notun member':['1. New member','১. নতুন সদস্য'],'২. Chada joma':['2. Record contribution','২. চাঁদা জমা'],'View-only':['View-only','শুধু দেখা'],'Entry korar onumoti shudhu admin-er ache.':['Only admins can add entries.','এন্ট্রি করার অনুমতি শুধু অ্যাডমিনের আছে।'],
+'Member-er tothyo dile dashboard-e jog hoye jabe':['Add a member and they will appear on the dashboard','সদস্যের তথ্য দিলে ড্যাশবোর্ডে যোগ হয়ে যাবে'],'Member-er naam *':['Member name *','সদস্যের নাম *'],'jemon: Rahim Uddin':['e.g. Rahim Uddin','যেমন: রহিম উদ্দিন'],'Phone':['Phone','ফোন'],
+'Masik chada (৳) *':['Monthly contribution (৳) *','মাসিক চাঁদা (৳) *'],'Kon mash theke':['Starting month','কোন মাস থেকে'],'Ekhoni ei moser chada nilam':['Received this month’s contribution now','এখনই এই মাসের চাঁদা নিলাম'],'Member save korun':['Save member','সদস্য সংরক্ষণ করুন'],
+'Member select kore poriman din':['Choose a member and enter the amount','সদস্য বেছে পরিমাণ দিন'],'Kon moser chada':['Contribution month','কোন মাসের চাঁদা'],'Poriman (৳)':['Amount (৳)','পরিমাণ (৳)'],'Tarikh':['Date','তারিখ'],'Kivabe nilen':['Payment method','কীভাবে নিলেন'],'Cash':['Cash','ক্যাশ'],'bKash':['bKash','বিকাশ'],'Nagad':['Nagad','নগদ'],'Bank':['Bank','ব্যাংক'],'Joma korun':['Save contribution','জমা করুন'],'Member beche nin':['Select a member','সদস্য বেছে নিন'],
+'Khoroch jog korun':['Add expense','খরচ যোগ করুন'],'Ki bapare khoroch':['What was it for','কীসের খরচ'],'jemon: Office bhara':['e.g. Office rent','যেমন: অফিস ভাড়া'],'Jog korun':['Add','যোগ করুন'],'Biboron':['Description','বিবরণ'],'Poriman':['Amount','পরিমাণ'],'Kono khoroch nai.':['No expenses yet.','কোনো খরচ নেই।'],
+'Sob chada o khoroch':['All contributions and expenses','সব চাঁদা ও খরচ'],'Dhoron':['Type','ধরন'],'Kichu nai.':['Nothing yet.','কিছু নেই।'],
+'Mot Fund (Balance)':['Total Fund (Balance)','মোট তহবিল (ব্যালেন্স)'],'Ei mash joma':['Collected this month','এই মাসে জমা'],'Ei mash khoroch':['Spent this month','এই মাসে খরচ'],'Baki member':['Members with dues','বাকি সদস্য'],'Follow-up':['Follow up','ফলো-আপ'],'All clear':['All clear','সব ঠিক'],'Chada vs Khoroch':['Contributions vs Expenses','চাঁদা বনাম খরচ'],'Last 6 months':['Last 6 months','গত ৬ মাস'],'Joma':['Collected','জমা'],'Collection Status':['Collection Status','আদায়ের অবস্থা'],'Poora joma':['Fully paid','পুরো জমা'],'Ongshik':['Partial','আংশিক'],'Top Contributors':['Top Contributors','শীর্ষ দাতা'],'Ses porjonto mot chada':['Total contributions to date','এ পর্যন্ত মোট চাঁদা'],'Ekhono kono chada nai.':['No contributions yet.','এখনো কোনো চাঁদা নেই।'],'Shuru korun':['Get started','শুরু করুন'],'Hishab dekhte prothome member jog korun.':['Add a member first to see your accounts.','হিসাব দেখতে প্রথমে সদস্য যোগ করুন।'],'Member jog korun':['Add a member','সদস্য যোগ করুন'],
+'Last 6 moser chada ar khoroch-er bar chart':['Bar chart of contributions and expenses, last 6 months','গত ৬ মাসের চাঁদা ও খরচের বার চার্ট'],'Collection status pie chart':['Collection status pie chart','আদায়ের অবস্থার পাই চার্ট'],'Khoroch muchun':['Delete expense','খরচ মুছুন'],
+'Naam ar masik chada dite hobe':['Please enter a name and monthly amount','নাম ও মাসিক চাঁদার পরিমাণ দিতে হবে'],'Member ar poriman select korun':['Please choose a member and enter the amount','সদস্য ও পরিমাণ দিন'],'Chada joma hoyeche ✔':['Contribution recorded ✔','চাঁদা জমা হয়েছে ✔'],'Biboron ar poriman dite hobe':['Please enter a description and amount','বিবরণ ও পরিমাণ দিতে হবে'],'Ei member muchte chan? (Ager joma-r record thakbe)':['Delete this member? Past payment records are kept.','এই সদস্যকে মুছবেন? আগের জমার রেকর্ড থেকে যাবে।'],'Muchbo?':['Delete this expense?','এই খরচ মুছবেন?']};
+const RX=[[/^Joma (.+) · Khoroch (.+)$/,'Collected $1 · Spent $2','জমা $1 · খরচ $2'],[/^Lokkho (.+)$/,'Target $1','লক্ষ্য $1'],[/^Ager mash (.+)$/,'Last month $1','আগের মাস $1'],[/^Baki taka (.+)$/,'Due amount $1','বাকি টাকা $1'],
+[/^(\d+) jon$/,(m,n)=>n+(n==='1'?' member':' members'),'$1 জন'],[/^(\S+) · (\d+) jon member$/,'$1 · $2 members','$1 · $2 জন সদস্য'],[/^(\S+) moser obostha$/,'Status for $1','$1 মাসের অবস্থা'],[/^(৳\S+) joma$/,'$1 paid','$1 জমা'],[/^(.+) ke muchun$/,'Delete $1','$1 কে মুছুন'],
+[/^(.+) jog hoyeche ✔$/,'$1 added ✔','$1 যোগ হয়েছে ✔'],[/^Save hoyni: (.*)$/,'Could not save: $1','সংরক্ষণ হয়নি: $1'],[/^Delete hoyni: (.*)$/,'Could not delete: $1','মোছা যায়নি: $1'],[/^Data load hoyni: (.*)$/,'Could not load data: $1','ডেটা লোড হয়নি: $1']];
+const BD='০১২৩৪৫৬৭৮৯';
+function L(s,ctx){const i=lang==='bn'?1:0,t=s.trim();if(!t)return s;let r=null;const d=DICT[(ctx||'')+t]||DICT[t];
+ if(d)r=d[i];else for(const x of RX){if(x[0].test(t)){r=t.replace(x[0],x[i+1]);break}}
+ if(r===null)r=t;if(lang==='bn')r=r.replace(/\d/g,c=>BD[c]);return s.replace(t,()=>r)}
+function localize(){document.documentElement.lang=lang;document.title=lang==='bn'?'নির্ভরতা ফাউন্ডেশন':'Nirbhorota Foundation';
+ $('dt').textContent=new Date().toLocaleDateString(lang==='bn'?'bn-BD':'en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+ document.documentElement.style.setProperty('--l1',lang==='bn'?'"মাসিক: "':'"Monthly: "');document.documentElement.style.setProperty('--l2',lang==='bn'?'"বাকি: "':'"Due: "');
+ document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang));
+ const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),ns=[];let n;while(n=w.nextNode())ns.push(n);
+ ns.forEach(n=>{const p=n.parentElement;if(!p||/^(SCRIPT|STYLE)$/.test(p.tagName))return;if(n._o===undefined)n._o=n.nodeValue;n.nodeValue=L(n._o,p.classList.contains('tag')?'tag:':'')});
+ document.querySelectorAll('[placeholder],[aria-label]').forEach(e=>['placeholder','aria-label'].forEach(a=>{if(!e.hasAttribute(a))return;const k='_o'+a;if(e[k]===undefined)e[k]=e.getAttribute(a);e.setAttribute(a,L(e[k]))}))}
+$('mlogo').src=document.querySelector('.logo img').src;{const fl=document.createElement('link');fl.rel='icon';fl.href=document.querySelector('.logo img').src;document.head.appendChild(fl)}{const bl=$('bootlogo');bl.onload=()=>bl.classList.add('on');bl.src=document.querySelector('.logo img').src}
+const _r=render;render=function(){_r();byRefresh();tagDash();donRender();if(V==='inv')invRender();ppvRender();sheetRender();fpvRender();localize()};
+const _cf=window.confirm.bind(window);window.confirm=m=>_cf(L(String(m)));
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('lang',lang)}catch(e){}render()});
+Object.assign(DICT,{'Continue with Google':['Continue with Google','Google দিয়ে চালিয়ে যান'],'Secure sign-in with Google':['Secure sign-in with Google','Google দিয়ে নিরাপদ সাইন ইন'],'Hello!':['Hello!','স্বাগতম!'],'Welcome to Nirbhorota Foundation':['Welcome to Nirbhorota Foundation','নির্ভরতা ফাউন্ডেশনে স্বাগতম'],'Login':['Login','লগইন'],'Sign up':['Sign up','সাইন আপ'],'Requests':['Requests','অনুরোধ'],'Close':['Close','বন্ধ করুন'],
+'Sign in with your Google account to open the foundation accounts.':['Sign in with your Google account to open the foundation accounts.','ফাউন্ডেশনের হিসাব খুলতে আপনার Google অ্যাকাউন্টে সাইন ইন করুন।'],
+'You are signed in.':['You are signed in.','আপনি সাইন ইন করা আছেন।'],'Role: Admin. You can add and edit data.':['Role: Admin. You can add and edit data.','ভূমিকা: অ্যাডমিন। আপনি তথ্য যোগ ও সম্পাদনা করতে পারবেন।'],'Role: Viewer. You can only view data.':['Role: Viewer. You can only view data.','ভূমিকা: দর্শক। আপনি শুধু তথ্য দেখতে পারবেন।'],'Continue':['Continue','চালিয়ে যান'],'Open dashboard':['Open dashboard','ড্যাশবোর্ড খুলুন'],
+'Only approved admins can add or edit data. Send a request and the foundation owner will review it.':['Only approved admins can add or edit data. Send a request and the foundation owner will review it.','শুধু অনুমোদিত অ্যাডমিনরা তথ্য যোগ বা সম্পাদনা করতে পারেন। অনুরোধ পাঠান, ফাউন্ডেশনের মালিক দেখে সিদ্ধান্ত নেবেন।'],'Please log in first, then request admin access.':['Please log in first, then request admin access.','আগে লগইন করুন, তারপর অ্যাডমিন অ্যাক্সেসের অনুরোধ করুন।'],
+'Full name *':['Full name *','পুরো নাম *'],'Message (optional)':['Message (optional)','বার্তা (ঐচ্ছিক)'],'Send request':['Send request','অনুরোধ পাঠান'],'Request sent. Waiting for approval.':['Request sent. Waiting for approval.','অনুরোধ পাঠানো হয়েছে। অনুমোদনের অপেক্ষায়।'],
+'Approved. Reload the page to get admin access.':['Approved. Reload the page to get admin access.','অনুমোদিত। অ্যাডমিন অ্যাক্সেস পেতে পেজটি রিলোড করুন।'],'Request declined.':['Request declined.','অনুরোধ প্রত্যাখ্যাত হয়েছে।'],
+'Approved':['Approved','অনুমোদিত'],'Declined':['Declined','প্রত্যাখ্যাত'],'Pending':['Pending','অপেক্ষমাণ'],'Approve':['Approve','অনুমোদন'],'Decline':['Decline','প্রত্যাখ্যান'],'No requests yet.':['No requests yet.','এখনো কোনো অনুরোধ নেই।'],
+'Approving a request gives that person admin access. Decline removes it.':['Approving a request gives that person admin access. Decline removes it.','অনুরোধ অনুমোদন দিলে ওই ব্যক্তি অ্যাডমিন অ্যাক্সেস পাবেন। প্রত্যাখ্যান করলে অ্যাক্সেস সরে যাবে।'],
+'Access requests':['Access requests','অ্যাক্সেস অনুরোধ'],'Request admin access':['Request admin access','অ্যাডমিন অ্যাক্সেসের অনুরোধ'],'Please enter your full name':['Please enter your full name','আপনার পুরো নাম দিন'],'Request sent ✔':['Request sent ✔','অনুরোধ পাঠানো হয়েছে ✔']});
+RX.push([/^Access requests \((\d+)\)$/,'Access requests ($1)','অ্যাক্সেস অনুরোধ ($1)'],[/^Could not save: (.*)$/,'Could not save: $1','সংরক্ষণ হয়নি: $1']);
+const GICON='<svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 019.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 000 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>';
+let ME=null,myId=null,role='out',REQ=[],myReq=null,gtab='login';
+function openGate(t){gtab=t;$('gate').hidden=false;gateRender();localize()}
+function accBtn(){const b=$('acc');b.hidden=role==='out';b.dataset.n=role==='admin'?REQ.filter(r=>r.status==='pending').length:0;b.setAttribute('aria-label',L(role==='admin'?'Access requests':'Request admin access'))}
+function gateRender(){if(gtab==='signup'&&role==='admin')gtab='login';if((gtab==='req'||gtab==='act')&&role!=='admin')gtab='login';
+ $('gtr').hidden=role!=='admin';$('gta').hidden=role!=='admin';$('gl-bk').hidden=role!=='admin';document.querySelector('[data-g=signup]').hidden=role==='admin';
+ document.querySelectorAll('.gt button').forEach(b=>b.classList.toggle('on',b.dataset.g===gtab));['login','signup','req','act'].forEach(k=>$('g-'+k).hidden=k!==gtab);
+ $('gx').hidden=role==='out';$('gl-t').textContent=role==='out'?'Sign in with your Google account to open the foundation accounts.':'You are signed in.';
+ $('gl-who').textContent=role==='out'?'':role==='admin'?'Role: Admin. You can add and edit data.':'Role: Viewer. You can only view data.';{const gb=$('gl-b');gb.classList.toggle('goog',role==='out');gb.innerHTML=role==='out'?GICON+'<span>Continue with Google</span>':'<span>Open dashboard</span>';$('gsec').hidden=role!=='out'};
+ const has=role!=='out';$('gs-t').textContent=has?'Only approved admins can add or edit data. Send a request and the foundation owner will review it.':'Please log in first, then request admin access.';
+ $('gs-f').hidden=!has||!!myReq;const st=myReq?myReq.status:'';$('gs-s').textContent=st==='pending'?'Request sent. Waiting for approval.':st==='approved'?'Approved. Reload the page to get admin access.':st==='declined'?'Request declined.':'';$('gs-s').hidden=!st;reqRender();actRender()}
+async function reqRender(){const el=$('rq');if(role!=='admin'){el.innerHTML='';localize();return}
+ const rs=[...REQ].sort((a,b)=>(b.at||'').localeCompare(a.at||''));let pf={};try{pf=await ME.profiles(rs.map(r=>r.id))}catch(e){}
+ el.innerHTML=rs.map(r=>{const p=pf[r.id]||{},c=r.status==='approved'?'p':r.status==='declined'?'d':'h';return `<div class="card" style="box-shadow:none;border:1px solid var(--bd);margin-bottom:10px;padding:14px"><b>${esc(r.name)}</b> <span class="tag ${c}">${r.status==='approved'?'Approved':r.status==='declined'?'Declined':'Pending'}</span><div class="lbl">${esc(p.email||'')} ${esc(r.phone||'')}</div>${r.msg?`<p style="margin:6px 0">${esc(r.msg)}</p>`:''}<div class="row" style="margin:8px 0 0"><button class="btn g" data-rs="approved" data-id="${r.id}">Approve</button><button class="btn g" data-rs="declined" data-id="${r.id}">Decline</button></div></div>`}).join('')||'<p class="sub">No requests yet.</p>';localize()}
+function access(){accBtn();if(role==='admin')db.collection('activity').onSnapshot(s=>{ACT=s.docs.map(d=>({id:d.id,...d.data()}));if(!$('gate').hidden)gateRender()},()=>{});if(role==='admin')db.collection('requests').onSnapshot(s=>{REQ=s.docs.map(d=>({id:d.id,...d.data()}));accBtn();if(!$('gate').hidden)gateRender();localize()},()=>{});
+ else if(myId)db.doc('requests/'+myId).onSnapshot(s=>{myReq=s.exists?s.data():null;if(!$('gate').hidden)gateRender()},()=>{})}
+$('glogo').src=document.querySelector('.logo img').src;
+$('acc').onclick=()=>openGate(role==='admin'?'req':'signup');$('gx').onclick=()=>{$('gate').hidden=true};
+$('gl-b').onclick=()=>{if(role==='out')location.reload();else $('gate').hidden=true};
+document.querySelectorAll('.gt button').forEach(b=>b.onclick=()=>{gtab=b.dataset.g;gateRender();localize()});
+$('rs').onclick=async()=>{const n=$('rn').value.trim();if(!n)return alert('Please enter your full name');if(!myId||!db)return;
+ try{await db.doc('requests/'+myId).set({name:n,phone:$('rp').value.trim(),msg:$('rm').value.trim(),status:'pending',at:new Date().toISOString()});alert('Request sent ✔')}catch(e){alert('Could not save: '+(e.message||e.code))}};
+$('rq').onclick=async e=>{const b=e.target.closest('[data-rs]');if(!b)return;try{await db.doc('requests/'+b.dataset.id).update({status:b.dataset.rs})}catch(x){alert('Could not save: '+(x.message||x.code))}};
+const TT={dash:'Nirbhorota Foundation',mem:'Members',entry:'Entry Form',exp:'Khoroch',hist:'Lenden History',inv:'Invoice'};
+document.querySelectorAll('.nv').forEach(b=>b.onclick=()=>{V=b.dataset.v;document.querySelectorAll('.nv').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-current',x===b?'page':'false')});
+ Object.keys(TT).forEach(k=>$('s'+k).hidden=k!==V);$('ttl').textContent=TT[V];localize();scrollTo(0,0);if(V==='dash')playDash()});
+document.querySelectorAll('.et').forEach(b=>b.onclick=()=>{document.querySelectorAll('.et').forEach(x=>x.classList.toggle('on',x===b));$('fm').hidden=b.dataset.f!=='fm';$('fc').hidden=b.dataset.f!=='fc';$('fd').hidden=b.dataset.f!=='fd'});
+Object.assign(DICT,{'Invoice':['Invoice','ইনভয়েস'],'Invoices':['Invoices','ইনভয়েস'],'INVOICE':['INVOICE','ইনভয়েস'],'MONTHLY STATEMENT':['MONTHLY STATEMENT','মাসিক বিবরণী'],'Statement':['Statement','বিবরণী'],'All invoices':['All invoices','সব ইনভয়েস'],'Due only':['Due only','শুধু বাকি'],'Member invoice':['Member invoice','সদস্যের ইনভয়েস'],'Back':['Back','ফিরে যান'],'Print / Save as PDF':['Print / Save as PDF','প্রিন্ট / PDF সংরক্ষণ'],'Download CSV':['Download CSV','CSV ডাউনলোড'],'Download file':['Download file','ফাইল ডাউনলোড'],'Billed to':['Billed to','প্রাপক'],'Description':['Description','বিবরণ'],'Amount':['Amount','পরিমাণ'],'Monthly contribution':['Monthly contribution','মাসিক চাঁদা'],'Previous dues':['Previous dues','আগের বাকি'],'Paid this month':['Paid this month','এই মাসে জমা'],'Balance due':['Balance due','মোট বাকি'],'Thank you for your support.':['Thank you for your support.','আপনার সহযোগিতার জন্য ধন্যবাদ।'],'Sakhipur, Tangail':['Sakhipur, Tangail','সখিপুর, টাঙ্গাইল'],'Nirbhorota Foundation':['Nirbhorota Foundation','নির্ভরতা ফাউন্ডেশন'],'Date:':['Date:','তারিখ:'],'No:':['No:','নং:'],'PAID':['PAID','পরিশোধিত'],'DUE':['DUE','বাকি'],'Paid':['Paid','জমা হয়েছে'],'Partial':['Partial','আংশিক'],'Due':['Due','বাকি'],'Monthly':['Monthly','মাসিক'],'Due (month)':['Due (month)','বাকি (এই মাস)'],'Total due':['Total due','মোট বাকি'],'Status':['Status','অবস্থা'],'Collected':['Collected','জমা'],'Expenses':['Expenses','খরচ'],'Net this month':['Net this month','এই মাসের নিট'],'Total':['Total','মোট'],'No members yet.':['No members yet.','এখনো কোনো সদস্য নেই।'],'Member not found for this month.':['Member not found for this month.','এই মাসের জন্য সদস্য পাওয়া যায়নি।'],'No invoices for this selection.':['No invoices for this selection.','এই নির্বাচনে কোনো ইনভয়েস নেই।'],'Printing is not available here. Use PDF instead.':['Printing is not available here. Use PDF instead.','এখানে প্রিন্ট করা যাচ্ছে না। বদলে PDF ডাউনলোড করুন।'],'Download is not available here.':['Download is not available here.','এখানে ডাউনলোড করা যাচ্ছে না।'],'Download failed.':['Download failed.','ডাউনলোড হয়নি।']});
+const LOGO=document.querySelector('.logo img').src;
+const INVCSS='.iv{background:#fff;color:#111;border:1px solid #ddd;border-radius:14px;padding:20px;margin:0 0 14px;font:14px/1.5 system-ui,"Noto Sans Bengali",sans-serif;page-break-after:always}.ih{display:flex;gap:14px;align-items:center;border-bottom:2px solid #1a5c2e;padding-bottom:14px;margin-bottom:16px}.ih img{border-radius:50%}.ih b{font-size:18px;color:#1a5c2e}.ir{margin-left:auto;text-align:right}.ir h3{margin:0;font-size:22px;color:#1a5c2e}.iv table{width:100%;border-collapse:collapse;margin:10px 0}.iv th,.iv td{text-align:left;padding:7px 8px;border-bottom:1px solid #e3e3e3;white-space:normal;font-size:13px}.iv th{background:#f1f5f2;color:#333}.iv .r{text-align:right}.iv tr.t td{font-weight:800;font-size:15px;border-top:2px solid #1a5c2e}.st{display:inline-block;border:3px solid;border-radius:10px;padding:4px 16px;font-weight:800;font-size:20px;transform:rotate(-6deg);margin:8px 0}.st.p{color:#1a7f37}.st.d{color:#c62828}.iv small{color:#555}.sm{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-top:12px}.sm div{background:#f1f5f2;border-radius:10px;padding:10px}.sm b{display:block;font-size:16px}.idbox{text-align:center;border:2px dashed #1a5c2e;border-radius:12px;padding:12px;margin:14px 0}.idn2{font-size:40px;font-weight:800;letter-spacing:.18em;color:#1a5c2e;line-height:1.2}.sg{display:flex;gap:30px;margin-top:34px}.sg div{flex:1;text-align:center}.sg span{display:block;border-top:1px solid #333;margin-bottom:4px}';
+const stl=document.createElement('style');stl.textContent=INVCSS+'@media print{body{background:#fff}.app>aside,.hd,#note,#toast,#gate,.noprint,.ivt{display:none!important}.app{display:block;padding:0}main>section{display:none}#sinv{display:block!important}.iv{border:0;border-radius:0;padding:0}}';document.head.appendChild(stl);
+const mlong=k=>new Date(k+'-01T00:00').toLocaleDateString(lang==='bn'?'bn-BD':'en-GB',{month:'long',year:'numeric'});
+let ivMode='stmt',ivMem=null;
+const billMem=mo=>M.filter(m=>stMonth(m,mo)<=mo).sort((a,b)=>String(a.id).localeCompare(String(b.id)));
+function dueInfo(m,mo){const n=need(m),p=paid(m,mo),md=Math.max(0,n-p);let tot=0;const [sy,sm]=stMonth(m,mo).split('-').map(Number),[cy,cm]=mo.split('-').map(Number);for(let y=sy,mm=sm;y*12+mm<=cy*12+cm;mm++){if(mm>12){mm=1;y++}tot+=Math.max(0,n-paid(m,y+'-'+String(mm).padStart(2,'0')))}return{n,p,md,prev:Math.max(0,tot-md),tot}}
+const ivHead=(t,no,mo)=>`<div class="ih"><img src="${LOGO}" width="56" height="56" alt=""><div><b>Nirbhorota Foundation</b><br><small>Sakhipur, Tangail</small></div><div class="ir"><h3>${t}</h3>${no?`<div><small>No:</small> ${no}</div>`:''}<div><small>${mo}</small></div><div><small>Date:</small> ${today}</div></div></div>`;
+function memInv(m,mo,i){const d=dueInfo(m,mo),no='INV-'+mo.replace('-','')+'-'+String(i+1).padStart(3,'0'),ok=d.tot<=0;
+ return `<div class="iv">${ivHead('INVOICE',no,mlong(mo))}<p><small>Billed to</small><br><b>${esc(m.name)}</b>${m.phone?'<br>'+esc(m.phone):''}${m.code?'<br><small>ID:</small> '+m.code:''}</p><table><thead><tr><th>Description</th><th class="r">Amount</th></tr></thead><tbody><tr><td>Monthly contribution</td><td class="r">${tk(d.n)}</td></tr>${d.prev?`<tr><td>Previous dues</td><td class="r">${tk(d.prev)}</td></tr>`:''}<tr><td>Paid this month</td><td class="r">-${tk(d.p)}</td></tr><tr class="t"><td>Balance due</td><td class="r">${tk(d.tot)}</td></tr></tbody></table>${monthsBlock(m,mo)}<span class="st ${ok?'p':'d'}">${ok?'PAID':'DUE'}</span><p><small>Thank you for your support.</small></p></div>`}
+function stmtHTML(mo){const T={n:0,p:0,md:0,prev:0,tot:0};const rows=billMem(mo).map((m,i)=>{const d=dueInfo(m,mo);for(const k in T)T[k]+=d[k];return `<tr><td>${i+1}</td><td>${esc(m.name)}${m.code?`<br><small>ID ${m.code}</small>`:''}${mpRanges(m)}</td><td class="r hm">${tk(d.n)}</td><td class="r">${tk(d.p)}</td><td class="r hm">${tk(d.md)}</td><td class="r hm">${tk(d.prev)}</td><td class="r"><b>${tk(d.tot)}</b></td><td>${d.n>0&&d.p>=d.n?'Paid':d.p?'Partial':'Due'}</td></tr>`}).join('');
+ return `<div class="iv">${ivHead('MONTHLY STATEMENT','',mlong(mo))}<div class="tw"><table><thead><tr><th>#</th><th>Member</th><th class="r hm">Monthly</th><th class="r">Paid</th><th class="r hm">Due (month)</th><th class="r hm">Previous dues</th><th class="r">Total due</th><th>Status</th></tr></thead><tbody>${rows||'<tr><td colspan="8">No members yet.</td></tr>'}</tbody><tfoot><tr class="t"><td></td><td>Total</td><td class="r hm">${tk(T.n)}</td><td class="r">${tk(T.p)}</td><td class="r hm">${tk(T.md)}</td><td class="r hm">${tk(T.prev)}</td><td class="r">${tk(T.tot)}</td><td></td></tr></tfoot></table></div><div class="sm"><div><small>Collected</small><b>${tk(inM(mo))}</b></div><div><small>Expenses</small><b>${tk(outM(mo))}</b></div><div><small>Net this month</small><b>${tk(inM(mo)-outM(mo))}</b></div><div><small>Total due</small><b>${tk(T.tot)}</b></div></div></div>`}
+function invRender(){const mo=cur(),ms=billMem(mo);$('invm').textContent=mlong(mo);$('ivm').hidden=ivMode!=='member';const multi=ivMode==='all'||ivMode==='due';$('ivjpg').hidden=multi;$('ivpdf').textContent=multi?'All as PDF':'PDF';$('ivw').hidden=!(ivMode==='member'||ivMode==='welcome');$('ivr').hidden=ivMode!=='receipt';$('ivv').hidden=ivMode!=='voucher';$('ivd').hidden=ivMode!=='donation';document.querySelectorAll('.gt2 button[data-i=stmt],.gt2 button[data-i=exp],.gt2 button[data-i=don],.gt2 button[data-i=all],.gt2 button[data-i=due]').forEach(b=>b.hidden=ivMode==='welcome'||ivMode==='receipt'||ivMode==='voucher'||ivMode==='member'||ivMode==='donation');
+ document.querySelectorAll('.gt2 button').forEach(b=>b.classList.toggle('on',b.dataset.i===ivMode));let h='';
+ if(ivMode==='stmt')h=stmtHTML(mo);else if(ivMode==='donation')h=donationHTML();else if(ivMode==='don')h=donRepHTML(mo);else if(ivMode==='voucher')h=voucherHTML();else if(ivMode==='exp')h=expRepHTML(mo);else if(ivMode==='receipt')h=receiptHTML();else if(ivMode==='welcome')h=welcomeHTML();else if(ivMode==='member'){const i=ms.findIndex(m=>m.id===ivMem);h=i<0?'<div class="card"><p class="sub">Member not found for this month.</p></div>':memInv(ms[i],mo,i)}
+ else{h=ms.map((m,i)=>[m,i]).filter(([m])=>ivMode==='all'||dueInfo(m,mo).tot>0).map(([m,i],j)=>`<div class="ivw"><div class="ivt"><b>${esc(m.name)}${m.code?' · '+esc(m.code):''}</b><span><button class="btn g" data-ij="${j}" data-c="${esc(m.code||'')}">JPEG</button><button class="btn g" data-ip="${j}" data-c="${esc(m.code||'')}">PDF</button></span></div>${memInv(m,mo,i)}</div>`).join('')||'<div class="card"><p class="sub">No invoices for this selection.</p></div>'}
+ $('invpaper').innerHTML=h}
+function showInv(mode,id){ivMode=mode;ivMem=id||null;V='inv';Object.keys(TT).forEach(k=>$('s'+k).hidden=k!=='inv');$('ttl').textContent=TT.inv;document.querySelectorAll('.nv').forEach(x=>{x.classList.remove('on');x.setAttribute('aria-current','false')});invRender();localize();scrollTo(0,0)}
+$('ivopen').onclick=()=>showInv('stmt');$('ivback').onclick=()=>{const m0=ivMode;document.querySelector('.nv[data-v='+({welcome:'entry',receipt:'entry',voucher:'exp',exp:'exp',donation:'hist',don:'hist'}[m0]||'mem')+']').click();if(m0==='donation'||m0==='don')document.querySelector('.ht2 [data-h=dn]').click()};
+document.querySelectorAll('.gt2 button').forEach(b=>b.onclick=()=>{ivMode=b.dataset.i;invRender();localize()});
+$('ivprint').onclick=()=>{try{window.print()}catch(e){alert('Printing is not available here. Use PDF instead.')}};
+async function dl(name,data){try{const d=await claude.use('downloads');if(!d)return alert('Download is not available here.');await d.save({filename:name,data});return true}catch(e){if(!(e&&e.code==='declined'))alert('Download failed.');return false}}
+Object.assign(DICT,{'Print':['Print','প্রিন্ট'],'PDF':['PDF','PDF'],'CSV':['CSV','CSV'],'Preparing PDF…':['Preparing PDF…','PDF তৈরি হচ্ছে…'],'PDF downloaded ✔':['PDF downloaded ✔','PDF ডাউনলোড হয়েছে ✔'],'Could not create the PDF.':['Could not create the PDF.','PDF তৈরি করা যায়নি।']});
+const loadJS=src=>new Promise((res,rej)=>{if(document.querySelector('script[src="'+src+'"]'))return res();const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=rej;document.head.appendChild(s)});
+const H2C='https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js',JSP='https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js';
+let lastExpense=null;const expNo=e=>'EXP-'+String(e.date||'').replace(/-/g,'')+'-'+String(e.id).slice(-4).toUpperCase();
+Object.assign(DICT,{'EXPENSE VOUCHER':['EXPENSE VOUCHER','খরচের ভাউচার'],'Expense voucher':['Expense voucher','খরচের ভাউচার'],'EXPENSE STATEMENT':['EXPENSE STATEMENT','মাসিক খরচের বিবরণী'],'Expenses this month':['Expenses this month','এই মাসের খরচ'],'Fund balance after':['Fund balance after','খরচের পরে তহবিল'],'Prepared by':['Prepared by','প্রস্তুতকারক'],'Approved by':['Approved by','অনুমোদনকারী'],'Date':['Date','তারিখ'],'No expenses yet.':['No expenses yet.','কোনো খরচ নেই।'],'Voucher':['Voucher','ভাউচার'],'Expense recorded ✔':['Expense recorded ✔','খরচ সংরক্ষিত হয়েছে ✔'],'JPEG':['JPEG','JPEG'],'Preparing JPEG…':['Preparing JPEG…','JPEG তৈরি হচ্ছে…'],'JPEG downloaded ✔':['JPEG downloaded ✔','JPEG ডাউনলোড হয়েছে ✔'],'Could not create the JPEG.':['Could not create the JPEG.','JPEG তৈরি করা যায়নি।']});
+function voucherHTML(){const e=lastExpense;if(!e)return '<div class="card"><p class="sub">Member not found for this month.</p></div>';const mo=e.date.slice(0,7),others=E.filter(x=>x.id!==e.id),
+ mOut=others.filter(x=>(x.date||'').slice(0,7)===mo).reduce((t,x)=>t+(+x.amt||0),0)+e.amt,tin=P.reduce((t,p)=>t+(+p.amt||0),0)+D.reduce((t,d)=>t+(+d.amt||0),0),tout=others.reduce((t,x)=>t+(+x.amt||0),0)+e.amt;
+ return `<div class="iv">${ivHead('EXPENSE VOUCHER',expNo(e),mlong(mo))}<table><thead><tr><th>Description</th><th class="r">Amount</th></tr></thead><tbody><tr><td>${esc(e.desc)}<br><small>Date:</small> ${esc(e.date)}</td><td class="r">${tk(e.amt)}</td></tr><tr class="t"><td>Total</td><td class="r">${tk(e.amt)}</td></tr></tbody></table><div class="sm"><div><small>Expenses this month</small><b>${tk(mOut)}</b></div><div><small>Fund balance after</small><b>${tk(tin-tout)}</b></div></div><div class="sg"><div><span></span><small>Prepared by</small></div><div><span></span><small>Approved by</small></div></div></div>`}
+function expRepHTML(mo){const l=E.filter(e=>(e.date||'').slice(0,7)===mo).sort((a,b)=>(a.date||'').localeCompare(b.date||'')),T=l.reduce((t,e)=>t+(+e.amt||0),0);
+ return `<div class="iv">${ivHead('EXPENSE STATEMENT','',mlong(mo))}<div class="tw"><table><thead><tr><th>#</th><th>Date</th><th>Description</th><th class="r">Amount</th></tr></thead><tbody>${l.map((e,i)=>`<tr><td>${i+1}</td><td>${esc(e.date)}</td><td>${esc(e.desc)}</td><td class="r">${tk(e.amt)}</td></tr>`).join('')||'<tr><td colspan="4">No expenses yet.</td></tr>'}</tbody><tfoot><tr class="t"><td></td><td></td><td>Total</td><td class="r">${tk(T)}</td></tr></tfoot></table></div><div class="sm"><div><small>Collected</small><b>${tk(inM(mo))}</b></div><div><small>Expenses</small><b>${tk(T)}</b></div><div><small>Net this month</small><b>${tk(inM(mo)-T)}</b></div></div></div>`}
+function ivBase(){const mo=cur();if(ivMode==='donation')return 'donation-'+(lastDonation?donNo(lastDonation):mo);if(ivMode==='don')return 'donations-'+mo;if(ivMode==='receipt')return 'receipt-'+(lastReceipt?lastReceipt.code+'-'+lastReceipt.date:mo);if(ivMode==='welcome'){const m=M.find(x=>x.id===ivMem)||lastWelcome;return 'welcome-'+((m&&m.code)||'member')}
+ if(ivMode==='voucher')return 'expense-'+(lastExpense?expNo(lastExpense):mo);if(ivMode==='exp')return 'expenses-'+mo;if(ivMode==='stmt')return 'statement-'+mo;if(ivMode==='member'){const m=M.find(x=>x.id===ivMem);return 'invoice-'+((m&&m.code)||'member')+'-'+mo}return (ivMode==='due'?'due-invoices-':'invoices-')+mo}
+async function ivCapture(el){const ow=el.style.cssText;el.classList.add('pdf');el.style.cssText+=';width:'+((ivMode==='stmt'||ivMode==='exp')?760:620)+'px;max-width:none';el.querySelectorAll('.tw').forEach(t=>t.style.overflow='visible');
+ try{return await html2canvas(el,{scale:2,backgroundColor:'#ffffff'})}finally{el.style.cssText=ow;el.classList.remove('pdf');el.querySelectorAll('.tw').forEach(t=>t.style.overflow='')}}
+Object.assign(DICT,{'All as PDF':['All as PDF','সব একসাথে PDF']});
+async function exportPdf(els,name,btn){btn.disabled=true;alert('Preparing PDF…');
+ try{await loadJS(H2C);await loadJS(JSP);const {jsPDF}=window.jspdf;if(!els.length)throw new Error('empty');let doc=null;const PW=210,MG=8,UW=PW-2*MG;
+  for(const el of els){const c=await ivCapture(el),h=c.height*UW/c.width,ph=Math.min(14400,Math.ceil(h+2*MG)),fmt=[PW,ph],o=ph>PW?'portrait':'landscape';
+   if(!doc)doc=new jsPDF({unit:'mm',format:fmt,orientation:o});else doc.addPage(fmt,o);
+   doc.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',MG,MG,UW,Math.min(h,ph-2*MG))}
+  if(await dl(name+'.pdf',doc.output('blob')))alert('PDF downloaded ✔')}
+ catch(e){alert('Could not create the PDF.')}finally{btn.disabled=false}}
+async function exportJpg(els,name,btn){btn.disabled=true;alert('Preparing JPEG…');
+ try{await loadJS(H2C);if(!els.length)throw new Error('empty');let ok=true;
+  for(let i=0;i<els.length;i++){const c=await ivCapture(els[i]),blob=await new Promise(r=>c.toBlob(r,'image/jpeg',0.92));if(!(await dl(name+(els.length>1?'-'+(i+1):'')+'.jpg',blob)))ok=false}
+  if(ok)alert('JPEG downloaded ✔')}
+ catch(e){alert('Could not create the JPEG.')}finally{btn.disabled=false}}
+const allIv=()=>[...document.querySelectorAll('#invpaper .iv')];
+$('ivpdf').onclick=()=>exportPdf(allIv(),ivBase(),$('ivpdf'));
+$('ivjpg').onclick=()=>exportJpg(allIv(),ivBase(),$('ivjpg'));
+$('invpaper').addEventListener('click',e=>{const b=e.target.closest('[data-ij],[data-ip]');if(!b)return;const isJ=b.dataset.ij!==undefined,j=+(isJ?b.dataset.ij:b.dataset.ip),el=allIv()[j];if(!el)return;const nm='invoice-'+(b.dataset.c||(j+1))+'-'+cur();isJ?exportJpg([el],nm,b):exportPdf([el],nm,b)});
+Object.assign(DICT,{'Months paid':['Months paid','জমা হওয়া মাস'],'Months due':['Months due','বাকি মাস']});
+const dg=v=>lang==='bn'?String(v).replace(/\d/g,c=>BD[c]):String(v);
+function monthsBlock(m,mo){const fee=need(m),al=allocOf(m),ks=Object.keys(al).filter(k=>al[k]>0).sort(),due=[];
+ for(let k=stMonth(m,mo),i=0;fee&&k<=mo&&i<600;k=pmo(k,1),i++){const r=fee-(al[k]||0);if(r>0)due.push([k,r])}
+ const rows=ks.map(k=>`<tr><td>${mlong(k)}</td><td>${fee&&al[k]>=fee?'Paid':'Partial'}</td><td class="r">${tk(al[k])}</td></tr>`).join('');
+ return (rows?`<table><thead><tr><th>Months paid</th><th>Status</th><th class="r">Amount</th></tr></thead><tbody>${rows}</tbody></table>`:'')+(due.length?`<table><thead><tr><th>Months due</th><th></th><th class="r">Amount</th></tr></thead><tbody>${due.map(([k,r])=>`<tr><td>${mlong(k)}</td><td><small>${k<mo?'Previous due':'Current month'}</small></td><td class="r">${tk(r)}</td></tr>`).join('')}</tbody></table>`:'')}
+function mpRanges(m){const al=allocOf(m),ks=Object.keys(al).filter(k=>al[k]>0).sort();if(!ks.length)return '';const f=k=>new Date(k+'-01T00:00').toLocaleDateString(lang==='bn'?'bn-BD':'en',{month:'short',year:'numeric'}),g=[];
+ ks.forEach(k=>{const l=g[g.length-1];if(l&&pmo(l[1],1)===k)l[1]=k;else g.push([k,k])});
+ return '<br><small>Months paid</small> <small>'+g.map(([a,b])=>a===b?f(a):f(a)+' – '+f(b)).join(', ')+'</small>'}
+function sheetModel(y){const tm=today.slice(0,7),ms=[...M].sort((a,b)=>String(a.code||'zzzz').localeCompare(String(b.code||'zzzz'))||String(a.name).localeCompare(String(b.name))),mt=Array(12).fill(0);let gt=0;
+ const rows=ms.map(m=>{let rt=0;const cells=[...Array(12)].map((_,i)=>{const k=y+'-'+String(i+1).padStart(2,'0'),a=paid(m,k),fee=need(m);mt[i]+=a;rt+=a;return {a,c:(k<START||k<stMonth(m,k))&&!a?'xx':fee>0&&a>=fee?'pd':a>0?'pt':k<=tm?'du':''}});gt+=rt;return {m,cells,rt}});return {rows,mt,gt}}
+const SHC={pd:'background:#dff0e2;color:#1d6a33;font-weight:700',pt:'background:#fbeed5;color:#855000;font-weight:700',du:'background:#fae4e1',xx:'background:#ececec','':''};
+function sheetPageHTML(md,part,p,pages,y){const nf=v=>v?dg(Math.round(v).toLocaleString(lang==='bn'?'bn-BD':'en-IN')):'',mn=i=>new Date(y,i,1).toLocaleString(lang==='bn'?'bn-BD':'en',{month:'short'}),last=p===pages-1,td='border:1px solid #cfd6d0;padding:6px 4px;text-align:center;font-size:13px;white-space:normal;overflow-wrap:anywhere;line-height:1.3';
+ const head=`<tr style="background:#eef2ee"><th style="${td};text-align:left;width:190px">${L('Name')}</th><th style="${td};width:60px">${L('ID')}</th>${[...Array(12)].map((_,i)=>`<th style="${td}">${mn(i)}</th>`).join('')}<th style="${td};width:80px">${L('Total')}</th></tr>`;
+ const body=part.map(r=>`<tr><td style="${td};text-align:left">${esc(r.m.name)}</td><td style="${td}">${dg(esc(r.m.code||''))}</td>${r.cells.map(c=>`<td style="${td};${SHC[c.c]}">${nf(c.a)}</td>`).join('')}<td style="${td};font-weight:800">${nf(r.rt)}</td></tr>`).join('')||`<tr><td style="${td}" colspan="15">${L('No members yet.')}</td></tr>`;
+ const foot=last?`<tr style="background:#eef2ee"><td style="${td};text-align:left;font-weight:800" colspan="2">${L('Total')}</td>${md.mt.map(v=>`<td style="${td};font-weight:800">${nf(v)}</td>`).join('')}<td style="${td};font-weight:800">${nf(md.gt)}</td></tr>`:'';
+ const sw=(c,t)=>`<span style="display:inline-flex;align-items:center;gap:5px;margin-right:12px"><i style="width:11px;height:11px;border:1px solid #cfd6d0;${SHC[c]};display:inline-block"></i>${L(t)}</span>`;
+ return `<div style="display:flex;align-items:center;gap:14px;border-bottom:2px solid #1a5c2e;padding-bottom:10px;margin-bottom:12px"><img src="${LOGO}" width="52" height="52" style="border-radius:50%"><div><div style="font-size:20px;font-weight:800;color:#1a5c2e">${L('Nirbhorota Foundation')}</div><div style="font-size:13px;color:#555">${L('Sakhipur, Tangail')}</div></div><div style="margin-left:auto;text-align:right"><div style="font-size:18px;font-weight:800;color:#1a5c2e">${L('Contribution Sheet')} · ${dg(y)}</div><div style="font-size:12px;color:#555">${L('Date:')} ${dg(today)}</div></div></div><table style="width:100%;border-collapse:collapse;table-layout:fixed">${head}${body}${foot}</table><div style="display:flex;justify-content:space-between;margin-top:10px;font-size:11px;color:#555"><span>${sw('pd','Paid')}${sw('pt','Partial')}${sw('du','Due')}${sw('xx','Not applicable')}</span><span>${dg(p+1)} / ${dg(pages)}</span></div>`}
+async function sheetPdf(btn){btn.disabled=true;alert('Preparing PDF…');
+ try{await loadJS(H2C);await loadJS(JSP);const {jsPDF}=window.jspdf,y=shYear,md=sheetModel(y),PER=15,pages=Math.max(1,Math.ceil(md.rows.length/PER)),doc=new jsPDF({unit:'mm',format:'a4',orientation:'landscape'});
+  for(let p=0;p<pages;p++){const w=document.createElement('div');w.style.cssText="position:fixed;left:-10000px;top:0;width:1122px;box-sizing:border-box;padding:24px;background:#fff;color:#111;font:14px/1.4 system-ui,'Noto Sans Bengali',sans-serif";
+   w.innerHTML=sheetPageHTML(md,md.rows.slice(p*PER,(p+1)*PER),p,pages,y);document.body.appendChild(w);
+   try{await new Promise(r=>setTimeout(r,80));const c=await html2canvas(w,{scale:2,backgroundColor:'#ffffff'}),h=c.height*297/c.width,k=h>210?210/h:1;
+    if(p)doc.addPage('a4','landscape');doc.addImage(c.toDataURL('image/jpeg',0.92),'JPEG',0,0,297*k,h*k)}finally{document.body.removeChild(w)}}
+  if(await dl('contribution-sheet-'+y+'.pdf',doc.output('blob')))alert('PDF downloaded ✔')}
+ catch(e){alert('Could not create the PDF.')}finally{btn.disabled=false}}
+$('shpdf').onclick=()=>sheetPdf($('shpdf'));
+let lastDonation=null;const donOf=k=>D.filter(d=>(d.date||'').slice(0,7)===k).reduce((t,d)=>t+(+d.amt||0),0),donNo=d=>'DON-'+String(d.date||'').replace(/-/g,'')+'-'+String(d.id).slice(-4).toUpperCase();
+$('donD').value=today;
+Object.assign(DICT,{'Donation':['Donation','অনুদান'],'Donations':['Donations','অনুদান'],'3. Donation':['3. Donation','৩. অনুদান'],'Record a donation received by the foundation':['Record a donation received by the foundation','ফাউন্ডেশন যে অনুদান পেয়েছে তা লিখুন'],'Donor name *':['Donor name *','দাতার নাম *'],'Note (optional)':['Note (optional)','মন্তব্য (ঐচ্ছিক)'],'Save donation':['Save donation','অনুদান সংরক্ষণ'],'+ Add':['+ Add','+ যোগ করুন'],'Receipt':['Receipt','রসিদ'],'No donations yet.':['No donations yet.','এখনো কোনো অনুদান নেই।'],'Donation recorded ✔':['Donation recorded ✔','অনুদান সংরক্ষিত হয়েছে ✔'],'DONATION RECEIPT':['DONATION RECEIPT','অনুদানের রসিদ'],'Donation receipt':['Donation receipt','অনুদানের রসিদ'],'DONATION STATEMENT':['DONATION STATEMENT','মাসিক অনুদানের বিবরণী'],'Received by':['Received by','গ্রহণকারী'],'Donor':['Donor','দাতা'],'Thank you for your generous donation.':['Thank you for your generous donation.','আপনার উদার অনুদানের জন্য ধন্যবাদ।'],'Please enter a donor name and amount':['Please enter a donor name and amount','দাতার নাম ও পরিমাণ দিন']});
+RX.push([/^Total donations (.+)$/,'Total donations $1','মোট অনুদান $1'],[/^(\d+) donations$/,(m,n)=>n+(n==='1'?' donation':' donations'),'$1 টি অনুদান']);
+function donRender(){const l=[...D].sort((a,b)=>(b.date||'').localeCompare(a.date||'')),T=l.reduce((t,d)=>t+(+d.amt||0),0);$('donsub').textContent=tk(T);
+ $('donlist').innerHTML=l.map(d=>`<div class="drow"><div style="min-width:0"><b>${esc(d.name)}</b><div class="lbl"><span>${esc(d.date)}</span> · <span>${esc(d.method||'')}</span>${d.by?' · <span>'+esc(d.by)+'</span>':''}${d.note?' · <span>'+esc(d.note)+'</span>':''}</div></div><div style="text-align:right;flex:none"><b class="ok">${tk(d.amt)}</b><div style="margin-top:6px"><button class="btn g" data-dr="${d.id}">Receipt</button>${canW?` <button class="btn g" data-dd="${d.id}" aria-label="Delete">✕</button>`:''}</div></div></div>`).join('')||'<p class="sub">No donations yet.</p>'}
+$('donlist').onclick=e=>{const t=e.target;if(t.dataset.dr){const d=D.find(x=>x.id===t.dataset.dr);if(d){lastDonation={id:d.id,name:d.name,phone:d.phone||'',amt:+d.amt||0,date:d.date||today,method:d.method||'',note:d.note||''};showInv('donation',d.id)}}
+ if(t.dataset.dd&&confirm('Muchbo?'))wd('donations',t.dataset.dd)};
+function donationHTML(){const d=lastDonation;if(!d)return '<div class="card"><p class="sub">Member not found for this month.</p></div>';
+ return `<div class="iv">${ivHead('DONATION RECEIPT',donNo(d),mlong(String(d.date).slice(0,7)))}<p><small>Received from</small><br><b>${esc(d.name)}</b>${d.phone?'<br>'+esc(d.phone):''}</p><div class="sm"><div><small>Amount received</small><b>${tk(d.amt)}</b></div><div><small>Payment method</small><b>${esc(d.method||'')}</b></div>${d.by?'<div><small>Collected by</small><b>'+esc(d.by)+'</b></div>':''}</div><table><thead><tr><th>Description</th><th class="r">Amount</th></tr></thead><tbody><tr><td>Donation${d.note?'<br><small>'+esc(d.note)+'</small>':''}<br><small>Date:</small> ${esc(d.date)}</td><td class="r">${tk(d.amt)}</td></tr><tr class="t"><td>Total</td><td class="r">${tk(d.amt)}</td></tr></tbody></table><p><small>Thank you for your generous donation.</small></p><div class="sg"><div><span></span><small>Received by</small></div></div></div>`}
+function donRepHTML(mo){const l=D.filter(d=>(d.date||'').slice(0,7)===mo).sort((a,b)=>(a.date||'').localeCompare(b.date||'')),T=l.reduce((t,d)=>t+(+d.amt||0),0);
+ return `<div class="iv">${ivHead('DONATION STATEMENT','',mlong(mo))}<div class="tw"><table><thead><tr><th>#</th><th>Date</th><th>Donor</th><th class="r">Amount</th></tr></thead><tbody>${l.map((d,i)=>`<tr><td>${i+1}</td><td>${esc(d.date)}</td><td>${esc(d.name)}</td><td class="r">${tk(d.amt)}</td></tr>`).join('')||'<tr><td colspan="4">No donations yet.</td></tr>'}</tbody><tfoot><tr class="t"><td></td><td></td><td>Total</td><td class="r">${tk(T)}</td></tr></tfoot></table></div></div>`}
+function csvDonation(){const d=lastDonation;if(!d)return;const q=v=>'"'+String(v).replace(/"/g,'""')+'"',h=[L('Date'),L('Donor'),L('Phone'),L('Payment method'),L('Amount')],r=[d.date,d.name,d.phone||'',d.method||'',d.amt];dl('donation-'+donNo(d)+'.csv','\ufeff'+[h,r].map(x=>x.map(q).join(',')).join('\r\n'))}
+$('donSave').onclick=async()=>{const n=$('donN').value.trim(),a=+$('donA').value;if(!n||!a)return alert('Please enter a donor name and amount');const by=$('donBy').value.trim();if(!by)return alert('Please select who collected the money');
+ const id=uid(),d={name:n,phone:$('donP').value.trim(),amt:a,date:$('donD').value||today,method:$('donM').value,note:$('donT').value.trim(),by};rememberBy(by);
+ if(!(await w('donations',id,d)))return;lastDonation=Object.assign({id},d);$('donN').value=$('donP').value=$('donA').value=$('donT').value='';showInv('donation',id);alert('Donation recorded ✔')};
+$('donadd').onclick=()=>{document.querySelector('.nv[data-v=entry]').click();document.querySelector('.et[data-f=fd]').click()};
+$('doninv').onclick=()=>showInv('don');
+document.addEventListener('click',e=>{if(e.target.closest('[data-don]')&&!e.target.closest('a,button')){document.querySelector('.nv[data-v=hist]').click();document.querySelector('.ht2 [data-h=dn]').click()}});
+Object.assign(DICT,{'Total Fund (Balance)':['Total Fund (Balance)','মোট তহবিল (ব্যালেন্স)'],'Spent this month':['Spent this month','এই মাসে খরচ'],'Collected this month':['Collected this month','এই মাসে জমা'],'Contributions vs Expenses':['Contributions vs Expenses','চাঁদা বনাম খরচ'],'Money in':['Money in','যে টাকা এসেছে'],'Money out':['Money out','যে টাকা খরচ হয়েছে'],'Contributions':['Contributions','সদস্যদের চাঁদা'],'Where the money came from':['Where the money came from','টাকা কোথা থেকে এসেছে'],'Where the money went':['Where the money went','টাকা কোথায় খরচ হয়েছে'],'Balance':['Balance','ব্যালেন্স'],'Other':['Other','অন্যান্য'],'All expenses this month':['All expenses this month','এই মাসের সব খরচ'],'Open Expenses':['Open Expenses','খরচ পেজ খুলুন'],'Target':['Target','লক্ষ্য'],'Due amount':['Due amount','বাকি টাকা'],'Collect':['Collect','চাঁদা নিন'],'Open Members':['Open Members','সদস্য পেজ খুলুন'],'Open full list':['Open full list','পুরো তালিকা'],'This month':['This month','এই মাস'],'All time':['All time','এ পর্যন্ত'],'Donated this month':['Donated this month','এই মাসের অনুদান'],'Top donors':['Top donors','শীর্ষ দাতা'],'Month':['Month','মাস'],'Net':['Net','নিট'],'All members':['All members','সব সদস্য'],'Average':['Average','গড়'],'Spent':['Spent','খরচ'],'Members':['Members','সদস্য']});
+const groupBy=(arr,kf,vf)=>{const m=new Map();arr.forEach(x=>{const k=String(kf(x)||'').trim()||'—',kk=k.toLowerCase(),o=m.get(kk)||{l:k,v:0,n:0};o.v+=vf(x);o.n++;m.set(kk,o)});return [...m.values()].sort((a,b)=>b.v-a.v)};
+const dbars=(it,cls)=>{const mx=Math.max(1,...it.map(x=>x.v));return it.map(x=>`<div class="dbr"><div class="dl"><span>${esc(x.l)}</span><b>${tk(x.v)}</b></div><div class="bar"><div style="width:${Math.max(3,Math.round(x.v/mx*100))}%;${cls?'background:var(--'+cls+')':''}"></div></div></div>`).join('')};
+const dsec=t=>`<div class="dsec">${t}</div>`,drow=(a,b,c)=>`<div class="dr"><div style="min-width:0">${a}</div><b${c?' class="'+c+'"':''}>${b}</b></div>`,dsum=a=>'<div class="dsum" style="grid-template-columns:repeat('+(a.length===3?3:2)+',1fr)">'+a.map(([l,v,c])=>`<div><small>${l}</small><b class="${c||''}">${v}</b></div>`).join('')+'</div>';
+function expGroups(l){const g=groupBy(l,e=>e.desc,e=>+e.amt||0),top=g.slice(0,8),rest=g.slice(8).reduce((t,x)=>t+x.v,0);if(rest)top.push({l:'Other',v:rest});return top}
+function statusLists(mo){const rows=billMem(mo).map(m=>({m,p:paid(m,mo),n:need(m)})),pd=rows.filter(r=>r.n>0&&r.p>=r.n),pt=rows.filter(r=>r.p>0&&r.p<r.n),du=rows.filter(r=>r.p<=0);
+ const nm=r=>`<b>${esc(r.m.name)}</b>${r.m.code?' <small class="lbl">'+esc(r.m.code)+'</small>':''}`,pay=r=>canW?` <button class="btn g" data-a="pay" data-id="${r.m.id}" style="padding:4px 10px;min-height:32px;font-size:12px">Collect</button>`:'';
+ const sec=(t,l,f,c)=>l.length?dsec(`<span>${t}</span> <small>${l.length}</small>`)+l.map(r=>drow(nm(r)+pay(r),f(r),c)).join(''):'';
+ return sec('Due',du,r=>tk(r.n),'bad')+sec('Partial',pt,r=>tk(r.p)+' / '+tk(r.n),'')+sec('Paid',pd,r=>tk(r.p),'ok')}
+function openDetail(k){const mo=cur(),pv=pmo(mo,-1),B=(a,t)=>`<button class="btn g" data-a="${a}">${t}</button>`;let t='',h='',act='';
+ const exM=E.filter(e=>(e.date||'').slice(0,7)===mo),coll=inM(mo),exp=M.reduce((a,m)=>a+(stMonth(m,mo)<=mo?need(m):0),0);
+ if(k==='fund'){t='Total Fund (Balance)';const up=a=>a.filter(x=>(x.date||'').slice(0,7)<=mo),c=up(P).reduce((a,p)=>a+(+p.amt||0),0),d=up(D).reduce((a,x)=>a+(+x.amt||0),0),o=up(E).reduce((a,x)=>a+(+x.amt||0),0);
+  h=dsum([['Money in',tk(c+d),'ok'],['Money out',tk(o),'bad'],['Balance',tk(c+d-o),c+d-o>=0?'ok':'bad']])+dsec('Where the money came from')+dbars([{l:'Contributions',v:c},{l:'Donations',v:d}],'g2')+dsec('Where the money went')+(o?dbars(expGroups(up(E)),'bl'):'<p class="sub">No expenses yet.</p>');act=B('exp','Open Expenses')}
+ else if(k==='spent'){t='Spent this month';const T=exM.reduce((a,x)=>a+(+x.amt||0),0);
+  h=dsum([['Spent',tk(T),'bad'],['Last month',tk(outM(pv))]])+dsec('Where the money went')+(T?dbars(expGroups(exM),'bl'):'<p class="sub">No expenses yet.</p>')+dsec('All expenses this month')+(exM.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(e=>drow(`<b>${esc(e.desc)}</b><div class="lbl">${esc(e.date)}</div>`,tk(e.amt))).join('')||'<p class="sub">No expenses yet.</p>');act=B('exp','Open Expenses')+B('expinv','Invoices')}
+ else if(k==='coll'||k==='status'){t=k==='coll'?'Collected this month':'Collection Status';const rc=[...P.filter(p=>(p.date||'').slice(0,7)===mo),...D.filter(d=>(d.date||'').slice(0,7)===mo)],bg=groupBy(rc,x=>x.by||'Not recorded',x=>+x.amt||0);
+  h=dsum([['Collected',tk(coll),'ok'],['Target',tk(exp)],['Due amount',tk(Math.max(0,exp-coll)),'bad']])+dsec('Collected by')+'<p class="sub" style="margin:0 0 4px">Contributions and donations received this month</p>'+(bg.length?dbars(bg,'g2'):'<p class="sub">Not recorded</p>')+statusLists(mo);act=B('mem','Open Members')}
+ else if(k==='don'){t='Donation';const m1=D.filter(d=>(d.date||'').slice(0,7)===mo),T=D.reduce((a,x)=>a+(+x.amt||0),0),T1=m1.reduce((a,x)=>a+(+x.amt||0),0);
+  h=dsum([['Donated this month',tk(T1),'ok'],['All time',tk(T)],['Donations',String(D.length)],['Average',tk(D.length?T/D.length:0)]])+dsec('Donated this month')+(m1.sort((a,b)=>(b.date||'').localeCompare(a.date||'')).map(d=>drow(`<b>${esc(d.name)}</b><div class="lbl"><span>${esc(d.date)}</span> · <span>${esc(d.method||'')}</span></div>`,tk(d.amt),'ok')).join('')||'<p class="sub">No donations yet.</p>')+dsec('Top donors')+(D.length?dbars(groupBy(D,x=>x.name,x=>+x.amt||0).slice(0,5),'g2'):'<p class="sub">No donations yet.</p>');act=B('dnl','Open full list')+(canW?B('dnadd','+ Add'):'')}
+ else if(k==='chart'){t='Contributions vs Expenses';const ms=[];for(let x=START;x<=mo&&ms.length<60;x=pmo(x,1))ms.push(x);let T=[0,0,0];
+  const rows=ms.reverse().map(x=>{const a=inM(x),d=donOf(x),o=outM(x);T[0]+=a;T[1]+=d;T[2]+=o;return `<tr><td>${mlong(x)}</td><td class="r">${tk(a)}</td><td class="r">${tk(d)}</td><td class="r">${tk(o)}</td><td class="r"><b class="${a+d-o>=0?'ok':'bad'}">${tk(a+d-o)}</b></td></tr>`}).join('');
+  h=`<div class="tw"><table class="dt"><thead><tr><th>Month</th><th class="r">Collected</th><th class="r">Donations</th><th class="r">Expenses</th><th class="r">Net</th></tr></thead><tbody>${rows}</tbody><tfoot><tr><td>Total</td><td class="r">${tk(T[0])}</td><td class="r">${tk(T[1])}</td><td class="r">${tk(T[2])}</td><td class="r">${tk(T[0]+T[1]-T[2])}</td></tr></tfoot></table></div>`}
+ else if(k==='top'){t='Top Contributors';const r=M.map(m=>({m,t:Object.values(allocOf(m)).reduce((a,b)=>a+b,0)})).sort((a,b)=>b.t-a.t);
+  h=dsec('All members')+(r.map((x,i)=>drow(`<b>${i+1}. ${esc(x.m.name)}</b>${x.m.code?' <small class="lbl">'+esc(x.m.code)+'</small>':''}`,tk(x.t),x.t?'ok':'')).join('')||'<p class="sub">No members yet.</p>');act=B('mem','Open Members')}
+ else return;
+ $('dttl').textContent=t;$('dbody').innerHTML=h;$('dact').innerHTML=act;$('dmod').hidden=false;$('eb0')&&0;localize()}
+function tagDash(){const r=$('sdash'),set=(el,k)=>{if(el){el.dataset.det=k;el.setAttribute('role','button');el.tabIndex=0}};[...r.querySelectorAll('.stats .sc')].forEach((el,i)=>set(el,['fund','spent','coll','don'][i]));
+ const a=r.querySelector('.dash>div:first-child'),b=r.querySelector('.dash>div:last-child');if(a)set(a.querySelector(':scope>.card:not(.sc)'),'chart');if(b){const c=b.querySelectorAll(':scope>.card');set(c[0],'status');set(c[1],'top')}}
+$('dclose').onclick=()=>{$('dmod').hidden=true};
+$('sdash').addEventListener('click',e=>{const c=e.target.closest('[data-det]');if(c)openDetail(c.dataset.det)});
+$('sdash').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('[data-det]')){e.preventDefault();openDetail(e.target.dataset.det)}});
+$('dmod').addEventListener('click',e=>{if(e.target===$('dmod'))return $('dmod').hidden=true;const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,go=v=>document.querySelector('.nv[data-v='+v+']').click();$('dmod').hidden=true;
+ if(a==='exp')go('exp');else if(a==='expinv')showInv('exp');else if(a==='mem')go('mem');else if(a==='dnl'){go('hist');document.querySelector('.ht2 [data-h=dn]').click()}else if(a==='dnadd')$('donadd').click();else if(a==='pay'){const m=M.find(x=>x.id===b.dataset.id);go('entry');document.querySelector('.et[data-f=fc]').click();if(m)pick(m)}});
+Object.assign(DICT,{'Collected by *':['Collected by *','যিনি টাকা নিলেন *'],'Collected by':['Collected by','যিনি টাকা নিয়েছেন'],'Select or type a name':['Select or type a name','নাম বেছে নিন বা লিখুন'],'Please select who collected the money':['Please select who collected the money','যিনি টাকা নিয়েছেন তাঁর নাম বেছে নিন'],'Not recorded':['Not recorded','উল্লেখ নেই'],'Contributions and donations received this month':['Contributions and donations received this month','এই মাসে পাওয়া চাঁদা ও অনুদান']});
+const lastBy0=(()=>{try{return localStorage.getItem('lastBy')||''}catch(e){return ''}})();
+function rememberBy(v){try{localStorage.setItem('lastBy',v)}catch(e){}['fby','pby','donBy'].forEach(id=>{if(v)$(id).value=v})}
+function byRefresh(){const s=new Set();[...P,...D].forEach(x=>{if(x.by)s.add(x.by)});M.forEach(m=>{if(m.name)s.add(m.name)});$('bylist').innerHTML=[...s].map(n=>`<option value="${esc(n)}"></option>`).join('')}
+['fby','pby','donBy'].forEach(id=>{const el=$(id);let prev='';el.value=lastBy0;const free=()=>{if(el.value){prev=el.value;el.value='';}};el.addEventListener('focus',free);el.addEventListener('click',free);el.addEventListener('blur',()=>setTimeout(()=>{if(!el.value&&prev)el.value=prev;prev=''},150))});
+let ACT=[],myName='';
+Object.assign(DICT,{'Activity':['Activity','কার্যকলাপ'],'Latest changes made by admins':['Latest changes made by admins','অ্যাডমিনদের সাম্প্রতিক পরিবর্তন'],'Download backup':['Download backup','ব্যাকআপ ডাউনলোড'],'Backup downloaded ✔':['Backup downloaded ✔','ব্যাকআপ ডাউনলোড হয়েছে ✔'],'Added':['Added','যোগ'],'Edited':['Edited','সম্পাদনা'],'Deleted':['Deleted','মুছেছেন'],'No activity yet.':['No activity yet.','এখনো কোনো কার্যকলাপ নেই।'],'members':['Members','সদস্য'],'payments':['Contributions','চাঁদা'],'expenses':['Expenses','খরচ'],'donations':['Donations','অনুদান']});
+function sumOf(col,d){const mm=id=>((M.find(x=>x.id===id)||{}).name)||'';return col==='members'?(d.name+' · ID '+(d.code||'')):col==='payments'?(mm(d.mid)+' · '+d.month+' · ৳'+d.amt):col==='expenses'?(d.desc+' · ৳'+d.amt):col==='donations'?(d.name+' · ৳'+d.amt):''}
+function logAct(action,col,detail,data){if(!db||!canW||!myId)return;try{const r=db.doc('activity/'+uid()).set(Object.assign({at:new Date().toISOString(),by:myId,name:myName||'Admin',action,col,detail},data?{data:JSON.stringify(data)}:{}));if(r&&r.catch)r.catch(()=>{})}catch(e){}}
+function actRender(){const el=$('actlist');if(!el)return;if(role!=='admin'){el.innerHTML='';return}
+ const l=[...ACT].sort((a,b)=>(b.at||'').localeCompare(a.at||'')).slice(0,100),c=a=>a==='delete'?'d':a==='edit'?'h':'p',lb=a=>a==='delete'?'Deleted':a==='edit'?'Edited':'Added';
+ el.innerHTML=l.map(a=>`<div class="drow"><div style="min-width:0"><b>${esc(a.name||'Admin')}</b> <span class="tag ${c(a.action)}">${lb(a.action)}</span> <span class="tag">${esc(a.col||'')}</span><div class="lbl">${esc(a.detail||'')}</div></div><div class="lbl" style="flex:none;text-align:right">${esc(new Date(a.at).toLocaleString(lang==='bn'?'bn-BD':'en-GB',{dateStyle:'medium',timeStyle:'short'}))}</div></div>`).join('')||'<p class="sub">No activity yet.</p>';localize()}
+$('gl-bk').onclick=async()=>{const data={foundation:'Nirbhorota Foundation',exportedAt:new Date().toISOString(),members:M,payments:P,expenses:E,donations:D};if(await dl('backup-'+today+'.json',JSON.stringify(data,null,2)))alert('Backup downloaded ✔')};
+$('exinv').onclick=()=>showInv('exp');$('shinv').onclick=()=>showInv('stmt');
+$('ivcsv').onclick=()=>{if(ivMode==='donation')return csvDonation();if(ivMode==='receipt')return csvReceipt();if(ivMode==='welcome')return csvWelcome();const mo=cur(),q=v=>'"'+String(v).replace(/"/g,'""')+'"',h=['ID','Member','Phone','Monthly','Paid','Due (month)','Previous dues','Total due','Status'].map(x=>L(x));
+ const rows=billMem(mo).map(m=>{const d=dueInfo(m,mo);return [m.code||'',m.name,m.phone||'',d.n,d.p,d.md,d.prev,d.tot,L(d.n>0&&d.p>=d.n?'Paid':d.p?'Partial':'Due')]});dl('statement-'+mo+'.csv','\ufeff'+[h,...rows].map(r=>r.map(q).join(',')).join('\r\n'))};
+$('ivhtml').onclick=()=>dl('invoices-'+cur()+'.html','<!DOCTYPE html><html lang="'+lang+'"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+document.title+'</title><style>body{background:#f4f4f4;margin:0;padding:16px}'+INVCSS+'@media print{body{background:#fff;padding:0}.iv{border:0}}</style></head><body>'+$('invpaper').innerHTML+'</body></html>');
+Object.assign(DICT,{'Transactions':['Transactions','লেনদেন'],'Contribution Sheet':['Contribution Sheet','চাঁদার শিট'],'Not applicable':['Not applicable','প্রযোজ্য নয়'],'Year':['Year','বছর']});
+let shYear=Math.max(2026,new Date().getFullYear());
+function sheetRender(){const y=shYear,tm=today.slice(0,7),mn=i=>new Date(y,i,1).toLocaleString(lang==='bn'?'bn-BD':'en',{month:'short'}),nf=v=>v?Math.round(v).toLocaleString(lang==='bn'?'bn-BD':'en-IN'):'';
+ const ms=[...M].sort((a,b)=>String(a.code||'zzzz').localeCompare(String(b.code||'zzzz'))||String(a.name).localeCompare(String(b.name)));
+ const ys=[];for(let k=2026;k<=Math.max(2026,new Date().getFullYear())+1;k++)ys.push(k);if(!ys.includes(y))ys.push(y);
+ const sel=$('shy');sel.innerHTML=ys.map(k=>`<option value="${k}"${k===y?' selected':''}>${k}</option>`).join('');
+ const mt=Array(12).fill(0);let gt=0;
+ const rows=ms.map(m=>{let rt=0;const cells=[...Array(12)].map((_,i)=>{const k=y+'-'+String(i+1).padStart(2,'0'),a=paid(m,k),fee=need(m);mt[i]+=a;rt+=a;
+   const c=(k<START||k<stMonth(m,k))&&!a?'xx':fee>0&&a>=fee?'pd':a>0?'pt':k<=tm?'du':'';return `<td class="${c}">${nf(a)}</td>`}).join('');gt+=rt;
+  return `<tr><td class="c1">${esc(m.name)}</td><td class="c2">${esc(m.code||'')}</td>${cells}<td><b>${nf(rt)}</b></td></tr>`}).join('');
+ $('shs').innerHTML=`<table class="sht"><thead><tr><th class="c1">Name</th><th class="c2">ID</th>${[...Array(12)].map((_,i)=>`<th>${mn(i)}</th>`).join('')}<th>Total</th></tr></thead><tbody>${rows||'<tr><td colspan="15">No members yet.</td></tr>'}</tbody><tfoot><tr><td class="c1">Total</td><td class="c2"></td>${mt.map(v=>`<td>${nf(v)}</td>`).join('')}<td>${nf(gt)}</td></tr></tfoot></table>`;
+ $('shsub').textContent=y+' · '+tk(gt)}
+document.querySelectorAll('.ht2 button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.ht2 button').forEach(x=>x.classList.toggle('on',x===b));$('h-tx').hidden=b.dataset.h!=='tx';$('h-sh').hidden=b.dataset.h!=='sh';$('h-dn').hidden=b.dataset.h!=='dn';sheetRender();localize()});
+$('shy').onchange=()=>{shYear=+$('shy').value;sheetRender();localize()};
+$('shcsv').onclick=()=>{const y=shYear,q=v=>'"'+String(v).replace(/"/g,'""')+'"',mn=i=>new Date(y,i,1).toLocaleString(lang==='bn'?'bn-BD':'en',{month:'short'}),h=[L('ID'),L('Name'),...[...Array(12)].map((_,i)=>mn(i)),L('Total')];
+ const rows=[...M].sort((a,b)=>String(a.code||'zzzz').localeCompare(String(b.code||'zzzz'))).map(m=>{const v=[...Array(12)].map((_,i)=>paid(m,y+'-'+String(i+1).padStart(2,'0')));return [m.code||'',m.name,...v,v.reduce((a,b)=>a+b,0)]});
+ dl('contribution-sheet-'+y+'.csv','\ufeff'+[h,...rows].map(r=>r.map(q).join(',')).join('\r\n'))};
+Object.assign(DICT,{'Edit':['Edit','সম্পাদনা'],'Edit member':['Edit member','সদস্য সম্পাদনা'],'Save':['Save','সংরক্ষণ'],'Cancel':['Cancel','বাতিল'],'Delete member':['Delete member','সদস্য মুছুন'],'Member updated ✔':['Member updated ✔','সদস্যের তথ্য হালনাগাদ হয়েছে ✔'],'Some members start after June 2026.':['Some members start after June 2026.','কিছু সদস্যের শুরুর মাস জুন ২০২৬-এর পরে।'],'Start all from June 2026':['Start all from June 2026','সবাইকে জুন ২০২৬ থেকে ধরুন'],'Set the starting month of all members to June 2026?':['Set the starting month of all members to June 2026?','সব সদস্যের শুরুর মাস জুন ২০২৬ করবেন?'],'All members now start from June 2026 ✔':['All members now start from June 2026 ✔','সব সদস্য এখন জুন ২০২৬ থেকে ধরা হচ্ছে ✔']});
+let eId=null;
+function openEdit(id){const m=M.find(x=>x.id===id);if(!m)return;eId=id;$('emn').value=m.name||'';$('emp').value=m.phone||'';$('ema').value=m.amount||'';$('ems').value=stMonth(m,START);$('ems').min=START;$('eid').textContent=m.code?'ID '+m.code:'';$('emod').hidden=false;localize()}
+$('ecancel').onclick=()=>{$('emod').hidden=true};
+$('emod').addEventListener('click',e=>{if(e.target===$('emod'))$('emod').hidden=true});
+$('esave').onclick=async()=>{const n=$('emn').value.trim(),a=+$('ema').value;if(!n||!a)return alert('Naam ar masik chada dite hobe');const sm=($('ems').value&&$('ems').value>=START)?$('ems').value:START;
+ try{await db.doc('members/'+eId).update({name:n,phone:$('emp').value.trim(),amount:a,since:sm});logAct('edit','members',n+' · ID '+((M.find(x=>x.id===eId)||{}).code||''));$('emod').hidden=true;alert('Member updated ✔')}catch(e){alert('Could not save: '+(e.message||e.code))}};
+$('edel').onclick=async()=>{if(!confirm('Ei member muchte chan? (Ager joma-r record thakbe)'))return;await wd('members',eId);$('emod').hidden=true};
+{let _lm=$('mon').value;const onMon=()=>{if($('mon').value===_lm)return;_lm=$('mon').value;render();if(V==='dash')playDash()};$('mon').addEventListener('change',onMon);$('mon').addEventListener('input',onMon)}
+document.addEventListener('click',e=>{const i=e.target;if(!i||i.tagName!=='INPUT'||(i.type!=='date'&&i.type!=='month')||i.readOnly||i.disabled||!i.showPicker)return;if(e.offsetX>i.clientWidth-34)return;try{i.showPicker()}catch(x){}});$('q').oninput=render;
+let tt;function toast(m,bad){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';t.setAttribute('role','status');document.body.appendChild(t)}t.textContent=m.replace(' ✔','');t.style.background=bad?'#b3261e':'#0b100d';t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,3200)}
+window.alert=m=>{m=L(String(m));toast(m,!/✔/.test(m))};
+document.addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)document.querySelector('.nv[data-v='+g.dataset.go+']').click()});
+let sm0=innerWidth<700;addEventListener('resize',()=>{const n=innerWidth<700;if(n!==sm0){sm0=n;render()}});
+async function w(col,id,data){try{await db.doc(col+'/'+id).set(data);logAct('add',col,sumOf(col,data));return true}catch(e){alert('Save hoyni: '+(e.message||e.code));return false}}
+async function wd(col,id){const rec=({members:M,payments:P,expenses:E,donations:D}[col]||[]).find(x=>x.id===id);try{await db.doc(col+'/'+id).delete();if(rec){const {id:_i,...d}=rec;logAct('delete',col,sumOf(col,d),d)}}catch(e){alert('Delete hoyni: '+(e.message||e.code))}}
+let lastReceipt=null;
+Object.assign(DICT,{'PAYMENT RECEIPT':['PAYMENT RECEIPT','পেমেন্ট রসিদ'],'Payment receipt':['Payment receipt','পেমেন্ট রসিদ'],'Received from':['Received from','প্রাপক থেকে'],'Payment method':['Payment method','পেমেন্টের মাধ্যম'],'Months covered':['Months covered','কভার হওয়া মাস'],'Current month':['Current month','চলতি মাস'],'Balance before':['Balance before','জমার আগে বাকি'],'Paid towards dues':['Paid towards dues','বাকি থেকে পরিশোধ'],'Remaining due months':['Remaining due months','এখনো বাকি মাস'],'No dues':['No dues','কোনো বাকি নেই']});
+function receiptHTML(){const r=lastReceipt;if(!r)return '<div class="card"><p class="sub">Member not found for this month.</p></div>';
+ const lab=t=>t==='due'?'Previous due':t==='adv'?'Advance':'Current month';
+ return `<div class="iv">${ivHead('PAYMENT RECEIPT','RCT-'+r.date.replace(/-/g,'')+'-'+r.code,mlong(r.date.slice(0,7)))}<p><small>Received from</small><br><b>${esc(r.name)}</b>${r.phone?'<br>'+esc(r.phone):''}${r.code?'<br><small>ID:</small> '+r.code:''}</p>
+ <div class="sm"><div><small>Amount received</small><b>${tk(r.amount)}</b></div><div><small>Payment method</small><b>${esc(r.method)}</b></div>${r.by?'<div><small>Collected by</small><b>'+esc(r.by)+'</b></div>':''}</div>
+ <table><thead><tr><th>Months covered</th><th></th><th class="r">Amount</th></tr></thead><tbody>${r.rows.map(x=>`<tr><td>${mlong(x.k)}</td><td><small>${lab(x.t)}</small></td><td class="r">${tk(x.a)}</td></tr>`).join('')}</tbody></table>
+ <table><tbody><tr><td>Balance before</td><td class="r">${tk(r.before)}</td></tr><tr><td>Paid towards dues</td><td class="r">-${tk(r.before-r.after)}</td></tr><tr class="t"><td>Balance due</td><td class="r">${tk(r.after)}</td></tr></tbody></table>
+ ${r.dm.length?`<table><thead><tr><th>Remaining due months</th><th class="r">Amount</th></tr></thead><tbody>${r.dm.map(x=>`<tr><td>${mlong(x.k)}</td><td class="r">${tk(x.a)}</td></tr>`).join('')}</tbody></table>`:'<p><b>No dues</b></p>'}
+ <span class="st ${r.after?'d':'p'}">${r.after?'DUE':'PAID'}</span><p><small>Thank you for your support.</small></p></div>`}
+function csvReceipt(){const r=lastReceipt;if(!r)return;const q=v=>'"'+String(v).replace(/"/g,'""')+'"',h=[L('ID'),L('Name'),L('Date:'),L('Payment method'),L('Months covered'),L('Amount'),L('Status')],lab=t=>t==='due'?'Previous due':t==='adv'?'Advance':'Current month',rows=r.rows.map(x=>[r.code,r.name,r.date,r.method,x.k,x.a,L(lab(x.t))]);dl('receipt-'+r.code+'-'+r.date+'.csv','\ufeff'+[h,...rows].map(x=>x.map(q).join(',')).join('\r\n'))}
+let lastWelcome=null;
+Object.assign(DICT,{'WELCOME INVOICE':['WELCOME INVOICE','স্বাগত ইনভয়েস'],'Welcome invoice':['Welcome invoice','স্বাগত ইনভয়েস'],'Membership starts':['Membership starts','সদস্যপদ শুরু'],'Amount received':['Amount received','প্রাপ্ত টাকা'],'Covers':['Covers','কভার'],'Please keep this ID safe. You will need it every time you pay the monthly contribution.':['Please keep this ID safe. You will need it every time you pay the monthly contribution.','এই আইডি যত্নে রাখুন। প্রতি মাসে চাঁদা দেওয়ার সময় এটি লাগবে।']});
+function welcomeHTML(){const real=M.find(x=>x.id===ivMem),m=real||lastWelcome;if(!m)return '<div class="card"><p class="sub">Member not found for this month.</p></div>';const by=(lastWelcome&&lastWelcome.id===m.id?lastWelcome.by:'')||((P.filter(p=>p.mid===m.id&&p.by).sort((a,b)=>(a.date||'').localeCompare(b.date||''))[0]||{}).by||'');
+ const mo=today.slice(0,7),fee=need(m),first=stMonth(m,mo),got=real?Object.values(allocOf(m)).reduce((a,b)=>a+b,0):(m.pay||0);
+ let n=0;for(let k=first;k<=mo&&n<600;k=pmo(k,1))n++;const due=Math.max(0,n*fee-got),cnt=fee?Math.ceil(got/fee):0,last=pmo(first,Math.max(0,cnt-1));
+ return `<div class="iv">${ivHead('WELCOME INVOICE','WEL-'+(m.code||''),mlong(mo))}<p><b>Welcome to Nirbhorota Foundation</b></p><p><small>Billed to</small><br><b>${esc(m.name)}</b>${m.phone?'<br>'+esc(m.phone):''}${by&&got?'<br><small>Collected by</small> '+esc(by):''}</p>
+ <div class="idbox"><small>Member ID</small><div class="idn2">${esc(m.code||'')}</div></div>
+ <table><thead><tr><th>Description</th><th class="r">Amount</th></tr></thead><tbody><tr><td>Monthly contribution</td><td class="r">${tk(fee)}</td></tr><tr><td>Membership starts</td><td class="r">${mlong(first)}</td></tr>${got?`<tr><td>Amount received<br><small>Covers</small> <small>${cnt>1?mlong(first)+' – '+mlong(last):mlong(first)}</small></td><td class="r">${tk(got)}</td></tr>`:''}<tr class="t"><td>Balance due</td><td class="r">${tk(due)}</td></tr></tbody></table>
+ <span class="st ${due?'d':'p'}">${due?'DUE':'PAID'}</span><p><small>Please keep this ID safe. You will need it every time you pay the monthly contribution.</small></p><p><small>Thank you for your support.</small></p></div>`}
+function csvWelcome(){const m=M.find(x=>x.id===ivMem)||lastWelcome;if(!m)return;const q=v=>'"'+String(v).replace(/"/g,'""')+'"',h=[L('ID'),L('Name'),L('Phone'),L('Monthly contribution'),L('Membership starts')],r=[m.code||'',m.name,m.phone||'',need(m),stMonth(m,today.slice(0,7))];dl('welcome-'+(m.code||'member')+'.csv','\ufeff'+[h,r].map(x=>x.map(q).join(',')).join('\r\n'))}
+const FEE=100;$('fa').value=FEE;
+Object.assign(DICT,{'Amount paid now (৳, optional)':['Amount paid now (৳, optional)','এখন যত টাকা দিলেন (৳, ঐচ্ছিক)'],'Standard monthly contribution is ৳100.':['Standard monthly contribution is ৳100.','নির্ধারিত মাসিক চাঁদা ১০০ টাকা।'],'Some members have a monthly fee other than ৳100.':['Some members have a monthly fee other than ৳100.','কিছু সদস্যের মাসিক চাঁদা ১০০ টাকা নয়।'],'Set all to ৳100':['Set all to ৳100','সবাইকে ১০০ টাকা করুন'],'Set the monthly contribution of all members to ৳100?':['Set the monthly contribution of all members to ৳100?','সব সদস্যের মাসিক চাঁদা ১০০ টাকা করবেন?'],'All members now pay ৳100 per month ✔':['All members now pay ৳100 per month ✔','সব সদস্য এখন মাসে ১০০ টাকা দেবেন ✔']});
+$('fsave').onclick=async()=>{const n=$('fn').value.trim(),a=+$('fa').value,jm=($('fjm').value&&$('fjm').value>=START)?$('fjm').value:START,pay=+$('fpa').value||0;
+ if(!n||!a)return alert('Naam ar masik chada dite hobe');
+ if(pay&&(pay<a||pay%a))return alert('Amount must be a multiple of the monthly contribution ('+tk(a)+').');
+ const by=$('fby').value.trim();if(pay&&!by)return alert('Please select who collected the money');const id=uid(),code=await claimCode(id);if(!code)return alert('Could not generate an ID. Please try again.');
+ await w('members',id,{name:n,phone:$('fp').value.trim(),amount:a,since:jm,code});
+ if(pay)for(const x of plan({id:'__new',amount:a,since:jm},today.slice(0,7),pay))await w('payments',uid(),{mid:id,month:x.k,amt:x.a,date:today,method:'Cash',by});
+ lastWelcome={id,name:n,phone:$('fp').value.trim(),amount:a,since:jm,code,pay,by:pay?by:''};rememberBy(by);$('fn').value=$('fp').value=$('fpa').value='';$('fa').value=FEE;fpvRender();showId(n,code);showInv('welcome',id);alert(n+' jog hoyeche ✔')};
+function fpvRender(){fpvRender2();localize()}
+function fpvRender2(){const a=+$('fa').value,pay=+$('fpa').value||0,el=$('fpv');if(!a||!pay){el.innerHTML='';return}
+ if(pay<a||pay%a){el.innerHTML='<span class="tag d">Use multiples of</span> <b>'+tk(a)+'</b>';return}
+ const jm=($('fjm').value&&$('fjm').value>=START)?$('fjm').value:START;
+ el.innerHTML='<span class="lbl" style="width:100%">This payment covers</span>'+plan({id:'__new',amount:a,since:jm},today.slice(0,7),pay).map(x=>`<span class="tag ${x.t==='due'?'h':x.t==='cur'?'p':''}"><span>${mlong(x.k)}</span> ${tk(x.a)}${x.t==='due'?' <small>Previous due</small>':x.t==='adv'?' <small>Advance</small>':''}</span>`).join('')}
+['fa','fpa','fjm'].forEach(id=>$(id).addEventListener('input',fpvRender));
+$('psave').onclick=async()=>{const m=M.find(x=>x.id===$('pmem').value),a=+$('pa').value;if(!m||!a)return alert('Member ar poriman select korun');
+ const fee=need(m);if(fee&&(a<fee||a%fee))return alert('Amount must be a multiple of the monthly contribution ('+tk(fee)+').');
+ const by=$('pby').value.trim();if(!by)return alert('Please select who collected the money');const sel=$('pm').value||cur(),pl=fee?plan(m,sel,a):[{k:sel,a,t:'cur'}];if(!pl.length)return alert('Nothing to record for this selection.');
+ const date=$('pd').value||today,method=$('pmd').value,mo0=today.slice(0,7),b4=dueInfo(m,mo0),al={},dm=[];pl.forEach(x=>{al[x.k]=(al[x.k]||0)+x.a});let after=0;
+ for(let k=stMonth(m,mo0),i=0;fee&&k<=mo0&&i<600;k=pmo(k,1),i++){const r=Math.max(0,fee-paid(m,k)-(al[k]||0));if(r>0){dm.push({k,a:r});after+=r}}
+ lastReceipt={code:m.code||'',name:m.name,phone:m.phone||'',date,method,amount:a,rows:pl,before:b4.tot,after,dm,by};
+ const btn=$('psave');btn.disabled=true;try{for(const x of pl)await w('payments',uid(),{mid:m.id,month:x.k,amt:x.a,date:$('pd').value||today,method:$('pmd').value,by})}finally{btn.disabled=false}
+ $('pa').value='';pick(null);$('pid').value='';rememberBy(by);showInv('receipt',m.id);alert('Chada joma hoyeche ✔')};
+function plan(m,sel,amt){const fee=need(m),out=[];if(!fee||!amt)return out;let left=amt;const st0=stMonth(m,sel),st=st0<sel?st0:sel;
+ for(let k=st,i=0;k<=sel&&left>0&&i<600;k=pmo(k,1),i++){const r=Math.max(0,fee-paid(m,k));if(r>0){const x=Math.min(r,left);out.push({k,a:x,t:k<sel?'due':'cur'});left-=x}}
+ for(let k=pmo(sel,1),i=0;left>0&&i<240;k=pmo(k,1),i++){const r=Math.max(0,fee-paid(m,k));if(r>0){const x=Math.min(r,left);out.push({k,a:x,t:'adv'});left-=x}}
+ return out}
+function ppvRender(){ppvRender2();localize()}
+function ppvRender2(){const m=M.find(x=>x.id===$('pmem').value),a=+$('pa').value,el=$('ppv');if(!m||!a){el.innerHTML='';return}
+ const fee=need(m);if(fee&&(a<fee||a%fee)){el.innerHTML='<span class="tag d">Use multiples of</span> <b>'+tk(fee)+'</b>';return}
+ el.innerHTML='<span class="lbl" style="width:100%">This payment covers</span>'+plan(m,$('pm').value||cur(),a).map(x=>`<span class="tag ${x.t==='due'?'h':x.t==='cur'?'p':''}"><span>${mlong(x.k)}</span> ${tk(x.a)}${x.t==='due'?' <small>Previous due</small>':x.t==='adv'?' <small>Advance</small>':''}</span>`).join('')}
+$('pa').addEventListener('input',ppvRender);$('pm').addEventListener('input',ppvRender);$('pm').addEventListener('change',ppvRender);
+Object.assign(DICT,{'Accounting starts from June 2026.':['Accounting starts from June 2026.','হিসাব শুরু ২০২৬ সালের জুন মাস থেকে।'],'− 1 month fee':['− 1 month fee','− ১ মাসের চাঁদা'],'+ 1 month fee':['+ 1 month fee','+ ১ মাসের চাঁদা'],'‹ Previous month':['‹ Previous month','‹ আগের মাস'],'Next month ›':['Next month ›','পরের মাস ›'],'Previous due':['Previous due','আগের বাকি'],'Advance':['Advance','অগ্রিম'],'This payment covers':['This payment covers','এই জমা যে মাসগুলো কভার করবে'],'Use multiples of':['Use multiples of','এর গুণিতকে দিন'],'− 1 month':['− 1 month','− ১ মাস'],'+ 1 month':['+ 1 month','+ ১ মাস'],'Please choose a member first.':['Please choose a member first.','আগে একজন সদস্য বেছে নিন।'],'Nothing to record for this selection.':['Nothing to record for this selection.','এই নির্বাচনে রেকর্ড করার মতো কিছু নেই।'],'Clear':['Clear','মুছুন'],'Choose a member':['Choose a member','সদস্য বেছে নিন'],'Type a name to search':['Type a name to search','নাম লিখে খুঁজুন'],'Member ID':['Member ID','সদস্য আইডি'],'Name':['Name','নাম'],'Or choose a member':['Or choose a member','অথবা সদস্য বেছে নিন'],'No member found with this ID.':['No member found with this ID.','এই আইডিতে কোনো সদস্য পাওয়া যায়নি।'],'New member ID':['New member ID','নতুন সদস্যের আইডি'],'Give this ID to the member. It is needed when the monthly fee is paid.':['Give this ID to the member. It is needed when the monthly fee is paid.','এই আইডি সদস্যকে দিন। মাসিক চাঁদা দেওয়ার সময় এটি লাগবে।'],'ID':['ID','আইডি'],'ID:':['ID:','আইডি:'],'Could not generate an ID. Please try again.':['Could not generate an ID. Please try again.','আইডি তৈরি করা যায়নি। আবার চেষ্টা করুন।']});
+RX.push([/^Amount must be a multiple of the monthly contribution \((.+)\)\.$/,'Amount must be a multiple of the monthly contribution ($1).','পরিমাণ মাসিক চাঁদার ($1) গুণিতক হতে হবে।'],[/^ID (\d+)$/,'ID $1','আইডি $1']);
+async function claimCode(mid){
+ const used=new Set(M.map(m=>String(m.code)).filter(c=>c&&c!=='undefined'));
+ try{(await db.collection('members').get()).docs.forEach(d=>{const c=d.data().code;if(c)used.add(String(c))})}catch(e){}
+ for(let t=0;t<60;t++){const c=String(Math.floor(1000+Math.random()*9000));if(used.has(c))continue;
+  try{const ref=db.doc('codes/'+c),l=await ref.acquire({holder:String(mid),ttlMs:5000});if(l&&l.acquired===false)continue;
+   const g=await ref.get();if(g.exists&&g.data().mid&&g.data().mid!==mid)continue;await ref.set({mid})}catch(e){}
+  return c}
+ for(let n=1000;n<10000;n++)if(!used.has(String(n)))return String(n);return ''}
+let bfRun=false;const bfTried=new Set();
+async function backfill(){if(bfRun)return;const by={};M.forEach(m=>{if(m.code)(by[m.code]=by[m.code]||[]).push(m)});const dups=[];Object.values(by).forEach(a=>{a.sort((x,y)=>String(x.id).localeCompare(String(y.id)));dups.push(...a.slice(1))});
+ const miss=[...M.filter(m=>!m.code),...dups].filter(m=>!bfTried.has(m.id)).sort((a,b)=>String(a.id).localeCompare(String(b.id)));if(!miss.length)return;bfRun=true;
+ for(const m of miss){bfTried.add(m.id);const c=await claimCode(m.id);if(c)try{await db.doc('members/'+m.id).update({code:c})}catch(e){}}bfRun=false}
+function showId(n,c){$('fidn').textContent=c;$('fidname').textContent=n;$('fid').hidden=false;localize()}
+const memLabel=m=>(m.name||'')+(m.code?' · '+m.code:'');
+function pick(m,keep){const pa=$('pa');$('pmem').value=m?m.id:'';if(!keep)$('pnm').value=m?memLabel(m):'';$('pph').value=m?(m.phone||''):'';$('pclr').hidden=!$('pnm').value;if(m){pa.value=m.amount;pa.dataset.auto='1';pa.step=need(m)||'any';$('pid').value=m.code||''}else if(pa.dataset.auto==='1')pa.value='';ppvRender()}
+$('pa').addEventListener('input',()=>{$('pa').dataset.auto='0'});
+$('pid').oninput=()=>{const v=$('pid').value.replace(/[০-৯]/g,d=>'০১২৩৪৫৬৭৮৯'.indexOf(d)).replace(/\D/g,'').slice(0,4);$('pid').value=v;const m=v.length===4?M.find(x=>String(x.code)===v):null;pick(m);$('pidm').textContent=v.length===4&&!m?'No member found with this ID.':'';localize()};
+$('pnm').oninput=()=>{$('pclr').hidden=!$('pnm').value;const v=$('pnm').value.trim().toLowerCase();if(!v){$('pmem').value=$('pph').value=$('pid').value='';$('pidm').textContent='';return}
+ let m=M.find(x=>memLabel(x).toLowerCase()===v);if(!m){const l=M.filter(x=>(x.name||'').toLowerCase()===v);if(l.length===1)m=l[0]}
+ if(m){pick(m,true);$('pidm').textContent=''}else{$('pmem').value=$('pph').value=$('pid').value='';if($('pa').dataset.auto==='1')$('pa').value=''}};
+let pPrev='';
+const pFree=()=>{if($('pnm').value){pPrev=$('pnm').value;$('pnm').value='';$('pclr').hidden=true}};
+$('pnm').addEventListener('focus',pFree);$('pnm').addEventListener('click',pFree);
+$('pnm').addEventListener('blur',()=>setTimeout(()=>{if(!$('pnm').value&&pPrev&&$('pmem').value){$('pnm').value=pPrev;$('pclr').hidden=false}pPrev=''},150));
+$('pclr').onclick=()=>{pPrev='';pick(null);$('pid').value='';$('pidm').textContent='';$('pnm').focus()};
+
+$('adde').onclick=async()=>{const d=$('ed').value.trim(),a=+$('ea').value;if(!d||!a)return alert('Biboron ar poriman dite hobe');const id=uid(),date=$('edt').value||today;
+ if(!(await w('expenses',id,{desc:d,amt:a,date})))return;lastExpense={id,desc:d,amt:a,date};$('ed').value=$('ea').value='';showInv('voucher',id);alert('Expense recorded ✔')};
+$('mb').onclick=e=>{const t=e.target;if(t.dataset.inv)return showInv('member',t.dataset.inv);if(t.dataset.edit)return openEdit(t.dataset.edit);
+ if(t.dataset.pay){const m=M.find(x=>x.id===t.dataset.pay);document.querySelector('.nv[data-v=entry]').click();document.querySelector('.et[data-f=fc]').click();pick(m)}
+ if(t.dataset.del&&confirm('Ei member muchte chan? (Ager joma-r record thakbe)'))wd('members',t.dataset.del)};
+$('eb').onclick=e=>{const t=e.target;if(t.dataset.vou){const x=E.find(y=>y.id===t.dataset.vou);if(x){lastExpense={id:x.id,desc:x.desc,amt:+x.amt||0,date:x.date||today};showInv('voucher',x.id)}return}if(t.dataset.dele&&confirm('Muchbo?'))wd('expenses',t.dataset.dele)};
+let bootN=0,bootOff=false;const bootDone=()=>{if(bootOff)return;bootOff=true;const b=$('boot');try{playDash()}catch(e){}b.classList.add('off');setTimeout(()=>b.remove(),500)};
+const bootTick=()=>{if(++bootN>=4)bootDone()};
+const sub=(col,set)=>{let first=true;return db.collection(col).onSnapshot(s=>{set(s.docs.map(d=>({id:d.id,...d.data()})));render();if(first){first=false;setTimeout(bootTick,0)}},e=>{$('note').textContent='Data load hoyni: '+(e.message||e.code);if(first){first=false;bootTick()}})};
+setTimeout(bootDone,10000);
+render();
+{const hb=document.querySelector('.nv[data-v="'+location.hash.slice(1)+'"]');if(hb)hb.click()}
+(async()=>{try{const u=await claude.use('user');ME=u;canW=!!(u&&await u.canEdit());try{myId=u&&await u.id()}catch(e){}try{const pf=await u.profiles([myId]);const q=pf&&pf[myId];myName=(q&&(q.name||q.displayName))||''}catch(e){}db=await claude.use('db');role=!db?'out':canW?'admin':'viewer';
+ if(!db){openGate('login');bootDone();return}
+ $('note').textContent='';sub('members',x=>{M=x;if(role==='admin')backfill()});sub('payments',x=>P=x);sub('expenses',x=>E=x);sub('donations',x=>D=x);access();render()}
+ catch(e){$('note').textContent='Shared database pawa jacche na.';bootDone()}})();
+let _wb=0,_rt;addEventListener('resize',()=>{const m=document.querySelector('main');if(!m)return;const b=Math.round(m.clientWidth/60);if(b!==_wb){_wb=b;clearTimeout(_rt);_rt=setTimeout(()=>{try{render()}catch(e){}},200)}});
+</script></body></html>
