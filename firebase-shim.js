@@ -19,6 +19,7 @@
 
   const userApi = {
     id: async () => { if (!me) throw new Error('not signed in'); return me.uid; },
+    role: async () => { if (!me) return null; if (isOwner()) return 'admin'; return await myRole(); },
     canEdit: async () => { if (!me) return false; if (isOwner()) return true; return (await myRole()) === 'admin'; },
     profiles: async (ids) => {
       const out = {};
@@ -50,6 +51,7 @@
           if (path.startsWith('requests/') && isOwner() && d.status) {
             const uid = path.split('/')[1];
             if (d.status === 'approved') await fs.doc('roles/' + uid).set({ role: 'admin' });
+            else if (d.status === 'viewer') await fs.doc('roles/' + uid).set({ role: 'viewer' });
             else if (d.status === 'declined') { try { await fs.doc('roles/' + uid).delete(); } catch (e) {} }
           }
         }
