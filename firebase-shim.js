@@ -19,6 +19,7 @@
 
   const userApi = {
     id: async () => { if (!me) throw new Error('not signed in'); return me.uid; },
+    isOwner: async () => isOwner(),
     role: async () => { if (!me) return null; if (isOwner()) return 'admin'; return await myRole(); },
     canEdit: async () => { if (!me) return false; if (isOwner()) return true; return (await myRole()) === 'admin'; },
     profiles: async (ids) => {

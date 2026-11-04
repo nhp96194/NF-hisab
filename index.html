@@ -319,6 +319,20 @@ main>section:not(#sdash):not([hidden]){animation:rise .4s var(--ease)}
  .hr .lang{margin-left:auto}
 }
 input[type=date],input[type=month]{cursor:pointer}
+
+/* ===== access lists (Admins / Viewers) ===== */
+.rtabs{display:flex;gap:4px;background:rgba(0,0,0,.28);border-radius:14px;padding:4px;margin:0 0 14px}
+.rtabs button{flex:1;border:0;background:none;color:#cfdad2;font:inherit;font-weight:600;font-size:13px;padding:9px 6px;border-radius:10px;cursor:pointer;min-height:40px;transition:background .2s,color .2s}
+.rtabs button.on{background:linear-gradient(135deg,#46b062,#1f7a3a);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.3)}
+.rtabs b{font-weight:700;opacity:.85}
+#rq .row{flex-wrap:wrap;gap:8px}#rq .row .btn{flex:1 1 auto;min-height:38px;padding:0 12px;font-size:12.5px}
+#gate .rrow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;margin:0 0 10px;box-shadow:none;border:1px solid var(--bd);border-radius:14px;background:rgba(255,255,255,.05)}
+#gate .rinfo{min-width:0;overflow-wrap:anywhere}
+#gate .ract{display:flex;gap:6px;flex:none;align-items:center}
+#gate .ract .btn{min-height:36px;padding:0 12px;font-size:12px;white-space:nowrap}
+#gate .ract .rx{width:36px;padding:0;font-size:15px;line-height:1;color:#ff9d92;border-color:rgba(255,157,146,.35)}
+#gate .ract .rx:hover{background:rgba(255,120,105,.18)}
+@media (max-width:480px){#gate .rrow{flex-wrap:wrap}#gate .ract{width:100%;justify-content:flex-end}}
 </style></head><body>
 <div id="boot" role="status" aria-live="polite"><img id="bootlogo" alt="" width="88" height="88"><b>Nirbhorota Foundation</b><div class="bsp"></div></div>
 <datalist id="bylist"></datalist>
@@ -328,7 +342,8 @@ input[type=date],input[type=month]{cursor:pointer}
 <div class="gs"><div class="gi"><div class="gt"><button data-g="login">Login</button><button data-g="signup">Sign up</button><button data-g="req" id="gtr">Requests</button><button data-g="act" id="gta">Activity</button></div>
 <div id="g-login"><p class="sub" id="gl-t"></p><p id="gl-who" style="font-weight:600"></p><button class="btn" id="gl-b"></button><button class="btn g" id="gl-bk" hidden style="margin-top:10px;width:100%">Download backup</button><p class="gsec" id="gsec"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg><span>Secure sign-in with Google</span></p></div>
 <div id="g-signup" hidden><p class="sub" id="gs-t"></p><div id="gs-f"><label class="f"><span>Full name *</span><input id="rn" autocomplete="name"></label><label class="f"><span>Phone</span><input id="rp" type="tel" autocomplete="tel"></label><label class="f"><span>Message (optional)</span><input id="rm"></label><button class="btn" id="rs">Send request</button></div><p id="gs-s" style="font-weight:600;color:var(--g3)" hidden></p></div>
-<div id="g-req" hidden><p class="sub">Approving a request gives that person admin access. Decline removes it.</p><div id="rq"></div></div>
+<div id="g-req" hidden><div class="rtabs" id="rqt"><button data-r="req" class="on"><span>Requests</span></button><button data-r="adm"><span>Admins</span> <b id="cadm"></b></button><button data-r="vwr"><span>Viewers</span> <b id="cvwr"></b></button></div>
+<div id="rp-req"><p class="sub">Approving a request gives that person access. Decline removes it.</p><div id="rq"></div></div><div id="rp-adm" hidden><p class="sub">People with admin access. They can view, add and edit data.</p><div id="radm"></div></div><div id="rp-vwr" hidden><p class="sub">People with view-only access. They can see the data but cannot change it.</p><div id="rvwr"></div></div></div>
 <div id="g-act" hidden><p class="sub">Latest changes made by admins</p><div id="actlist"></div></div>
 </div></div></div>
 <div class="app">
@@ -492,13 +507,13 @@ function localize(){document.documentElement.lang=lang;document.title=lang==='bn
  document.documentElement.style.setProperty('--l1',lang==='bn'?'"মাসিক: "':'"Monthly: "');document.documentElement.style.setProperty('--l2',lang==='bn'?'"বাকি: "':'"Due: "');
  document.querySelectorAll('.lang button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.l===lang));
  const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT),ns=[];let n;while(n=w.nextNode())ns.push(n);
- ns.forEach(n=>{const p=n.parentElement;if(!p||/^(SCRIPT|STYLE)$/.test(p.tagName))return;if(n._o===undefined)n._o=n.nodeValue;n.nodeValue=L(n._o,p.classList.contains('tag')?'tag:':'')});
+ ns.forEach(n=>{const p=n.parentElement;if(!p||/^(SCRIPT|STYLE)$/.test(p.tagName)||p.closest('.nt'))return;if(n._o===undefined)n._o=n.nodeValue;n.nodeValue=L(n._o,p.classList.contains('tag')?'tag:':'')});
  document.querySelectorAll('[placeholder],[aria-label]').forEach(e=>['placeholder','aria-label'].forEach(a=>{if(!e.hasAttribute(a))return;const k='_o'+a;if(e[k]===undefined)e[k]=e.getAttribute(a);e.setAttribute(a,L(e[k]))}))}
 $('mlogo').src=document.querySelector('.logo img').src;{const fl=document.createElement('link');fl.rel='icon';fl.href=document.querySelector('.logo img').src;document.head.appendChild(fl)}{const bl=$('bootlogo');bl.onload=()=>bl.classList.add('on');bl.src=document.querySelector('.logo img').src}
 const _r=render;render=function(){_r();byRefresh();tagDash();donRender();if(V==='inv')invRender();ppvRender();sheetRender();fpvRender();localize()};
 const _cf=window.confirm.bind(window);window.confirm=m=>_cf(L(String(m)));
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{lang=b.dataset.l;try{localStorage.setItem('lang',lang)}catch(e){}render()});
-Object.assign(DICT,{'You do not have access yet.':['You do not have access yet.','আপনার এখনো অ্যাক্সেস নেই।'],'You do not have access yet. Send a request and the foundation owner will review it.':['You do not have access yet. Send a request and the foundation owner will review it.','আপনার এখনো অ্যাক্সেস নেই। অনুরোধ পাঠান, ফাউন্ডেশনের মালিক দেখে সিদ্ধান্ত নেবেন।'],'Approved as viewer. Reload the page to see the data.':['Approved as viewer. Reload the page to see the data.','ভিউয়ার হিসেবে অনুমোদিত। তথ্য দেখতে পেজটি রিলোড করুন।'],'Approve as admin':['Approve as admin','অ্যাডমিন হিসেবে অনুমোদন'],'Viewer only':['Viewer only','শুধু দেখার অনুমতি'],'Viewer':['Viewer','ভিউয়ার'],'Continue with Google':['Continue with Google','Google দিয়ে চালিয়ে যান'],'Secure sign-in with Google':['Secure sign-in with Google','Google দিয়ে নিরাপদ সাইন ইন'],'Hello!':['Hello!','স্বাগতম!'],'Welcome to Nirbhorota Foundation':['Welcome to Nirbhorota Foundation','নির্ভরতা ফাউন্ডেশনে স্বাগতম'],'Login':['Login','লগইন'],'Sign up':['Sign up','সাইন আপ'],'Requests':['Requests','অনুরোধ'],'Close':['Close','বন্ধ করুন'],
+Object.assign(DICT,{'Admins':['Admins','অ্যাডমিন'],'Viewers':['Viewers','ভিউয়ার'],'Owner':['Owner','মালিক'],'Admin':['Admin','অ্যাডমিন'],'Make viewer':['Make viewer','ভিউয়ার করুন'],'Make admin':['Make admin','অ্যাডমিন করুন'],'No viewers yet.':['No viewers yet.','এখনো কোনো ভিউয়ার নেই।'],'People with admin access. They can view, add and edit data.':['People with admin access. They can view, add and edit data.','যাদের অ্যাডমিন অ্যাক্সেস আছে। তারা তথ্য দেখতে, যোগ ও সম্পাদনা করতে পারেন।'],'People with view-only access. They can see the data but cannot change it.':['People with view-only access. They can see the data but cannot change it.','যাদের শুধু দেখার অনুমতি আছে। তারা তথ্য দেখতে পারেন, বদলাতে পারেন না।'],'Approving a request gives that person access. Decline removes it.':['Approving a request gives that person access. Decline removes it.','অনুরোধ অনুমোদন করলে ওই ব্যক্তি অ্যাক্সেস পাবেন। প্রত্যাখ্যান করলে অনুরোধ বাতিল হবে।'],'You do not have access yet.':['You do not have access yet.','আপনার এখনো অ্যাক্সেস নেই।'],'You do not have access yet. Send a request and the foundation owner will review it.':['You do not have access yet. Send a request and the foundation owner will review it.','আপনার এখনো অ্যাক্সেস নেই। অনুরোধ পাঠান, ফাউন্ডেশনের মালিক দেখে সিদ্ধান্ত নেবেন।'],'Approved as viewer. Reload the page to see the data.':['Approved as viewer. Reload the page to see the data.','ভিউয়ার হিসেবে অনুমোদিত। তথ্য দেখতে পেজটি রিলোড করুন।'],'Approve as admin':['Approve as admin','অ্যাডমিন হিসেবে অনুমোদন'],'Viewer only':['Viewer only','শুধু দেখার অনুমতি'],'Viewer':['Viewer','ভিউয়ার'],'Continue with Google':['Continue with Google','Google দিয়ে চালিয়ে যান'],'Secure sign-in with Google':['Secure sign-in with Google','Google দিয়ে নিরাপদ সাইন ইন'],'Hello!':['Hello!','স্বাগতম!'],'Welcome to Nirbhorota Foundation':['Welcome to Nirbhorota Foundation','নির্ভরতা ফাউন্ডেশনে স্বাগতম'],'Login':['Login','লগইন'],'Sign up':['Sign up','সাইন আপ'],'Requests':['Requests','অনুরোধ'],'Close':['Close','বন্ধ করুন'],
 'Sign in with your Google account to open the foundation accounts.':['Sign in with your Google account to open the foundation accounts.','ফাউন্ডেশনের হিসাব খুলতে আপনার Google অ্যাকাউন্টে সাইন ইন করুন।'],
 'You are signed in.':['You are signed in.','আপনি সাইন ইন করা আছেন।'],'Role: Admin. You can add and edit data.':['Role: Admin. You can add and edit data.','ভূমিকা: অ্যাডমিন। আপনি তথ্য যোগ ও সম্পাদনা করতে পারবেন।'],'Role: Viewer. You can only view data.':['Role: Viewer. You can only view data.','ভূমিকা: দর্শক। আপনি শুধু তথ্য দেখতে পারবেন।'],'Continue':['Continue','চালিয়ে যান'],'Open dashboard':['Open dashboard','ড্যাশবোর্ড খুলুন'],
 'Only approved admins can add or edit data. Send a request and the foundation owner will review it.':['Only approved admins can add or edit data. Send a request and the foundation owner will review it.','শুধু অনুমোদিত অ্যাডমিনরা তথ্য যোগ বা সম্পাদনা করতে পারেন। অনুরোধ পাঠান, ফাউন্ডেশনের মালিক দেখে সিদ্ধান্ত নেবেন।'],'Please log in first, then request admin access.':['Please log in first, then request admin access.','আগে লগইন করুন, তারপর অ্যাডমিন অ্যাক্সেসের অনুরোধ করুন।'],
@@ -509,8 +524,27 @@ Object.assign(DICT,{'You do not have access yet.':['You do not have access yet.'
 'Access requests':['Access requests','অ্যাক্সেস অনুরোধ'],'Request admin access':['Request admin access','অ্যাডমিন অ্যাক্সেসের অনুরোধ'],'Please enter your full name':['Please enter your full name','আপনার পুরো নাম দিন'],'Request sent ✔':['Request sent ✔','অনুরোধ পাঠানো হয়েছে ✔']});
 RX.push([/^Access requests \((\d+)\)$/,'Access requests ($1)','অ্যাক্সেস অনুরোধ ($1)'],[/^Could not save: (.*)$/,'Could not save: $1','সংরক্ষণ হয়নি: $1']);
 const GICON='<svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.9 2.4 30.4 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.6 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 019.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 000 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.8 2.3-8.4 2.3-6.3 0-11.6-4.1-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>';
-let noAccess=false;let ME=null,myId=null,role='out',REQ=[],myReq=null,gtab='login';
+let noAccess=false,ROLES=[],ISOWNER=false,rtab='req';let ME=null,myId=null,role='out',REQ=[],myReq=null,gtab='login';
 function openGate(t){gtab=t;$('gate').hidden=false;gateRender();localize()}
+function setRt(k){rtab=k;document.querySelectorAll('#rqt button').forEach(b=>b.classList.toggle('on',b.dataset.r===k));['req','adm','vwr'].forEach(x=>$('rp-'+x).hidden=x!==k)}
+async function rolesRender(){if(role!=='admin')return;
+ const ids=ROLES.map(r=>r.id);let pf={};try{pf=await ME.profiles(ids)}catch(e){}
+ const rq=Object.fromEntries(REQ.map(r=>[r.id,r])),bn=lang==='bn';
+ const row=(r,kind)=>{const p=pf[r.id]||{},q=rq[r.id]||{},nm=q.name||p.name||p.displayName||'',em=p.email||q.email||'';
+  return `<div class="card rrow"><div class="rinfo"><b>${esc(nm||em||('ID '+r.id.slice(0,6)))}</b> <span class="tag ${kind==='admin'?'p':'h'}">${kind==='admin'?'Admin':'Viewer'}</span><div class="lbl"><span class="nt">${esc(em)}</span>${q.phone?' · '+esc(q.phone):''}</div></div>`+
+  (ISOWNER?`<div class="ract"><button class="btn g" data-rsw="${r.id}" data-to="${kind==='admin'?'viewer':'admin'}">${kind==='admin'?'Make viewer':'Make admin'}</button><button class="btn g rx" data-rm="${r.id}" aria-label="Remove access" title="Remove access">✕</button></div>`:'')+`</div>`};
+ const adm=ROLES.filter(r=>r.role==='admin'),vw=ROLES.filter(r=>r.role==='viewer');
+ const owner=`<div class="card rrow"><div class="rinfo"><b>${esc(ISOWNER&&myName?myName:'')||'<span class="nt">'+esc(window.OWNER_EMAIL||'Owner')+'</span>'}</b> <span class="tag p">Owner</span><div class="lbl nt">${esc(window.OWNER_EMAIL||'')}</div></div></div>`;
+ $('radm').innerHTML=owner+adm.map(r=>row(r,'admin')).join('');
+ $('rvwr').innerHTML=vw.map(r=>row(r,'viewer')).join('')||'<p class="sub">No viewers yet.</p>';
+ $('cadm').textContent=adm.length+1;$('cvwr').textContent=vw.length;localize()}
+async function removeAccess(id){const r=ROLES.find(x=>x.id===id),q=REQ.find(x=>x.id===id)||{},nm=q.name||('ID '+id.slice(0,6));
+ if(!confirm(lang==='bn'?(nm+'-এর অ্যাক্সেস সরিয়ে দেবেন?'):('Remove access for '+nm+'?')))return;
+ try{await db.doc('roles/'+id).delete();try{await db.doc('requests/'+id).delete()}catch(e){}
+  logAct('delete','roles',nm+' · '+(r?r.role:''))}catch(e){alert('Delete hoyni: '+(e.message||e.code))}}
+async function switchRole(id,to){const q=REQ.find(x=>x.id===id)||{},nm=q.name||('ID '+id.slice(0,6));
+ try{await db.doc('roles/'+id).set({role:to});try{await db.doc('requests/'+id).update({status:to==='admin'?'approved':'viewer'})}catch(e){}
+  logAct('edit','roles',nm+' · '+to)}catch(e){alert('Could not save: '+(e.message||e.code))}}
 function accBtn(){const b=$('acc');b.hidden=role==='out';b.dataset.n=role==='admin'?REQ.filter(r=>r.status==='pending').length:0;b.setAttribute('aria-label',L(role==='admin'?'Access requests':'Request admin access'))}
 function gateRender(){if(gtab==='signup'&&role==='admin')gtab='login';if((gtab==='req'||gtab==='act')&&role!=='admin')gtab='login';
  $('gtr').hidden=role!=='admin';$('gta').hidden=role!=='admin';$('gl-bk').hidden=role!=='admin';document.querySelector('[data-g=signup]').hidden=role==='admin';
@@ -518,11 +552,11 @@ function gateRender(){if(gtab==='signup'&&role==='admin')gtab='login';if((gtab==
  $('gx').hidden=role==='out'||noAccess;$('gl-t').textContent=role==='out'?'Sign in with your Google account to open the foundation accounts.':'You are signed in.';
  $('gl-who').textContent=role==='out'?'':noAccess?'You do not have access yet.':role==='admin'?'Role: Admin. You can add and edit data.':'Role: Viewer. You can only view data.';{const gb=$('gl-b');gb.classList.toggle('goog',role==='out');gb.innerHTML=role==='out'?GICON+'<span>Continue with Google</span>':'<span>Open dashboard</span>';$('gsec').hidden=role!=='out';gb.style.display=noAccess?'none':''};
  const has=role!=='out';$('gs-t').textContent=has?(noAccess?'You do not have access yet. Send a request and the foundation owner will review it.':'Only approved admins can add or edit data. Send a request and the foundation owner will review it.'):'Please log in first, then request admin access.';
- $('gs-f').hidden=!has||!!myReq;const st=myReq?myReq.status:'';$('gs-s').textContent=st==='pending'?'Request sent. Waiting for approval.':st==='approved'?'Approved. Reload the page to get admin access.':st==='viewer'?'Approved as viewer. Reload the page to see the data.':st==='declined'?'Request declined.':'';$('gs-s').hidden=!st;reqRender();actRender()}
+ $('gs-f').hidden=!has||!!myReq;const st=myReq?myReq.status:'';$('gs-s').textContent=st==='pending'?'Request sent. Waiting for approval.':st==='approved'?'Approved. Reload the page to get admin access.':st==='viewer'?'Approved as viewer. Reload the page to see the data.':st==='declined'?'Request declined.':'';$('gs-s').hidden=!st;reqRender();rolesRender();actRender()}
 async function reqRender(){const el=$('rq');if(role!=='admin'){el.innerHTML='';localize();return}
- const rs=[...REQ].sort((a,b)=>(b.at||'').localeCompare(a.at||''));let pf={};try{pf=await ME.profiles(rs.map(r=>r.id))}catch(e){}
- el.innerHTML=rs.map(r=>{const p=pf[r.id]||{},c=r.status==='approved'||r.status==='viewer'?'p':r.status==='declined'?'d':'h';return `<div class="card" style="box-shadow:none;border:1px solid var(--bd);margin-bottom:10px;padding:14px"><b>${esc(r.name)}</b> <span class="tag ${c}">${r.status==='approved'?'Approved':r.status==='viewer'?'Viewer':r.status==='declined'?'Declined':'Pending'}</span><div class="lbl">${esc(p.email||'')} ${esc(r.phone||'')}</div>${r.msg?`<p style="margin:6px 0">${esc(r.msg)}</p>`:''}<div class="row" style="margin:8px 0 0"><button class="btn g" data-rs="approved" data-id="${r.id}">Approve as admin</button><button class="btn g" data-rs="viewer" data-id="${r.id}">Viewer only</button><button class="btn g" data-rs="declined" data-id="${r.id}">Decline</button></div></div>`}).join('')||'<p class="sub">No requests yet.</p>';localize()}
-function access(){accBtn();if(role==='admin')db.collection('activity').onSnapshot(s=>{ACT=s.docs.map(d=>({id:d.id,...d.data()}));if(!$('gate').hidden)gateRender()},()=>{});if(role==='admin')db.collection('requests').onSnapshot(s=>{REQ=s.docs.map(d=>({id:d.id,...d.data()}));accBtn();if(!$('gate').hidden)gateRender();localize()},()=>{});
+ const rs=REQ.filter(r=>r.status!=='approved'&&r.status!=='viewer').sort((a,b)=>(b.at||'').localeCompare(a.at||''));let pf={};try{pf=await ME.profiles(rs.map(r=>r.id))}catch(e){}
+ el.innerHTML=rs.map(r=>{const p=pf[r.id]||{},c=r.status==='approved'||r.status==='viewer'?'p':r.status==='declined'?'d':'h';return `<div class="card" style="box-shadow:none;border:1px solid var(--bd);margin-bottom:10px;padding:14px"><b>${esc(r.name)}</b> <span class="tag ${c}">${r.status==='approved'?'Approved':r.status==='viewer'?'Viewer':r.status==='declined'?'Declined':'Pending'}</span><div class="lbl"><span class="nt">${esc(p.email||'')}</span> ${esc(r.phone||'')}</div>${r.msg?`<p style="margin:6px 0">${esc(r.msg)}</p>`:''}<div class="row" style="margin:8px 0 0"><button class="btn g" data-rs="approved" data-id="${r.id}">Approve as admin</button><button class="btn g" data-rs="viewer" data-id="${r.id}">Viewer only</button><button class="btn g" data-rs="declined" data-id="${r.id}">Decline</button></div></div>`}).join('')||'<p class="sub">No requests yet.</p>';localize()}
+function access(){accBtn();if(role==='admin')db.collection('roles').onSnapshot(s=>{ROLES=s.docs.map(d=>({id:d.id,...d.data()}));if(!$('gate').hidden)rolesRender()},()=>{});if(role==='admin')db.collection('activity').onSnapshot(s=>{ACT=s.docs.map(d=>({id:d.id,...d.data()}));if(!$('gate').hidden)gateRender()},()=>{});if(role==='admin')db.collection('requests').onSnapshot(s=>{REQ=s.docs.map(d=>({id:d.id,...d.data()}));accBtn();if(!$('gate').hidden)gateRender();localize()},()=>{});
  else if(myId)db.doc('requests/'+myId).onSnapshot(s=>{myReq=s.exists?s.data():null;if(!$('gate').hidden)gateRender()},()=>{})}
 $('glogo').src=document.querySelector('.logo img').src;
 $('acc').onclick=()=>openGate(role==='admin'?'req':'signup');$('gx').onclick=()=>{$('gate').hidden=true};
@@ -530,6 +564,8 @@ $('gl-b').onclick=()=>{if(role==='out')location.reload();else $('gate').hidden=t
 document.querySelectorAll('.gt button').forEach(b=>b.onclick=()=>{gtab=b.dataset.g;gateRender();localize()});
 $('rs').onclick=async()=>{const n=$('rn').value.trim();if(!n)return alert('Please enter your full name');if(!myId||!db)return;
  try{await db.doc('requests/'+myId).set({name:n,phone:$('rp').value.trim(),msg:$('rm').value.trim(),status:'pending',at:new Date().toISOString()});alert('Request sent ✔')}catch(e){alert('Could not save: '+(e.message||e.code))}};
+document.querySelectorAll('#rqt button').forEach(b=>b.onclick=()=>{setRt(b.dataset.r);localize()});
+$('g-req').addEventListener('click',e=>{const x=e.target.closest('[data-rm]');if(x&&ISOWNER)return removeAccess(x.dataset.rm);const w=e.target.closest('[data-rsw]');if(w&&ISOWNER)switchRole(w.dataset.rsw,w.dataset.to)});
 $('rq').onclick=async e=>{const b=e.target.closest('[data-rs]');if(!b)return;try{await db.doc('requests/'+b.dataset.id).update({status:b.dataset.rs})}catch(x){alert('Could not save: '+(x.message||x.code))}};
 const TT={dash:'Nirbhorota Foundation',mem:'Members',entry:'Entry Form',exp:'Khoroch',hist:'Lenden History',inv:'Invoice'};
 document.querySelectorAll('.nv').forEach(b=>b.onclick=()=>{V=b.dataset.v;document.querySelectorAll('.nv').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-current',x===b?'page':'false')});
@@ -811,7 +847,7 @@ const sub=(col,set)=>{let first=true;return db.collection(col).onSnapshot(s=>{se
 setTimeout(bootDone,10000);
 render();
 {const hb=document.querySelector('.nv[data-v="'+location.hash.slice(1)+'"]');if(hb)hb.click()}
-(async()=>{try{const u=await claude.use('user');ME=u;canW=!!(u&&await u.canEdit());try{myId=u&&await u.id()}catch(e){}try{const pf=await u.profiles([myId]);const q=pf&&pf[myId];myName=(q&&(q.name||q.displayName))||''}catch(e){}db=await claude.use('db');role=!db?'out':canW?'admin':'viewer';
+(async()=>{try{const u=await claude.use('user');ME=u;canW=!!(u&&await u.canEdit());try{ISOWNER=!!(u&&u.isOwner&&await u.isOwner())}catch(e){}try{myId=u&&await u.id()}catch(e){}try{const pf=await u.profiles([myId]);const q=pf&&pf[myId];myName=(q&&(q.name||q.displayName))||''}catch(e){}db=await claude.use('db');role=!db?'out':canW?'admin':'viewer';
  if(!db){openGate('login');bootDone();return}
  let rl=canW?'admin':'viewer';try{if(u.role)rl=await u.role()}catch(e){}
  if(!canW&&!rl){noAccess=true;$('note').textContent='';access();openGate('signup');bootDone();return}
