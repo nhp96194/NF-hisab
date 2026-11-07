@@ -3,21 +3,42 @@
   firebase.initializeApp(window.FIREBASE_CONFIG);
   const auth = firebase.auth();
   const fs = firebase.firestore();
+  // আগের বার দেখা ডেটা ফোনে জমা থাকে => পরের বার খুললে সাথে সাথে দেখায়, তারপর নতুন ডেটা আসে
+  try { fs.enablePersistence({ synchronizeTabs: true }).catch(() => {}); } catch (e) {}
   const OWNER = String(window.OWNER_EMAIL || '').toLowerCase();
 
   let me = null;
-  const ready = new Promise(res => auth.onAuthStateChanged(u => { me = u; res(u); }));
+  const ready = new Promise(res => auth.onAuthStateChanged(u => { me = u; if (u) setTimeout(() => { try { loadRole(); } catch (e) {} }, 0); res(u); }));
   const isOwner = () => !!(me && me.emailVerified && (me.email || '').toLowerCase() === OWNER);
 
-  async function myRole() {
-    if (!me) return null;
-    try {
-      const s = await fs.doc('roles/' + me.uid).get();
-      return s.exists ? s.data().role : null;
-    } catch (e) { return null; }
+  // admins/{uid} = admin, memberLogins/{uid} = linked member, roles/{uid} = old admin list (read only)
+  // admins/{uid} = admin, memberLogins/{uid} = linked member, roles/{uid} = old admin list (read only)
+  // তিনটা একসাথে (parallel) পড়া হয় এবং ফল একবারই জমা রাখা হয়
+  let roleP = null, infoP = null;
+  const safe = p => p.then(s => s, () => null);
+  function loadRole() {
+    if (!me) return Promise.resolve({ role: null, info: null });
+    if (!roleP) {
+      roleP = Promise.all([
+        safe(fs.doc('admins/' + me.uid).get()),
+        safe(fs.doc('memberLogins/' + me.uid).get()),
+        safe(fs.doc('roles/' + me.uid).get())
+      ]).then(([a, m, l]) => {
+        if (a && a.exists) return { role: 'admin', info: null };
+        if (m && m.exists) return { role: 'member', info: m.data() };
+        if (l && l.exists && l.data().role === 'admin') return { role: 'admin', info: null };
+        return { role: null, info: null };
+      });
+    }
+    return roleP;
   }
+  const myRole = async () => (await loadRole()).role;
+  const myInfo = async () => (await loadRole()).info;
 
   const userApi = {
+    info: async () => myInfo(),
+    signOut: async () => { try { await auth.signOut(); } catch (e) {} try { await fs.terminate(); await fs.clearPersistence(); } catch (e) {} location.reload(); },
+    email: async () => (me && me.email) || '',
     id: async () => { if (!me) throw new Error('not signed in'); return me.uid; },
     isOwner: async () => isOwner(),
     role: async () => { if (!me) return null; if (isOwner()) return 'admin'; return await myRole(); },
@@ -48,12 +69,13 @@
         },
         update: async d => {
           await ref.update(d);
-          // মালিক অনুরোধ approve করলে সেই ব্যক্তিকে admin role দেওয়া হয়
+          // মালিক অনুরোধ approve করলে "admins" এ সেই ব্যক্তির তথ্য (নাম, ইমেইল, ফোন) জমা হয়
           if (path.startsWith('requests/') && isOwner() && d.status) {
             const uid = path.split('/')[1];
-            if (d.status === 'approved') await fs.doc('roles/' + uid).set({ role: 'admin' });
-            else if (d.status === 'viewer') await fs.doc('roles/' + uid).set({ role: 'viewer' });
-            else if (d.status === 'declined') { try { await fs.doc('roles/' + uid).delete(); } catch (e) {} }
+            if (d.status === 'approved') {
+              let q = {}; try { const s = await ref.get(); q = s.exists ? s.data() : {}; } catch (e) {}
+              await fs.doc('admins/' + uid).set({ role: 'admin', name: q.name || '', email: q.email || '', phone: q.phone || '', at: new Date().toISOString() });
+            } else if (d.status === 'declined') { try { await fs.doc('admins/' + uid).delete(); } catch (e) {} }
           }
         }
       };

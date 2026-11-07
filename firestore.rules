@@ -9,31 +9,68 @@ service cloud.firestore {
     function signedIn()  { return request.auth != null; }
     function verified()  { return signedIn() && request.auth.token.email_verified == true; }
     function isOwner()   { return verified() && request.auth.token.email.lower() == ownerEmail(); }
-    function roleDocPath() { return /databases/$(database)/documents/roles/$(request.auth.uid); }
-    function hasRole(r)  { return verified() && exists(roleDocPath()) && get(roleDocPath()).data.role == r; }
-    function isAdmin()   { return isOwner() || hasRole('admin'); }
-    function isMember()  { return isAdmin() || hasRole('viewer'); }
+    // Firebase Console > Firestore:
+    //   "admins"       = approved admins (name, email, phone)
+    //   "memberLogins" = members who linked their Google account (name, email, phone, member ID)
+    //   "roles"        = old collection, only still read so earlier admins keep working
+    function adminPath()  { return /databases/$(database)/documents/admins/$(request.auth.uid); }
+    function memberPath() { return /databases/$(database)/documents/memberLogins/$(request.auth.uid); }
+    function legacyPath() { return /databases/$(database)/documents/roles/$(request.auth.uid); }
+    function isAdmin()   { return isOwner() || (verified() && (exists(adminPath())
+                             || (exists(legacyPath()) && get(legacyPath()).data.role == 'admin'))); }
+    function isMember()  { return isAdmin(); }
+    // a foundation member (donor) linked to ONE member record: can read only their own data
+    function isMemberRole() { return verified() && exists(memberPath()); }
+    function myMid()     { return get(memberPath()).data.mid; }
 
-    // who may use the app: only the owner can create / change / remove roles
-    match /roles/{uid} {
+    // approved admins: only the owner can add or remove them
+    match /admins/{uid} {
       allow read:  if signedIn() && (request.auth.uid == uid || isAdmin());
       allow write: if isOwner();
     }
 
+    // linked members: an admin creates the link after checking ID + phone, and can remove it
+    match /memberLogins/{uid} {
+      allow read:  if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow create, update: if isAdmin() && request.resource.data.role == 'member'
+                               && request.resource.data.mid is string
+                               && request.resource.data.keys().hasOnly(['role','mid','code','name','email','phone','at']);
+      allow delete: if isAdmin();
+    }
+
+    match /roles/{uid} {
+      allow read:  if signedIn() && (request.auth.uid == uid || isAdmin());
+      allow delete: if isOwner();
+      allow create, update: if false;
+    }
+
     // access requests created at sign-up
     match /requests/{uid} {
+      // only these fields, short text only (stops junk / oversized data)
+      function okReq() {
+        return request.resource.data.keys().hasOnly(['name','phone','msg','status','at','email','kind','code'])
+          && request.resource.data.status == 'pending'
+          && (!('name' in request.resource.data)  || (request.resource.data.name is string  && request.resource.data.name.size()  <= 80))
+          && (!('phone' in request.resource.data) || (request.resource.data.phone is string && request.resource.data.phone.size() <= 30))
+          && (!('msg' in request.resource.data)   || (request.resource.data.msg is string   && request.resource.data.msg.size()   <= 300))
+          && (!('code' in request.resource.data)  || (request.resource.data.code is string  && request.resource.data.code.size()  <= 8))
+          && (!('kind' in request.resource.data)  || request.resource.data.kind == 'member');
+      }
       allow read:   if signedIn() && (request.auth.uid == uid || isAdmin());
-      allow create: if signedIn() && request.auth.uid == uid && request.resource.data.status == 'pending';
-      allow update: if isOwner() || (signedIn() && request.auth.uid == uid
-                         && resource.data.status == 'pending' && request.resource.data.status == 'pending');
-      allow delete: if isOwner();
+      allow create: if signedIn() && request.auth.uid == uid && okReq();
+      allow update: if isOwner() || (isAdmin() && resource.data.get('kind','') == 'member')
+                       || (signedIn() && request.auth.uid == uid && resource.data.status in ['pending','linked'] && okReq());
+      allow delete: if isOwner() || (isAdmin() && resource.data.get('kind','') == 'member');
     }
 
     // foundation data: approved users can read, only admins can write
-    match /members/{id}   { allow read: if isMember(); allow write: if isAdmin(); }
-    match /payments/{id}  { allow read: if isMember(); allow write: if isAdmin(); }
+    match /members/{id}   { allow read: if isMember() || (isMemberRole() && myMid() == id); allow write: if isAdmin(); }
+    match /payments/{id}  { allow read: if isMember() || (isMemberRole() && resource.data.mid == myMid()); allow write: if isAdmin(); }
     match /expenses/{id}  { allow read: if isMember(); allow write: if isAdmin(); }
     match /donations/{id} { allow read: if isMember(); allow write: if isAdmin(); }
+
+    // public totals for linked members (no per-person data); written by admins only
+    match /summary/{id} { allow read: if isMember() || isMemberRole(); allow write: if isAdmin(); }
 
     // unique member IDs: a code can be created once and never changed => the same 4-digit ID can never be given twice
     match /codes/{code} {
